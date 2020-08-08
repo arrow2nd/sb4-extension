@@ -17,9 +17,9 @@
 		"prefix": "ifelse",
 		"body": [
 			"IF ${1:condition} THEN",
-			"\t$0",
+			" $0",
 			"ELSE",
-			"\t",
+			" ",
 			"ENDIF"
 		],
 		"description": "IF-ELSE Statement"
@@ -44,7 +44,7 @@
 		"prefix": "loop",
 		"body": [
 			"LOOP",
-			"\t$0",
+			" $0",
 			"ENDLOOP"
 		],
 		"description": "LOOP-ENDLOOP Loop"
@@ -53,7 +53,7 @@
 		"prefix": "for",
 		"body": [
 			"FOR ${1:index}=${2:start} TO ${3:end}",
-			"\t$0",
+			" $0",
 			"NEXT"
 		],
 		"description": "FOR-TO Loop"
@@ -62,7 +62,7 @@
 		"prefix": "while",
 		"body": [
 			"WHILE ${1:formula}",
-			"\t$0",
+			" $0",
 			"WEND"
 		],
 		"description": "WHILE-WEND Loop"
@@ -71,7 +71,7 @@
 		"prefix": ["repeat", "until"],
 		"body": [
 			"REPEAT",
-			"\t$0",
+			" $0",
 			"UNTIL ${1:formula}"
 		],
 		"description": "REPEAT-UNTIL Loop"
@@ -80,7 +80,7 @@
 		"prefix": "def",
 		"body": [
 			"DEF ${1:name}",
-			"\t$0",
+			" $0",
 			"END"
 		],
 		"description": "Define the function"
@@ -89,7 +89,7 @@
 		"prefix": "common",
 		"body": [
 			"COMMON DEF ${1:name}",
-			"\t$0",
+			" $0",
 			"END"
 		],
 		"description": "Common Define the function"
