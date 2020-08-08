@@ -12,7 +12,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "*"
+        "onLanguage:sb4"
 	],
 	"main": "./extension.js",
 	"contributes": {

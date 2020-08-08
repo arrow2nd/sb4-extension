@@ -2,46 +2,48 @@ const vscode = require('vscode');
 
 const SB4_MODE = { scheme: 'file', language: 'sb4' };
 
-// hover provider カーソル直下のキーワードを表示するだけ
+// 定義データ
+let definedData = {};
+
+// ホバー表示
 class sb4HoverProvider {
     provideHover(document, position,) {
 		// カーソル位置の行内の正規表現にマッチした単語がある範囲を取得
-		let wordRange = document.getWordRangeAtPosition(position, /[a-zA-Z0-9_#$%]+/);
+		const wordRange = document.getWordRangeAtPosition(position, /[a-zA-Z0-9_#$%]+/);
 
 		// マッチするものがなかったときに返すメッセージ
-        if (wordRange === undefined) return Promise.reject("no word");
+        if (wordRange === undefined) return Promise.reject("Not Found");
 
 		// カーソル位置の行から単語を切り出し
-		let currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character);
+		const currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character);
+		console.log("hover: " + currentWord);
 
-		// 
-		const regexp = new RegExp(`\\b(CONST|DIM|VAR|DEF)\\b\\s+?\\b${currentWord}`, 'i');
+		// 検索語句を作成
 		let comments = '';
+		
+/*
+		for (let i = 0; i <= document.lineCount; i++) {
+			const line = document.lineAt(i).text;
 
-		for (let i = 0; i < document.lineCount;i++) {
-			let line = document.lineAt(i).text;
-
-			// ホバーした単語を探す
+			// 行内に定義があるか
 			if (line.match(regexp)) {
-				console.log(line);
+
+				console.log("hit: " + line);
 
 				// 横のコメントを拾う
 				const commentsOfs = line.indexOf("'");
+
 				if (commentsOfs != -1) {
 					comments = line.slice(commentsOfs);
-				} else {
-					for (let j = i; j <= 0; j--) {
-						let line2 = document.lineAt(j).text + '\n';
-						if (line2.indexOf("'") == -1) break;
-						comments = comments + line2
-					};
+					break;
 				};
 
+				// 上のコメントを拾う
+				comments = document.lineAt(i - 1).text;
 				break;
 			};
 		};
-
-		
+*/		
 		// ホバーAPIに表示する文字列を渡す
         return Promise.resolve(new vscode.Hover(comments));
     };
@@ -72,10 +74,59 @@ class sb4CompletionItemProvider {
 */
 
 /**
+ * ソースコードをスキャン
+ * @param   {Object} document ドキュメント
+ * @returns {Object}          定義データ
+ */
+function scanSourceCode(document) {
+	const regexp = new RegExp(`\\b(CONST|DIM|VAR|DEF)\\b\\s+([\\w\\s\\[\\]#$%,]+)`, 'i');
+	const lines = document.getText().split(/\r?\n/g);
+	let result = {};
+
+	lines.forEach((line, i) => {
+		let key = line.match(regexp);
+		// 行内に定義があれば、定義名と行番号を記録
+		if (key) {
+			// 右にあるコメント
+			let desc = line.split("'");
+			desc = (desc.length > 1) ? desc[1] : '';
+			// 変数、関数名を抽出
+			key = key[2].replace(/( |\[.*\])/g, '');
+			// 記録
+			result[key] = {
+				"name": key,
+				"desc": desc,
+				"line": i + 1
+			};
+		};
+	});
+
+	return result;
+};
+
+
+/**
  * 拡張機能起動時に呼ばれる
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+	// ドキュメントが変更されたらコードをスキャンする
+	let timeout;
+	vscode.workspace.onDidChangeTextDocument(event => {
+		// タイムアウト前に操作された場合
+		if (timeout != null) {
+			clearTimeout(timeout);
+		};
+		// コードのスキャンとインターバル設定
+		timeout = setInterval(() => {
+			clearTimeout(timeout);
+			timeout = null;
+			// 分析
+			definedData = scanSourceCode(event.document);
+			console.log(definedData);
+		}, 500);
+	});
+
 	// ホバー表示
 	context.subscriptions.push(
 		vscode.languages.registerHoverProvider(
