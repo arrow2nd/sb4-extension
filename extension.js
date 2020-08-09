@@ -36,7 +36,9 @@ class sb4HoverProvider {
 		desc = (desc === '') ? 'No Comment...' : desc;
 
 		// 表示メッセージを作成
-		const message = `${data.type} ${data.name} (Line ${data.line})\n\n${desc}`;
+		let message = new vscode.MarkdownString();
+		message.appendCodeblock(`${data.type} ${data.name} '(Line ${data.line})`);
+		message.appendMarkdown(`\n\n***\n\n${desc}`);
 
 		// ホバーに表示する文字列を返す
 		return Promise.resolve(new vscode.Hover(message));
@@ -91,7 +93,6 @@ function scanSourceCode(document) {
 		let keys = [];
 		let segmented = define[2].replace(/[\[|\(|"].*?[\]|\)|"]/g, '').split(",");
 		if (type === 'DEF') {
-			console.log(keys);
 			keys.push(segmented[0].split(' ')[0]);
 		} else {
 			keys = segmented.map(value => value.replace(/ /g, '').split(/\s*?=/)[0]);
