@@ -20,7 +20,7 @@
 				"define": {
 					"patterns": [
 						{
-							"begin": "(?i)(\\bCOMMON?\\b\\s+)?\\b(DEF)\\b\\s+(\\w+)",
+							"begin": "(?i)(\\bCOMMON?\\b\\s+)?\\b(DEF)\\b\\s+(\\w+[#$%]?)",
 							"beginCaptures": {
 								"1": {"name": "storage.modifier.sb4"},
 								"2": {"name": "storage.type.sb4"},
