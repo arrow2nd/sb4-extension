@@ -15,37 +15,17 @@ class sb4HoverProvider {
         if (wordRange === undefined) return Promise.reject("Not Found");
 
 		// カーソル位置の行から単語を切り出し
-		const currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character);
+		const currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character).toUpperCase();
 		console.log("hover: " + currentWord);
 
-		// 検索語句を作成
-		let comments = '';
-		
-/*
-		for (let i = 0; i <= document.lineCount; i++) {
-			const line = document.lineAt(i).text;
-
-			// 行内に定義があるか
-			if (line.match(regexp)) {
-
-				console.log("hit: " + line);
-
-				// 横のコメントを拾う
-				const commentsOfs = line.indexOf("'");
-
-				if (commentsOfs != -1) {
-					comments = line.slice(commentsOfs);
-					break;
-				};
-
-				// 上のコメントを拾う
-				comments = document.lineAt(i - 1).text;
-				break;
-			};
-		};
-*/		
+		// 
+		const data = definedData[currentWord];
+		// 
+		if (!data) return Promise.reject("Not Found");
+		// 
+		const message = `${data.type} ${data.name} (Line ${data.line})\n${data.desc}`;
 		// ホバーAPIに表示する文字列を渡す
-        return Promise.resolve(new vscode.Hover(comments));
+        return Promise.resolve(new vscode.Hover(message));
     };
 };
 
@@ -84,19 +64,27 @@ function scanSourceCode(document) {
 	let result = {};
 
 	lines.forEach((line, i) => {
-		let key = line.match(regexp);
+		let define = line.match(regexp);
 		// 行内に定義があれば、定義名と行番号を記録
-		if (key) {
-			// 右にあるコメント
+		if (define) {
+			// 右側のコメントを抽出
 			let desc = line.split("'");
 			desc = (desc.length > 1) ? desc[1] : '';
-			// 変数、関数名を抽出
-			key = key[2].replace(/( |\[.*\])/g, '');
+			// 変数、関数名を抽出してカンマで分割
+			let keys = define[2].replace(/( |\[.*\])/g, '').split(',');
+			// 宣言タイプ
+			let type = define[1].toUpperCase();
 			// 記録
-			result[key] = {
-				"name": key,
-				"desc": desc,
-				"line": i + 1
+			for (let key of keys) {
+				let name = key;
+				key = key.toUpperCase();
+				if (result[key]) continue;	// 同じ名前が記録されている場合スキップ
+				result[key] = {
+					"name": name,
+					"type": type,
+					"desc": desc,
+					"line": i + 1
+				};
 			};
 		};
 	});
@@ -123,7 +111,9 @@ function activate(context) {
 			timeout = null;
 			// 分析
 			definedData = scanSourceCode(event.document);
+
 			console.log(definedData);
+
 		}, 500);
 	});
 
