@@ -10,22 +10,29 @@ class sb4HoverProvider {
     provideHover(document, position,) {
 		// カーソル位置の行内の正規表現にマッチした単語がある範囲を取得
 		const wordRange = document.getWordRangeAtPosition(position, /[a-zA-Z0-9_#$%]+/);
-
-		// マッチするものがなかったときに返すメッセージ
-        if (wordRange === undefined) return Promise.reject("Not Found");
+    if (wordRange === undefined) return Promise.reject("Not Found");
 
 		// カーソル位置の行から単語を切り出し
 		const currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character).toUpperCase();
 		console.log("hover: " + currentWord);
-
-		// 
+		
+		// 定義データを参照
 		const data = definedData[currentWord];
-		// 
 		if (!data) return Promise.reject("Not Found");
+		
 		// 
-		const message = `${data.type} ${data.name} (Line ${data.line})\n${data.desc}`;
-		// ホバーAPIに表示する文字列を渡す
-        return Promise.resolve(new vscode.Hover(message));
+		let desc = data.desc;
+		
+		// コメントが無い場合
+		if (desc == '') {
+		  let commentLine = data.line - 1;
+		  let line = document.lineAt(commentLine);
+		};
+		
+		// 表示メッセージを作成
+		const message = `${data.type} ${data.name} (Line ${data.line})\n${desc}`;
+		// ホバーに表示する文字列を返す
+    return Promise.resolve(new vscode.Hover(message));
     };
 };
 
