@@ -73,7 +73,7 @@ class sb4CompletionItemProvider {
  * @returns {Object}          定義データ
  */
 function scanSourceCode(document) {
-	const regexp = new RegExp(`\\b(CONST|ENUM|DIM|VAR|DEF)\\b\\s+([\\w\\s\\[\\]#$%,&\\|+-/*%=]+)`, 'i');
+	const regexp = new RegExp(`\\b(CONST|ENUM|DIM|VAR|DEF)\\b\\s+([ -&(-~]+)`, 'i');
 	const lines = document.getText().split(/\r?\n/g);
 	let result = {};
 
@@ -86,14 +86,21 @@ function scanSourceCode(document) {
 		desc = (desc.length > 1) ? desc[1] : '';
 		// 宣言タイプ
 		let type = define[1].toUpperCase();
+
 		// 変数、関数名を抽出
-		let keys = define[2].replace(/(\[.*\])/g, '');
-		keys = (type === 'DEF') ? [keys.split(' ')[0]] : keys.replace(/ /g, '').split(',');
 		
+		// 括弧を削除してカンマで分割
+		let keys = define[2].replace(/\[.*?\]|\(.*?\)|".*?"/g, '').split(",");
+		if (type === 'DEF') {
+			keys = [keys.split(' ')[0]];
+		} else {
+			keys = keys.map(value => value.replace(/ /g, '').split(/\s*?=/)[0]);
+		};
+
 		// 記録
 		for (let key of keys) {
 			let name = key;
-			key = key.split('=')[0].toUpperCase();
+			key = name.toUpperCase();
 			if (result[key]) continue;	// 同じ名前が記録されている場合スキップ
 			result[key] = {
 				"name": name,
