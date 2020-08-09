@@ -87,14 +87,14 @@ function scanSourceCode(document) {
 		// 宣言タイプ
 		let type = define[1].toUpperCase();
 
-		// 変数、関数名を抽出
-		
-		// 括弧を削除してカンマで分割
-		let keys = define[2].replace(/\[.*?\]|\(.*?\)|".*?"/g, '').split(",");
+		// 括弧を削除して変数・関数名をカンマで分割
+		let keys = [];
+		let segmented = define[2].replace(/[\[|\(|"].*?[\]|\)|"]/g, '').split(",");
 		if (type === 'DEF') {
-			keys = [keys.split(' ')[0]];
+			console.log(keys);
+			keys.push(segmented[0].split(' ')[0]);
 		} else {
-			keys = keys.map(value => value.replace(/ /g, '').split(/\s*?=/)[0]);
+			keys = segmented.map(value => value.replace(/ /g, '').split(/\s*?=/)[0]);
 		};
 
 		// 記録
