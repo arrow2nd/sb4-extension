@@ -2,16 +2,15 @@ const vscode = require('vscode');
 
 const SB4_MODE = { scheme: 'file', language: 'sb4' };
 
-// 定義データ
-let definedData = {};
+let definedData = {};	// 定義データ
 
 // ホバー表示
 class sb4HoverProvider {
     provideHover(document, position,) {
 		// カーソル位置の行内の正規表現にマッチした単語がある範囲を取得
 		const wordRange = document.getWordRangeAtPosition(position, /[a-zA-Z0-9_#$%]+/);
-    if (wordRange === undefined) return Promise.reject("Not Found");
-
+		if (!wordRange) return Promise.reject("Not Found");
+		
 		// カーソル位置の行から単語を切り出し
 		const currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character).toUpperCase();
 		console.log("hover: " + currentWord);
@@ -19,20 +18,28 @@ class sb4HoverProvider {
 		// 定義データを参照
 		const data = definedData[currentWord];
 		if (!data) return Promise.reject("Not Found");
+
+		console.log("hit!")
 		
-		// 
+		// コメント取得
 		let desc = data.desc;
-		
-		// コメントが無い場合
-		if (desc == '') {
-		  let commentLine = data.line - 1;
-		  let line = document.lineAt(commentLine);
+		// 上方向にコメントが無いか検索
+		if (desc === '') {
+			let commentLine = data.line - 2;
+			let comment = document.lineAt(commentLine).text;
+			while (comment.match(/^'/)) {
+				desc = comment.slice(1) + '\n\n' + desc;
+				commentLine--;
+				comment = document.lineAt(commentLine).text;
+			};
 		};
-		
+		desc = (desc === '') ? 'No Comment...' : desc;
+
 		// 表示メッセージを作成
-		const message = `${data.type} ${data.name} (Line ${data.line})\n${desc}`;
+		const message = `${data.type} ${data.name} (Line ${data.line})\n\n${desc}`;
+
 		// ホバーに表示する文字列を返す
-    return Promise.resolve(new vscode.Hover(message));
+		return Promise.resolve(new vscode.Hover(message));
     };
 };
 
@@ -66,69 +73,79 @@ class sb4CompletionItemProvider {
  * @returns {Object}          定義データ
  */
 function scanSourceCode(document) {
-	const regexp = new RegExp(`\\b(CONST|DIM|VAR|DEF)\\b\\s+([\\w\\s\\[\\]#$%,]+)`, 'i');
+	const regexp = new RegExp(`\\b(CONST|ENUM|DIM|VAR|DEF)\\b\\s+([\\w\\s\\[\\]#$%,&\\|+-/*%=]+)`, 'i');
 	const lines = document.getText().split(/\r?\n/g);
 	let result = {};
 
 	lines.forEach((line, i) => {
 		let define = line.match(regexp);
-		// 行内に定義があれば、定義名と行番号を記録
-		if (define) {
-			// 右側のコメントを抽出
-			let desc = line.split("'");
-			desc = (desc.length > 1) ? desc[1] : '';
-			// 変数、関数名を抽出してカンマで分割
-			let keys = define[2].replace(/( |\[.*\])/g, '').split(',');
-			// 宣言タイプ
-			let type = define[1].toUpperCase();
-			// 記録
-			for (let key of keys) {
-				let name = key;
-				key = key.toUpperCase();
-				if (result[key]) continue;	// 同じ名前が記録されている場合スキップ
-				result[key] = {
-					"name": name,
-					"type": type,
-					"desc": desc,
-					"line": i + 1
-				};
+		if (!define) return;
+
+		// 右側のコメントを抽出
+		let desc = line.split("'");
+		desc = (desc.length > 1) ? desc[1] : '';
+		// 宣言タイプ
+		let type = define[1].toUpperCase();
+		// 変数、関数名を抽出
+		let keys = define[2].replace(/(\[.*\])/g, '');
+		keys = (type === 'DEF') ? [keys.split(' ')[0]] : keys.replace(/ /g, '').split(',');
+		
+		// 記録
+		for (let key of keys) {
+			let name = key;
+			key = key.split('=')[0].toUpperCase();
+			if (result[key]) continue;	// 同じ名前が記録されている場合スキップ
+			result[key] = {
+				"name": name,
+				"type": type,
+				"desc": desc,
+				"line": i + 1
 			};
 		};
 	});
 
+	console.log(result);
 	return result;
 };
 
-
 /**
- * 拡張機能起動時に呼ばれる
+ * 拡張機能起動時に呼ばれるとこ
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	// ドキュメントが変更されたらコードをスキャンする
+	// 起動時にスキャン
+	definedData = scanSourceCode(vscode.window.activeTextEditor.document);
+
+	// 画面が切り替えられた
+	const changeActiveEditor = vscode.window.onDidChangeActiveTextEditor(event => {
+		// SB4のコードではない場合
+		if (event._documentData._languageId != 'sb4') return;
+		// スキャン
+		definedData = scanSourceCode(event.document);
+	});
+	context.subscriptions.push(changeActiveEditor);
+
+	// ドキュメントの内容が変更された
 	let timeout;
-	vscode.workspace.onDidChangeTextDocument(event => {
-		// タイムアウト前に操作された場合
+	const changeTextDocument = vscode.workspace.onDidChangeTextDocument(event => {
+		// SB4のコードではない場合
+		if (event.document.languageId != 'sb4') return;
+		// タイムアウト前に呼び出された場合
 		if (timeout != null) {
 			clearTimeout(timeout);
 		};
-		// コードのスキャンとインターバル設定
+		// スキャンとインターバル設定
 		timeout = setInterval(() => {
 			clearTimeout(timeout);
 			timeout = null;
-			// 分析
 			definedData = scanSourceCode(event.document);
-
-			console.log(definedData);
-
 		}, 500);
 	});
+	context.subscriptions.push(changeTextDocument);
 
-	// ホバー表示
+	// ホバーされた
 	context.subscriptions.push(
-		vscode.languages.registerHoverProvider(
-			SB4_MODE, new sb4HoverProvider()
-		)
+		vscode.languages.registerHoverProvider(SB4_MODE, new sb4HoverProvider())
 	);
 
 	/*
@@ -143,12 +160,12 @@ function activate(context) {
 
 exports.activate = activate;
 
-// VSCodeが終了する際に呼ばれる
+// VSCodeが終了する際に呼ばれるとこ
 function deactivate() {
 	return undefined;
-}
+};
 
 module.exports = {
 	activate,
 	deactivate
-}
+};
