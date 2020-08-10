@@ -1651,42 +1651,42 @@
     {
         "label": "#ON",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#OFF",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#YES",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#NO",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#TRUE",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#FALSE",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#PI",
         "documentation": "3.14159265358979323846",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EXP",
         "documentation": "2.71828182845904523536",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#C_CLEAR",
@@ -1786,486 +1786,486 @@
     {
         "label": "#B_RUP",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_RDOWN",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_RLEFT",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_RRIGHT",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_LUP",
         "documentation": "4",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_LDOWN",
         "documentation": "5",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_LLEFT",
         "documentation": "6",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_LRIGHT",
         "documentation": "7",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_L1",
         "documentation": "8",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_R1",
         "documentation": "9",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_L2",
         "documentation": "10",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_R2",
         "documentation": "11",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_SL",
         "documentation": "8",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_SR",
         "documentation": "9",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_S1",
         "documentation": "10",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_S2",
         "documentation": "11",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_LSTICK",
         "documentation": "12",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_RSTICK",
         "documentation": "13",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_RANY",
         "documentation": "14",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_LANY",
         "documentation": "15",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#B_ANY",
         "documentation": "16",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#A_ROT0",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#A_ROT90",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#A_ROT180",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#A_ROT270",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#A_REVH",
         "documentation": "4",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#A_REVV",
         "documentation": "8",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#A_ADD",
         "documentation": "16",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#CHKXY",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#CHKZ",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#CHKR",
         "documentation": "4",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#CHKS",
         "documentation": "8",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#CHKC",
         "documentation": "16",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#CHKV",
         "documentation": "32",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#CHKUV",
         "documentation": "64",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#CHKI",
         "documentation": "128",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#T_DEFAULT",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#T_INT",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#T_REAL",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#T_STR",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#T_INTARRAY",
         "documentation": "5",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#T_REALARRAY",
         "documentation": "6",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#T_STRARRAY",
         "documentation": "7",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#G_NORMAL",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#G_NORMAL2",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#G_ALPHA",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#G_ALPHA2",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#G_ADD",
         "documentation": "4",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#BQAPF",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#BQLPF",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#BQHPF",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#BQBPF",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#BQBSF",
         "documentation": "4",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#BQLSF",
         "documentation": "5",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#BQHSF",
         "documentation": "6",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#BQPEQ",
         "documentation": "7",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#WFRECT",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#WFHAMM",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#WFHANN",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#WFBLKM",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#AOPADD",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#AOPSUB",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#AOPMUL",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#AOPDIV",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#AOPMAD",
         "documentation": "4",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#AOPLIP",
         "documentation": "5",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#AOPCLP",
         "documentation": "6",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCOFF",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCON",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCBATH",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCCAVE",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCSPACE",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREFSROOM",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREFLROOM",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREFHALL",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREFCAVE",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREFNONE",
         "documentation": "4",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREVROOM",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREVHALL",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREVMETAL",
         "documentation": "2",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREVCAVE",
         "documentation": "3",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#EFCREVREV",
         "documentation": "4",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#PVLEFT",
         "documentation": "0",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#PVRIGHT",
         "documentation": "1",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#GRPWIDTH",
         "documentation": "グラフィックページの幅 (2048)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#GRPHEIGHT",
         "documentation": "グラフィックページの高さ (2048)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#GRPF",
         "documentation": "フォント用グラフィックページ (5)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#GSPRITE",
         "documentation": "グラフィック表示用に使用するスプライトID (4095)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#TCONSOLE",
         "documentation": "コンソール表示用に使用するテキストスクリーンID (4)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#MAXT",
         "documentation": "通常テキストスクリーンの最大ID (3)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#MAXSP",
         "documentation": "通常スプライトの最大ID (4094)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#MAXGRP",
         "documentation": "通常グラフィックページの最大ID (4)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#HARDWARE",
         "documentation": "ハードウェア識別番号 (10)",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#VERSION",
         "documentation": "バージョン番号",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#_LINE",
         "documentation": "この定数が書かれた行番号に置き換わる特殊な定数",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#_SLOT",
         "documentation": "この定数が書かれたスロット番号に置き換わる特殊な定数",
-        "kind": 2
+        "kind": 20
     },
     {
         "label": "#_FILENAME",
         "documentation": "この定数が書かれたファイル名文字列に置き換わる特殊な定数",
-        "kind": 2
+        "kind": 20
     }
 ]
