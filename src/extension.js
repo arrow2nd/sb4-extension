@@ -37,22 +37,19 @@ class sb4HoverProvider {
 		let desc = data.desc;
 		// コメントが無い場合、上方向のコメントを検索
 		let commentLine = data.line - 2;
-		if (desc === '' && commentLine > 0) {
+		if (desc === '' && commentLine >= 0) {
 			let comment = document.lineAt(commentLine).text;
 			while (comment.match(/^'/)) {
 				desc = comment.slice(1) + '\n\n' + desc;
 				commentLine--;
+				if (commentLine < 0) break;
 				comment = document.lineAt(commentLine).text;
 			};
 		};
 		desc = (desc === '') ? 'No Comment...' : desc;
 
 		// 表示メッセージを作成
-		const scope = (data.type != 'DEF' && defId != null) ? 'Local: ' : '';
-		let message = new vscode.MarkdownString();
-		message.appendCodeblock(`${scope}${data.type} ${data.name} '(Line ${data.line})`);
-		message.appendMarkdown(`\n\n***\n\n${desc}`);
-
+		const message = createMarkdown(data, desc);
 		return Promise.resolve(new vscode.Hover(message));
     };
 };
@@ -61,16 +58,54 @@ class sb4HoverProvider {
  * コード補完
  */
 class sb4CompletionItemProvider {
-    provideCompletionItems(document, position, token) {
-		
-		// 現在の行がDEF内かチェック
-		let defId = getDefId(position.line + 1);
-		console.log(`line ${position.line + 1} defId:${defId}`);
-		// 補完候補リスト
-		const completionItems = defaultCommplationItems;
+	constructor() {
+		this.saveLine = null;
+		this.completionItems = [];
+	};
 
-        return Promise.resolve(new vscode.CompletionList(completionItems, false));
+    provideCompletionItems(document, position, token) {
+		const currentLine = position.line + 1;
+
+		if (this.saveLine != currentLine) {
+			// 現在の行がDEF内かチェック
+			let defId = getDefId(currentLine);
+			console.log(`line ${currentLine} defId:${defId}`);
+
+			// ユーザー定義を候補に追加
+			const regex = new RegExp((defId != null) ? `^((?!\\w:)|${defId}:).+` : `^(?!\\w:).+`);
+			let addCommplationItems = [];
+			for (let key in saveDeclarationData) {
+				if (key.match(regex)) {
+					let data = saveDeclarationData[key];
+					addCommplationItems.push({
+						"label": data.name,
+						"documentation": createMarkdown(data, null),
+						"kind": (data.type === 'DEF') ? 2 : 5
+					});
+				};
+			};
+
+			this.saveLine = currentLine;
+			this.completionItems = defaultCommplationItems.concat(addCommplationItems);
+		};
+
+        return Promise.resolve(new vscode.CompletionList(this.completionItems, false));
     };
+};
+
+/**
+ * マークダウン形式の表示テキストを作成する
+ * @param  {Object} data  定義データ
+ * @param  {String} desc  コメント
+ * @return {String}       マークダウンテキスト
+ */
+function createMarkdown(data, desc) {
+	const scope = (data.isLocal) ? '[Local] ' : '';
+	let message = new vscode.MarkdownString();
+	// 追加
+	message.appendCodeblock(`${scope}${data.type} ${data.name} '(Line ${data.line})`);
+	if (desc != null) message.appendMarkdown(`\n\n***\n\n${desc}`);
+	return message;
 };
 
 /**
@@ -118,12 +153,17 @@ function scanSourceCode(document) {
 		// 追加
 		for (let key of keys) {
 			let name = key;
+			let isLocal = false;
 			key = name.toUpperCase();
-			key = (isDef && type != 'DEF') ? `${defId}:${key}` : key;
+			if (isDef && type != 'DEF') {
+				key = `${defId}:${key}`;
+				isLocal = true
+			};
 			if (declarationResult[key]) continue;	// 同じ名前が記録されている場合スキップ
 			declarationResult[key] = {
 				"name": name,
 				"type": type,
+				"isLocal": isLocal,
 				"desc": desc,
 				"line": i + 1
 			};
