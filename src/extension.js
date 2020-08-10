@@ -1,8 +1,9 @@
 const vscode = require('vscode');
+const defaultCommplationItems = require('./completionItems.json');
 const SB4_MODE = { scheme: 'file', language: 'sb4' };
 
-let saveDeclarationData = {};	// 宣言データ
-let saveDefineData = [];		// def定義データ
+let saveDeclarationData = {};	// 宣言データ保持用
+let saveDefineData = [];		// def定義データ保持用
 
 /**
  * ホバー表示
@@ -35,8 +36,8 @@ class sb4HoverProvider {
 		// コメント取得
 		let desc = data.desc;
 		// コメントが無い場合、上方向のコメントを検索
-		if (desc === '') {
-			let commentLine = data.line - 2;
+		let commentLine = data.line - 2;
+		if (desc === '' && commentLine > 0) {
 			let comment = document.lineAt(commentLine).text;
 			while (comment.match(/^'/)) {
 				desc = comment.slice(1) + '\n\n' + desc;
@@ -65,24 +66,10 @@ class sb4CompletionItemProvider {
 		// 現在の行がDEF内かチェック
 		let defId = getDefId(position.line + 1);
 		console.log(`line ${position.line + 1} defId:${defId}`);
+		// 補完候補リスト
+		const completionItems = defaultCommplationItems;
 
-        const completionItems = [
-            {
-				label: 'apple',
-				documentation: 'test',
-                kind: vscode.CompletionItemKind.Keyword
-            },
-            {
-                label: 'banana',
-                kind: vscode.CompletionItemKind.Value
-            },
-            {
-                label: 'cherry',
-                kind: vscode.CompletionItemKind.Method
-            }
-        ];
-        let completionList = new vscode.CompletionList(completionItems, false);
-        return Promise.resolve(completionList);
+        return Promise.resolve(new vscode.CompletionList(completionItems, false));
     };
 };
 
