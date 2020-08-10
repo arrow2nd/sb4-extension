@@ -14,7 +14,7 @@
 	"activationEvents": [
         "onLanguage:sb4"
 	],
-	"main": "./extension.js",
+	"main": "./src/extension.js",
 	"contributes": {
         "languages": [
             {

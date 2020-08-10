@@ -4,16 +4,15 @@ const SB4_MODE = { scheme: 'file', language: 'sb4' };
 let declarationData = {};	// 宣言データ
 let defineData = [];		// def定義データ
 
-// ホバー表示
+/**
+ * ホバー表示
+ */
 class sb4HoverProvider {
-    provideHover(document, position,) {
-		// カーソル位置の行内の正規表現にマッチした単語がある範囲を取得
+    provideHover(document, position) {
+		// ホバーされている単語を切り出す
 		const wordRange = document.getWordRangeAtPosition(position, /[a-zA-Z0-9_#$%]+/);
 		if (!wordRange) return Promise.reject("Not Found");
-		
-		// カーソル位置の行から単語を切り出し
 		const currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character).toUpperCase();
-		console.log("hover: " + currentWord);
 		
 		// 現在の行がDEF内かチェック
 		let defId = getDefId(position.line + 1);
@@ -33,8 +32,6 @@ class sb4HoverProvider {
 		};
 		if (!data) return Promise.reject("Not Found");
 
-		console.log("hit!")
-		
 		// コメント取得
 		let desc = data.desc;
 		// コメントが無い場合、上方向のコメントを検索
@@ -55,18 +52,24 @@ class sb4HoverProvider {
 		message.appendCodeblock(`${scope}${data.type} ${data.name} '(Line ${data.line})`);
 		message.appendMarkdown(`\n\n***\n\n${desc}`);
 
-		// ホバーに表示する文字列を返す
 		return Promise.resolve(new vscode.Hover(message));
     };
 };
 
-/*
-// コード補完
+/**
+ * コード補完
+ */
 class sb4CompletionItemProvider {
     provideCompletionItems(document, position, token) {
+		
+		// 現在の行がDEF内かチェック
+		let defId = getDefId(position.line + 1);
+		console.log(`line ${position.line + 1} defId:${defId}`);
+
         const completionItems = [
             {
-                label: 'apple',
+				label: 'apple',
+				documentation: 'test',
                 kind: vscode.CompletionItemKind.Keyword
             },
             {
@@ -82,8 +85,6 @@ class sb4CompletionItemProvider {
         return Promise.resolve(completionList);
     };
 };
-*/
-
 
 /**
  * ソースコードをスキャン
@@ -161,26 +162,26 @@ function getDefId(line) {
 };
 
 /**
- * 拡張機能起動時に呼ばれるとこ
+ * 拡張機能起動時に呼ばれるやつ
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+//	let declarationData = {};	// 宣言データ
+//	let defineData = [];		// def定義データ
+	let timeout;
+
 	// 起動時にスキャン
 	[declarationData, defineData] = scanSourceCode(vscode.window.activeTextEditor.document);
 
 	// 画面が切り替えられた
 	const changeActiveEditor = vscode.window.onDidChangeActiveTextEditor(event => {
-		// SB4のコードではない場合
 		if (event._documentData._languageId != 'sb4') return;
-		// スキャン
 		[declarationData, defineData] = scanSourceCode(event.document);
 	});
 	context.subscriptions.push(changeActiveEditor);
 
 	// ドキュメントの内容が変更された
-	let timeout;
 	const changeTextDocument = vscode.workspace.onDidChangeTextDocument(event => {
-		// SB4のコードではない場合
 		if (event.document.languageId != 'sb4') return;
 		// タイムアウト前に呼び出された場合
 		if (timeout != null) {
@@ -195,24 +196,22 @@ function activate(context) {
 	});
 	context.subscriptions.push(changeTextDocument);
 
-	// ホバーされた
+	// ホバー
 	context.subscriptions.push(
 		vscode.languages.registerHoverProvider(SB4_MODE, new sb4HoverProvider())
 	);
 
-	/*
 	// コード補完
 	context.subscriptions.push(
-		vscode.languages.registerCompletionItemProvider(
-			SB4_MODE, new sb4CompletionItemProvider()
-		)
+		vscode.languages.registerCompletionItemProvider(SB4_MODE, new sb4CompletionItemProvider())
 	);
-	*/
 };
 
 exports.activate = activate;
 
-// VSCodeが終了する際に呼ばれるとこ
+/**
+ * VSCode終了時に呼ばれるとこ
+ */
 function deactivate() {
 	return undefined;
 };
