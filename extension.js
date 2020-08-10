@@ -1,8 +1,8 @@
 const vscode = require('vscode');
-
 const SB4_MODE = { scheme: 'file', language: 'sb4' };
 
-let definedData = {};	// 定義データ
+let declarationData = {};	// 宣言データ
+let defineData = [];		// def定義データ
 
 // ホバー表示
 class sb4HoverProvider {
@@ -15,15 +15,29 @@ class sb4HoverProvider {
 		const currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character).toUpperCase();
 		console.log("hover: " + currentWord);
 		
-		// 定義データを参照
-		const data = definedData[currentWord];
+		// 現在の行がDEF内かチェック
+		let defId = getDefId(position.line + 1);
+		let chkKey = (defId != null) ? `${defId}:${currentWord}` : currentWord;
+
+		// 宣言データを参照
+		let data;
+		while (1) {
+			data = declarationData[chkKey];
+			// ローカルに無かった場合、グローバルで再検索する
+			if (defId != null && !data) {
+				chkKey = currentWord;
+				defId = null;
+				continue;
+			};
+			break;
+		};
 		if (!data) return Promise.reject("Not Found");
 
 		console.log("hit!")
 		
 		// コメント取得
 		let desc = data.desc;
-		// 上方向にコメントが無いか検索
+		// コメントが無い場合、上方向のコメントを検索
 		if (desc === '') {
 			let commentLine = data.line - 2;
 			let comment = document.lineAt(commentLine).text;
@@ -36,8 +50,9 @@ class sb4HoverProvider {
 		desc = (desc === '') ? 'No Comment...' : desc;
 
 		// 表示メッセージを作成
+		const scope = (data.type != 'DEF' && defId != null) ? 'Local: ' : '';
 		let message = new vscode.MarkdownString();
-		message.appendCodeblock(`${data.type} ${data.name} '(Line ${data.line})`);
+		message.appendCodeblock(`${scope}${data.type} ${data.name} '(Line ${data.line})`);
 		message.appendMarkdown(`\n\n***\n\n${desc}`);
 
 		// ホバーに表示する文字列を返す
@@ -69,41 +84,56 @@ class sb4CompletionItemProvider {
 };
 */
 
+
 /**
  * ソースコードをスキャン
  * @param   {Object} document ドキュメント
- * @returns {Object}          定義データ
+ * @returns {Object}          宣言データ
+ * @returns {Array}           def定義データ
  */
 function scanSourceCode(document) {
-	const regexp = new RegExp(`\\b(CONST|ENUM|DIM|VAR|DEF)\\b\\s+([ -&(-~]+)`, 'i');
 	const lines = document.getText().split(/\r?\n/g);
-	let result = {};
+	let isDef = false;
+	let defId = 0;
+	let declarationResult = {};
+	let defineResult = [];
 
 	lines.forEach((line, i) => {
-		let define = line.match(regexp);
-		if (!define) return;
+		let define = line.match(/(?<!\s*'\s*)\b(CONST|ENUM|DIM|VAR|DEF)\b\s+([ -&(-~]+)/i);
+		if (!define) {
+			// DEFの終端
+			if (isDef && line.match(/\bEND\b/i)) {
+				defineResult[defId].endLine = i + 1;
+				defId++;
+				isDef = false;
+			};
+			return;
+		};
 
 		// 右側のコメントを抽出
 		let desc = line.split("'");
 		desc = (desc.length > 1) ? desc[1] : '';
 		// 宣言タイプ
 		let type = define[1].toUpperCase();
-
 		// 括弧を削除して変数・関数名をカンマで分割
 		let keys = [];
 		let segmented = define[2].replace(/[\[|\(|"].*?[\]|\)|"]/g, '').split(",");
+		// キーを作成
 		if (type === 'DEF') {
 			keys.push(segmented[0].split(' ')[0]);
+			defineResult.push({'id': defId, 'startLine': i + 1, 'endLine': null});
+			isDef = true;
 		} else {
 			keys = segmented.map(value => value.replace(/ /g, '').split(/\s*?=/)[0]);
 		};
 
-		// 記録
+		// 追加
 		for (let key of keys) {
 			let name = key;
 			key = name.toUpperCase();
-			if (result[key]) continue;	// 同じ名前が記録されている場合スキップ
-			result[key] = {
+			key = (isDef && type != 'DEF') ? `${defId}:${key}` : key;
+			if (declarationResult[key]) continue;	// 同じ名前が記録されている場合スキップ
+			declarationResult[key] = {
 				"name": name,
 				"type": type,
 				"desc": desc,
@@ -112,8 +142,22 @@ function scanSourceCode(document) {
 		};
 	});
 
-	console.log(result);
-	return result;
+	console.log(declarationResult);
+	console.log(defineResult);
+
+	return [declarationResult, defineResult];
+};
+
+/**
+ * 行番号からDEFIDを取得
+ * @param  {Number} line 行番号
+ * @return {Number}      DEFID
+ */
+function getDefId(line) {
+	for (let data of defineData) {
+		if (data.startLine < line && data.endLine > line) return data.id;
+	};
+	return null;
 };
 
 /**
@@ -122,14 +166,14 @@ function scanSourceCode(document) {
  */
 function activate(context) {
 	// 起動時にスキャン
-	definedData = scanSourceCode(vscode.window.activeTextEditor.document);
+	[declarationData, defineData] = scanSourceCode(vscode.window.activeTextEditor.document);
 
 	// 画面が切り替えられた
 	const changeActiveEditor = vscode.window.onDidChangeActiveTextEditor(event => {
 		// SB4のコードではない場合
 		if (event._documentData._languageId != 'sb4') return;
 		// スキャン
-		definedData = scanSourceCode(event.document);
+		[declarationData, defineData] = scanSourceCode(event.document);
 	});
 	context.subscriptions.push(changeActiveEditor);
 
@@ -146,7 +190,7 @@ function activate(context) {
 		timeout = setInterval(() => {
 			clearTimeout(timeout);
 			timeout = null;
-			definedData = scanSourceCode(event.document);
+			[declarationData, defineData] = scanSourceCode(event.document);
 		}, 500);
 	});
 	context.subscriptions.push(changeTextDocument);
