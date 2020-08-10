@@ -1,8 +1,8 @@
 const vscode = require('vscode');
 const SB4_MODE = { scheme: 'file', language: 'sb4' };
 
-let declarationData = {};	// 宣言データ
-let defineData = [];		// def定義データ
+let saveDeclarationData = {};	// 宣言データ
+let saveDefineData = [];		// def定義データ
 
 /**
  * ホバー表示
@@ -21,7 +21,7 @@ class sb4HoverProvider {
 		// 宣言データを参照
 		let data;
 		while (1) {
-			data = declarationData[chkKey];
+			data = saveDeclarationData[chkKey];
 			// ローカルに無かった場合、グローバルで再検索する
 			if (defId != null && !data) {
 				chkKey = currentWord;
@@ -155,7 +155,7 @@ function scanSourceCode(document) {
  * @return {Number}      DEFID
  */
 function getDefId(line) {
-	for (let data of defineData) {
+	for (let data of saveDefineData) {
 		if (data.startLine < line && data.endLine > line) return data.id;
 	};
 	return null;
@@ -166,17 +166,15 @@ function getDefId(line) {
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-//	let declarationData = {};	// 宣言データ
-//	let defineData = [];		// def定義データ
 	let timeout;
 
 	// 起動時にスキャン
-	[declarationData, defineData] = scanSourceCode(vscode.window.activeTextEditor.document);
+	[saveDeclarationData, saveDefineData] = scanSourceCode(vscode.window.activeTextEditor.document);
 
 	// 画面が切り替えられた
 	const changeActiveEditor = vscode.window.onDidChangeActiveTextEditor(event => {
 		if (event._documentData._languageId != 'sb4') return;
-		[declarationData, defineData] = scanSourceCode(event.document);
+		[saveDeclarationData, saveDefineData] = scanSourceCode(event.document);
 	});
 	context.subscriptions.push(changeActiveEditor);
 
@@ -191,7 +189,7 @@ function activate(context) {
 		timeout = setInterval(() => {
 			clearTimeout(timeout);
 			timeout = null;
-			[declarationData, defineData] = scanSourceCode(event.document);
+			[saveDeclarationData, saveDefineData] = scanSourceCode(event.document);
 		}, 500);
 	});
 	context.subscriptions.push(changeTextDocument);
