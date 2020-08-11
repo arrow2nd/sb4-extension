@@ -134,8 +134,8 @@ function scanSourceCode(document) {
 		};
 
 		// コメントを抽出
-		let desc = line.split("'");
-		desc = (desc.length > 1) ? desc[1] : '';
+		let desc = line.match(/'.*/);
+		desc = (desc == null) ? '' : desc[0].slice(1);
 		// コメントが取得できなかった場合、上方向にコメントがないか探す
 		let commentLine = i - 1;
 		if (desc === '' && commentLine >= 0) {
