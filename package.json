@@ -9,8 +9,12 @@
 		"vscode": "^1.47.0"
 	},
 	"categories": [
-		"Other"
-	],
+        "Programming Languages",
+        "Snippets"
+    ],
+    "keywords": [
+        "SmileBasic"
+    ],
 	"activationEvents": [
         "onLanguage:sb4"
 	],
