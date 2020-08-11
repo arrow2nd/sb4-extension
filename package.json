@@ -49,7 +49,14 @@
                 "language": "sb4",
                 "path": "./snippets/snippets.json"
             }
-        ]
+        ],
+        "configurationDefaults": { 
+            "[sb4]":
+                { 
+                    "editor.tabSize": 1,
+                    "editor.insertSpaces": true
+                }
+        }
 	},
 	"scripts": {
 		"lint": "eslint .",
