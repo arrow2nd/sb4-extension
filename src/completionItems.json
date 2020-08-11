@@ -1691,638 +1691,658 @@
 
     {
         "label": "UISTATE",
-        "documentation": "システムの状態を取得？（※リファレンスに情報がない命令です）",
-        "kind": 2
+        "documentation": "システムの状態を取得？\n※リファレンスに情報がない命令です",
+        "kind": 26
     },
     {
         "label": "UIRUN",
-        "documentation": "UIインタプリタでプログラム実行？（※試験的に開放されている命令です）",
-        "kind": 2
+        "documentation": "UIインタプリタでプログラム実行？\n※試験的に開放されている命令です",
+        "kind": 26
     },
     {
         "label": "UISTOP",
-        "documentation": "UIインタプリタで実行したプログラムの停止？（※試験的に開放されている命令です）",
-        "kind": 2
+        "documentation": "UIインタプリタで実行したプログラムの停止？\n※試験的に開放されている命令です",
+        "kind": 26
     },
     {
         "label": "UIPUSHCMPL",
-        "documentation": "入力補完関係の命令？（※リファレンスに情報がない命令です）",
-        "kind": 2
+        "documentation": "入力補完関係の命令？\n※リファレンスに情報がない命令です",
+        "kind": 26
     },
     {
         "label": "UIGETCMPL",
-        "documentation": "入力補完関係の命令？（※リファレンスに情報がない命令です）",
-        "kind": 2
+        "documentation": "入力補完関係の命令？\n※リファレンスに情報がない命令です",
+        "kind": 26
     },
     {
         "label": "UIMASK",
-        "documentation": "（※リファレンスに情報がない命令です）",
-        "kind": 2
+        "documentation": "※リファレンスに情報がない命令です",
+        "kind": 26
     },
     {
         "label": "UIFOCUS",
-        "documentation": "（※リファレンスに情報がない命令です）",
-        "kind": 2
+        "documentation": "※リファレンスに情報がない命令です",
+        "kind": 26
     },
 
     {
         "label": "#ON",
-        "documentation": "1",
+        "documentation": "ON (=1)",
         "kind": 20
     },
     {
         "label": "#OFF",
-        "documentation": "0",
+        "documentation": "OFF (=0)",
         "kind": 20
     },
     {
         "label": "#YES",
-        "documentation": "1",
+        "documentation": "YES (=1)",
         "kind": 20
     },
     {
         "label": "#NO",
-        "documentation": "0",
+        "documentation": "NO (=0)",
         "kind": 20
     },
     {
         "label": "#TRUE",
-        "documentation": "1",
+        "documentation": "TRUE (=1)",
         "kind": 20
     },
     {
         "label": "#FALSE",
-        "documentation": "0",
+        "documentation": "FALSE (=0)",
         "kind": 20
     },
     {
         "label": "#PI",
-        "documentation": "3.14159265358979323846",
+        "documentation": "円周率 (=3.14159265358979323846)",
         "kind": 20
     },
     {
         "label": "#EXP",
-        "documentation": "2.71828182845904523536",
+        "documentation": "ネイピア数 (=2.71828182845904523536)",
         "kind": 20
     },
     {
         "label": "#C_CLEAR",
-        "documentation": "透明 (&H00000000)",
+        "documentation": "透明 (=&H00000000)",
         "kind": 15
     },
     {
         "label": "#C_AQUA",
-        "documentation": "水色 (&HFF00FFFF)",
+        "documentation": "水色 (=&HFF00FFFF)",
         "kind": 15
     },
     {
         "label": "#C_BLACK",
-        "documentation": "黒 (&HFF000000)",
+        "documentation": "黒 (=&HFF000000)",
         "kind": 15
     },
     {
         "label": "#C_BLUE",
-        "documentation": "青 (&HFF0000FF)",
+        "documentation": "青 (=&HFF0000FF)",
         "kind": 15
     },
     {
         "label": "#C_CYAN",
-        "documentation": "水色 (&HFF00FFFF)",
+        "documentation": "水色 (=&HFF00FFFF)",
         "kind": 15
     },
     {
         "label": "#C_FUCHSIA",
-        "documentation": "明るい紫 (&HFFFF00FF)",
+        "documentation": "明るい紫 (=&HFFFF00FF)",
         "kind": 15
     },
     {
         "label": "#C_GRAY",
-        "documentation": "灰色 (&HFF808080)",
+        "documentation": "灰色 (=&HFF808080)",
         "kind": 15
     },
     {
         "label": "#C_GREEN",
-        "documentation": "緑 (&HFF008000)",
+        "documentation": "緑 (=&HFF008000)",
         "kind": 15
     },
     {
         "label": "#C_LIME",
-        "documentation": "明るい緑 (&HFF00FF00)",
+        "documentation": "明るい緑 (=&HFF00FF00)",
         "kind": 15
     },
     {
         "label": "#C_MAGENTA",
-        "documentation": "明るい紫 (&HFFFF00FF)",
+        "documentation": "明るい紫 (=&HFFFF00FF)",
         "kind": 15
     },
     {
         "label": "#C_MAROON",
-        "documentation": "えび茶色 (&HFF800000)",
+        "documentation": "えび茶色 (=&HFF800000)",
         "kind": 15
     },
     {
         "label": "#C_NAVY",
-        "documentation": "紺 (&HFF000080)",
+        "documentation": "紺 (=&HFF000080)",
         "kind": 15
     },
     {
         "label": "#C_OLIVE",
-        "documentation": "オリーブ色 (&HFF808000)",
+        "documentation": "オリーブ色 (=&HFF808000)",
         "kind": 15
     },
     {
         "label": "#C_PURPLE",
-        "documentation": "紫 (&HFF800080)",
+        "documentation": "紫 (=&HFF800080)",
         "kind": 15
     },
     {
         "label": "#C_RED",
-        "documentation": "赤 (&HFFFF0000)",
+        "documentation": "赤 (=&HFFFF0000)",
         "kind": 15
     },
     {
         "label": "#C_SILVER",
-        "documentation": "銀色 (&HFFC0C0C0)",
+        "documentation": "銀色 (=&HFFC0C0C0)",
         "kind": 15
     },
     {
         "label": "#C_TEAL",
-        "documentation": "青緑 (&HFF008080)",
+        "documentation": "青緑 (=&HFF008080)",
         "kind": 15
     },
     {
         "label": "#C_WHITE",
-        "documentation": "白 (&HFFFFFFFF)",
+        "documentation": "白 (=&HFFFFFFFF)",
         "kind": 15
     },
     {
         "label": "#C_YELLOW",
-        "documentation": "黄色 (&HFFFFFF00)",
+        "documentation": "黄色 (=&HFFFFFF00)",
         "kind": 15
     },
     {
         "label": "#B_RUP",
-        "documentation": "0",
+        "documentation": "フル、2本持ち\t: Xボタン\n縦、横持ち\t: 上ボタン\n(=0)",
         "kind": 20
     },
     {
         "label": "#B_RDOWN",
-        "documentation": "1",
+        "documentation": "フル、2本持ち\t: Bボタン\n縦、横持ち\t: 下ボタン\n(=1)",
         "kind": 20
     },
     {
         "label": "#B_RLEFT",
-        "documentation": "2",
+        "documentation": "フル、2本持ち\t: Yボタン\n縦、横持ち\t: 左ボタン\n(=2)",
         "kind": 20
     },
     {
         "label": "#B_RRIGHT",
-        "documentation": "3",
+        "documentation": "フル、2本持ち\t: Aボタン\n縦、横持ち\t: 右ボタン\n(=3)",
         "kind": 20
     },
     {
         "label": "#B_LUP",
-        "documentation": "4",
+        "documentation": "上ボタン (=4)",
         "kind": 20
     },
     {
         "label": "#B_LDOWN",
-        "documentation": "5",
+        "documentation": "下ボタン (=5)",
         "kind": 20
     },
     {
         "label": "#B_LLEFT",
-        "documentation": "6",
+        "documentation": "左ボタン (=6)",
         "kind": 20
     },
     {
         "label": "#B_LRIGHT",
-        "documentation": "7",
+        "documentation": "右ボタン (=7)",
         "kind": 20
     },
     {
         "label": "#B_L1",
-        "documentation": "8",
+        "documentation": "フル、2本持ち\t: Lボタン\n縦、横持ち\t: SLボタン\n(=8)",
         "kind": 20
     },
     {
         "label": "#B_R1",
-        "documentation": "9",
+        "documentation": "フル、2本持ち\t: Rボタン\n縦、横持ち\t: SRボタン\n(=9)",
         "kind": 20
     },
     {
         "label": "#B_L2",
-        "documentation": "10",
+        "documentation": "フル、2本持ち\t: ZLボタン\n縦、横持ち\t: L、Rボタン\n(=10)",
         "kind": 20
     },
     {
         "label": "#B_R2",
-        "documentation": "11",
+        "documentation": "フル、2本持ち\t: ZRボタン\n縦、横持ち\t: ZL、ZRボタン\n(=11)",
         "kind": 20
     },
     {
         "label": "#B_SL",
-        "documentation": "8",
+        "documentation": "フル、2本持ち\t: Lボタン\n縦、横持ち\t: SLボタン\n(=8)",
         "kind": 20
     },
     {
         "label": "#B_SR",
-        "documentation": "9",
+        "documentation": "フル、2本持ち\t: Rボタン\n縦、横持ち\t: SRボタン\n(=9)",
         "kind": 20
     },
     {
         "label": "#B_S1",
-        "documentation": "10",
+        "documentation": "フル、2本持ち\t: ZLボタン\n縦、横持ち\t: L、Rボタン\n(=10)",
         "kind": 20
     },
     {
         "label": "#B_S2",
-        "documentation": "11",
+        "documentation": "フル、2本持ち\t: ZRボタン\n縦、横持ち\t: ZL、ZRボタン\n(=11)",
         "kind": 20
     },
     {
         "label": "#B_LSTICK",
-        "documentation": "12",
+        "documentation": "フル、2本持ち\t: Lスティック押し込み\n縦、横持ち\t: スティック押し込み\n(=12)",
         "kind": 20
     },
     {
         "label": "#B_RSTICK",
-        "documentation": "13",
+        "documentation": "Rスティック押し込み (=13)",
         "kind": 20
     },
     {
         "label": "#B_RANY",
-        "documentation": "14",
+        "documentation": "A、B、X、Yボタンのいずれか (=14)",
         "kind": 20
     },
     {
         "label": "#B_LANY",
-        "documentation": "15",
+        "documentation": "上、下、左、右ボタンのいずれか (=15)",
         "kind": 20
     },
     {
         "label": "#B_ANY",
-        "documentation": "16",
+        "documentation": "スティック押し込み以外のいずれかのボタン (=16)",
+        "kind": 20
+    },
+    {
+        "label": "#B_A",
+        "documentation": "Aボタン (=3)",
+        "kind": 20
+    },
+    {
+        "label": "#B_B",
+        "documentation": "Bボタン (=1)",
+        "kind": 20
+    },
+    {
+        "label": "#B_X",
+        "documentation": "Xボタン (=0)",
+        "kind": 20
+    },
+    {
+        "label": "#B_Y",
+        "documentation": "Yボタン (=2)",
         "kind": 20
     },
     {
         "label": "#A_ROT0",
-        "documentation": "0",
+        "documentation": "回転 (=0)",
         "kind": 20
     },
     {
         "label": "#A_ROT90",
-        "documentation": "1",
+        "documentation": "回転 (=1)",
         "kind": 20
     },
     {
         "label": "#A_ROT180",
-        "documentation": "2",
+        "documentation": "回転 (=2)",
         "kind": 20
     },
     {
         "label": "#A_ROT270",
-        "documentation": "3",
+        "documentation": "回転 (=3)",
         "kind": 20
     },
     {
         "label": "#A_REVH",
-        "documentation": "4",
+        "documentation": "横回転 (=4)",
         "kind": 20
     },
     {
         "label": "#A_REVV",
-        "documentation": "8",
+        "documentation": "縦回転 (=8)",
         "kind": 20
     },
     {
         "label": "#A_ADD",
-        "documentation": "16",
+        "documentation": "加算合成 (=16)",
         "kind": 20
     },
     {
         "label": "#CHKXY",
-        "documentation": "1",
+        "documentation": "XY座標 (=1)",
         "kind": 20
     },
     {
         "label": "#CHKZ",
-        "documentation": "2",
+        "documentation": "Z座標 (=2)",
         "kind": 20
     },
     {
         "label": "#CHKR",
-        "documentation": "4",
+        "documentation": "回転 (=4)",
         "kind": 20
     },
     {
         "label": "#CHKS",
-        "documentation": "8",
+        "documentation": "倍率XY (=8)",
         "kind": 20
     },
     {
         "label": "#CHKC",
-        "documentation": "16",
+        "documentation": "表示色 (=16)",
         "kind": 20
     },
     {
         "label": "#CHKV",
-        "documentation": "32",
+        "documentation": "変数 (=32)",
         "kind": 20
     },
     {
         "label": "#CHKUV",
-        "documentation": "64",
+        "documentation": "UV座標 (=64)",
         "kind": 20
     },
     {
         "label": "#CHKI",
-        "documentation": "128",
+        "documentation": "定義番号 (=128)",
         "kind": 20
     },
     {
         "label": "#T_DEFAULT",
-        "documentation": "0",
+        "documentation": "デフォルト型 (=0)",
         "kind": 20
     },
     {
         "label": "#T_INT",
-        "documentation": "1",
+        "documentation": "整数型 (=1)",
         "kind": 20
     },
     {
         "label": "#T_REAL",
-        "documentation": "2",
+        "documentation": "実数型 (=2)",
         "kind": 20
     },
     {
         "label": "#T_STR",
-        "documentation": "3",
+        "documentation": "文字列型 (=3)",
         "kind": 20
     },
     {
         "label": "#T_INTARRAY",
-        "documentation": "5",
+        "documentation": "整数配列 (=5)",
         "kind": 20
     },
     {
         "label": "#T_REALARRAY",
-        "documentation": "6",
+        "documentation": "実数配列 (=6)",
         "kind": 20
     },
     {
         "label": "#T_STRARRAY",
-        "documentation": "7",
+        "documentation": "文字列配列 (=7)",
         "kind": 20
     },
     {
         "label": "#G_NORMAL",
-        "documentation": "0",
+        "documentation": "単純描画 (=0)",
         "kind": 20
     },
     {
         "label": "#G_NORMAL2",
-        "documentation": "1",
+        "documentation": "透明度が0以外の時、単純描画 (=1)",
         "kind": 20
     },
     {
         "label": "#G_ALPHA",
-        "documentation": "2",
+        "documentation": "半透明描画 (=2)",
         "kind": 20
     },
     {
         "label": "#G_ALPHA2",
-        "documentation": "3",
+        "documentation": "描画先の透明度を考慮して半透明描画 (=3)",
         "kind": 20
     },
     {
         "label": "#G_ADD",
-        "documentation": "4",
+        "documentation": "加算描画 (=4)",
         "kind": 20
     },
     {
         "label": "#BQAPF",
-        "documentation": "0",
+        "documentation": "オールパスフィルタ (=0)",
         "kind": 20
     },
     {
         "label": "#BQLPF",
-        "documentation": "1",
+        "documentation": "ローパスフィルタ (=1)",
         "kind": 20
     },
     {
         "label": "#BQHPF",
-        "documentation": "2",
+        "documentation": "ハイパスフィルタ (=2)",
         "kind": 20
     },
     {
         "label": "#BQBPF",
-        "documentation": "3",
+        "documentation": "バンドパスフィルタ  (=3)",
         "kind": 20
     },
     {
         "label": "#BQBSF",
-        "documentation": "4",
+        "documentation": "バンドストップフィルタ  (=4)",
         "kind": 20
     },
     {
         "label": "#BQLSF",
-        "documentation": "5",
+        "documentation": "ローシェルフフィルタ  (=5)",
         "kind": 20
     },
     {
         "label": "#BQHSF",
-        "documentation": "6",
+        "documentation": "ハイシェルフフィルタ  (=6)",
         "kind": 20
     },
     {
         "label": "#BQPEQ",
-        "documentation": "7",
+        "documentation": "ピーキングイコライザ  (=7)",
         "kind": 20
     },
     {
         "label": "#WFRECT",
-        "documentation": "0",
+        "documentation": "矩形意  (=0)",
         "kind": 20
     },
     {
         "label": "#WFHAMM",
-        "documentation": "1",
+        "documentation": "ハミング数  (=1)",
         "kind": 20
     },
     {
         "label": "#WFHANN",
-        "documentation": "2",
+        "documentation": "ハニング数  (=2)",
         "kind": 20
     },
     {
         "label": "#WFBLKM",
-        "documentation": "3",
+        "documentation": "ブラックマン数  (=3)",
         "kind": 20
     },
     {
         "label": "#AOPADD",
-        "documentation": "0",
+        "documentation": "加算（p1+p2） (=0)",
         "kind": 20
     },
     {
         "label": "#AOPSUB",
-        "documentation": "1",
+        "documentation": "減算（p1-p2） (=1)",
         "kind": 20
     },
     {
         "label": "#AOPMUL",
-        "documentation": "2",
+        "documentation": "乗算（p1*p2） (=2)",
         "kind": 20
     },
     {
         "label": "#AOPDIV",
-        "documentation": "3",
+        "documentation": "除算（p1/p2） (=3)",
         "kind": 20
     },
     {
         "label": "#AOPMAD",
-        "documentation": "4",
+        "documentation": "積和（p1*p2+p3） (=4)",
         "kind": 20
     },
     {
         "label": "#AOPLIP",
-        "documentation": "5",
+        "documentation": "線形補完（p1*p3+p2*(1-p3)） (=5)",
         "kind": 20
     },
     {
         "label": "#AOPCLP",
-        "documentation": "6",
+        "documentation": "クランプ（p1の値をp2<=x<=p3の範囲内に丸める）\n(=6)",
         "kind": 20
     },
     {
         "label": "#EFCOFF",
-        "documentation": "0",
+        "documentation": "OFF (=0)",
         "kind": 20
     },
     {
         "label": "#EFCON",
-        "documentation": "1",
+        "documentation": "ON (=1)",
         "kind": 20
     },
     {
         "label": "#EFCBATH",
-        "documentation": "1",
+        "documentation": "エフェクト：お風呂 (=1)",
         "kind": 20
     },
     {
         "label": "#EFCCAVE",
-        "documentation": "2",
+        "documentation": "エフェクト：洞窟 (=2)",
         "kind": 20
     },
     {
         "label": "#EFCSPACE",
-        "documentation": "3",
+        "documentation": "エフェクト：宇宙 (=3)",
         "kind": 20
     },
     {
         "label": "#EFCREFSROOM",
-        "documentation": "0",
+        "documentation": "反射音：小さい部屋 (=0)",
         "kind": 20
     },
     {
         "label": "#EFCREFLROOM",
-        "documentation": "1",
+        "documentation": "反射音：大きい部屋 (=1)",
         "kind": 20
     },
     {
         "label": "#EFCREFHALL",
-        "documentation": "2",
+        "documentation": "反射音：ホール (=2)",
         "kind": 20
     },
     {
         "label": "#EFCREFCAVE",
-        "documentation": "3",
+        "documentation": "反射音：洞窟 (=3)",
         "kind": 20
     },
     {
         "label": "#EFCREFNONE",
-        "documentation": "4",
+        "documentation": "反射音なし (=4)",
         "kind": 20
     },
     {
         "label": "#EFCREVROOM",
-        "documentation": "0",
+        "documentation": "残響音：部屋 (=0)",
         "kind": 20
     },
     {
         "label": "#EFCREVHALL",
-        "documentation": "1",
+        "documentation": "残響音：ホール (=1)",
         "kind": 20
     },
     {
         "label": "#EFCREVMETAL",
-        "documentation": "2",
+        "documentation": "残響音：金属製の回廊 (=2)",
         "kind": 20
     },
     {
         "label": "#EFCREVCAVE",
-        "documentation": "3",
+        "documentation": "残響音：洞窟 (=3)",
         "kind": 20
     },
     {
         "label": "#EFCREVREV",
-        "documentation": "4",
+        "documentation": "残響音：リバーブ (=4)",
         "kind": 20
     },
     {
         "label": "#PVLEFT",
-        "documentation": "0",
+        "documentation": "左 (=0)",
         "kind": 20
     },
     {
         "label": "#PVRIGHT",
-        "documentation": "1",
+        "documentation": "右 (=1)",
         "kind": 20
     },
     {
         "label": "#GRPWIDTH",
-        "documentation": "グラフィックページの幅 (2048)",
+        "documentation": "グラフィックページの幅 (=2048)",
         "kind": 20
     },
     {
         "label": "#GRPHEIGHT",
-        "documentation": "グラフィックページの高さ (2048)",
+        "documentation": "グラフィックページの高さ (=2048)",
         "kind": 20
     },
     {
         "label": "#GRPF",
-        "documentation": "フォント用グラフィックページ (5)",
+        "documentation": "フォント用グラフィックページ (=5)",
         "kind": 20
     },
     {
         "label": "#GSPRITE",
-        "documentation": "グラフィック表示用に使用するスプライトID (4095)",
+        "documentation": "グラフィック表示用に使用するスプライトID (=4095)",
         "kind": 20
     },
     {
         "label": "#TCONSOLE",
-        "documentation": "コンソール表示用に使用するテキストスクリーンID (4)",
+        "documentation": "コンソール表示用に使用するテキストスクリーンID (=4)",
         "kind": 20
     },
     {
         "label": "#MAXT",
-        "documentation": "通常テキストスクリーンの最大ID (3)",
+        "documentation": "通常テキストスクリーンの最大ID (=3)",
         "kind": 20
     },
     {
         "label": "#MAXSP",
-        "documentation": "通常スプライトの最大ID (4094)",
+        "documentation": "通常スプライトの最大ID (=4094)",
         "kind": 20
     },
     {
         "label": "#MAXGRP",
-        "documentation": "通常グラフィックページの最大ID (4)",
+        "documentation": "通常グラフィックページの最大ID (=4)",
         "kind": 20
     },
     {
         "label": "#HARDWARE",
-        "documentation": "ハードウェア識別番号 (10)",
+        "documentation": "ハードウェア識別番号 (=10)",
         "kind": 20
     },
     {
