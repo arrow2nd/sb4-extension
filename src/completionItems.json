@@ -1209,7 +1209,7 @@
         "kind": 2
     },
     {
-        "label": "XCNTLSTYLE",
+        "label": "XCTRLSTYLE",
         "documentation": "操作スタイル・使用コントローラーの設定",
         "kind": 2
     },
@@ -1524,6 +1524,41 @@
         "kind": 2
     },
     {
+        "label": "RECCHK",
+        "documentation": "RECSTARTによる録音の状態を取得",
+        "kind": 2
+    },
+    {
+        "label": "RECDATA",
+        "documentation": "RECSTARTで録音されたサンプル値を取り出す",
+        "kind": 2
+    },
+    {
+        "label": "RECLEN",
+        "documentation": "RECSTARTで確保されたバッファのサンプル数を返す",
+        "kind": 2
+    },
+    {
+        "label": "RECPOS",
+        "documentation": "RECSTARTで録音される現在のサンプル位置を返す",
+        "kind": 2
+    },
+    {
+        "label": "RECSAVE",
+        "documentation": "RECSTARTで録音したサンプル値を配列に取り出す",
+        "kind": 2
+    },
+    {
+        "label": "RECSTART",
+        "documentation": "BEEP/BGMPLAY/TALKで再生されている音を録音",
+        "kind": 2
+    },
+    {
+        "label": "RECSTOP",
+        "documentation": "RECSTARTによる録音を停止",
+        "kind": 2
+    },
+    {
         "label": "BIQUAD",
         "documentation": "BiQuadフィルタの適用",
         "kind": 2
@@ -1634,6 +1669,11 @@
         "kind": 2
     },
     {
+        "label": "ENVLOCATE",
+        "documentation": "キャレットの画面座標を取得",
+        "kind": 2
+    },
+    {
         "label": "PUSHKEY",
         "documentation": "キー入力の流し込み",
         "kind": 2
@@ -1648,6 +1688,43 @@
         "documentation": "ヘルプデータ取得",
         "kind": 2
     },
+
+    {
+        "label": "UISTATE",
+        "documentation": "システムの状態を取得？（※リファレンスに情報がない命令です）",
+        "kind": 2
+    },
+    {
+        "label": "UIRUN",
+        "documentation": "UIインタプリタでプログラム実行？（※試験的に開放されている命令です）",
+        "kind": 2
+    },
+    {
+        "label": "UISTOP",
+        "documentation": "UIインタプリタで実行したプログラムの停止？（※試験的に開放されている命令です）",
+        "kind": 2
+    },
+    {
+        "label": "UIPUSHCMPL",
+        "documentation": "入力補完関係の命令？（※リファレンスに情報がない命令です）",
+        "kind": 2
+    },
+    {
+        "label": "UIGETCMPL",
+        "documentation": "入力補完関係の命令？（※リファレンスに情報がない命令です）",
+        "kind": 2
+    },
+    {
+        "label": "UIMASK",
+        "documentation": "（※リファレンスに情報がない命令です）",
+        "kind": 2
+    },
+    {
+        "label": "UIFOCUS",
+        "documentation": "（※リファレンスに情報がない命令です）",
+        "kind": 2
+    },
+
     {
         "label": "#ON",
         "documentation": "1",
