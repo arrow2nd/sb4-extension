@@ -1,273 +1,273 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "SB4",
-	"scopeName": "source.prg",
-	"patterns": [
-		{
-			"include": "#code"
-		}
-	],
-	"repository": {
-		"code": {
-			"patterns": [
-				{
-					"include": "#define"
-				},
-				{
-					"include": "#keywords"
-				},
-				{
-					"include": "#types"
-				},
-				{
-					"include": "#labels"
-				},
-				{
-					"include": "#operator"
-				},
-				{
-					"include": "#parameters"
-				},
-				{
-					"include": "#comments"
-				}
-			],
-			"repository": {
-				"define": {
-					"patterns": [
-						{
-							"begin": "(?i)(\\bCOMMON?\\b\\s+)?\\b(DEF)\\b\\s+(\\w+[#$%]?)",
-							"beginCaptures": {
-								"1": {
-									"name": "storage.modifier.sb4"
-								},
-								"2": {
-									"name": "storage.type.sb4"
-								},
-								"3": {
-									"name": "entity.name.function.sb4"
-								}
-							},
-							"end": "(?i)\\bEND\\b",
-							"endCaptures": {
-								"0": {
-									"name": "storage.type.sb4"
-								}
-							},
-							"name": "meta.function.sb4",
-							"patterns": [
-								{
-									"include": "#code"
-								}
-							]
-						}
-					]
-				},
-				"keywords": {
-					"patterns": [
-						{
-							"match": "(?i)\\bARRAY[#$%]|\\b(SWAP|INC|DEC|COPY|RINGCOPY|SORT|RSORT|PUSH|POP|UNSHIFT|SHIFT|FILL|TYPEOF|RESIZE|INSERT|REMOVE|FIND|INSPECT)\\b",
-							"name": "keyword.storage.sb4"
-						},
-						{
-							"match": "(?i)\\b(ON|GOTO|GOSUB|RETURN|IF|THEN|ELSEIF|ELSE|ENDIF|CASE|WHEN|OTHERWISE|ENDCASE|LOOP|ENDLOOP|FOR|TO|NEXT|WHILE|WEND|REPEAT|UNTIL|CONTINUE|BREAK|END|STOP|DEFARGC|DEFARG|DEFOUTC|DEFOUT|CALL|OUT)\\b",
-							"name": "keyword.control.sb4"
-						},
-						{
-							"match": "(?i)\\bINKEY\\$|\\b(CLS|COLOR|LOCATE|PRINT|INPUT|LINPUT)\\b",
-							"name": "keyword.console.sb4"
-						},
-						{
-							"match": "(?i)\\b(INT|FLOAT|FLOOR|ROUND|CEIL|ABS|SGN|MIN|MAX|RND|RNDF|RANDOMIZE|SQR|EXP|LOG|POW|RAD|DEG|SIN|COS|TAN|ASIN|ACOS|ATAN|SINH|COSH|TANH|CLASSIFY)\\b",
-							"name": "keyword.math.sb4"
-						},
-						{
-							"match": "(?i)\\b(CHR|STR|HEX|BIN|FORMAT|MID|LEFT|RIGHT|SUBST|DATE|TIME)\\$|\\b(ASC|VAL|LEN|LAST|INSTR)\\b",
-							"name": "keyword.string.sb4"
-						},
-						{
-							"match": "(?i)\\b(FILES|LOAD|LOADG|LOADV|SAVE|SAVEG|SAVEV|PROJECT|EXEC|CHKFILE|DELETE|RENAME)\\b",
-							"name": "keyword.file.sb4"
-						},
-						{
-							"match": "(?i)\\b(DATA|READ|RESTORE|OPTION|WAIT|VSYNC|TMREAD|DTREAD|CHKLABEL|CHKCALL|CHKVAR|DIALOG|RESULT|CALLIDX|CLIPBOARD|KEY|FONTINFO|FREEMEM|MILLISEC|MAINCNT|SYSPARAM|PERFBEGIN|PERFEND|METALOAD|METAEDIT|METASAVE)\\b",
-							"name": "keyword.other.sb4"
-						},
-						{
-							"match": "(?i)\\b(ACLS|XSCREEN|ANIMDEF|BACKCOLOR|FADE|FADECHK|LAYER|LFILTER|LCLIP|LMATRIX)\\b",
-							"name": "keyword.screen.sb4"
-						},
-						{
-							"match": "(?i)\\b(GTARGET|GCOLOR|RGB|RGBF|HSV|HSVF|GCLIP|GCLS|GPSET|GPGET|GLINE|GCIRCLE|GBOX|GFILL|GPAINT|GCOPY|GSAVE|GLOAD|GTRI|GPUTCHR|GPUTCHRP|GARRAY|GUPDATE|GSAMPLE)\\b",
-							"name": "keyword.graphic.sb4"
-						},
-						{
-							"match": "(?i)\\b(SPSET|SPCLR|SPSHOW|SPHIDE|SPHOME|SPOFS|SPROT|SPSCALE|SPCOLOR|SPCHR|SPPAGE|SPLAYER|SPDEF|SPLINK|SPUNLINK|SPANIM|SPSTOP|SPSTART|SPCHK|SPVAR|SPCOL|SPCOLVEC|SPHITSP|SPHITRC|SPHITINFO|SPFUNC|SPUSED)\\b",
-							"name": "keyword.sprite.sb4"
-						},
-						{
-							"match": "(?i)\\b(TPRINT|ATTR|SCROLL|CHKCHR|TSCREEN|TPAGE|TCOLOR|TLAYER|TPUT|TFILL|THOME|TOFS|TROT|TSCALE|TSHOW|THIDE|TBLEND|TANIM|TSTOP|TSTART|TCHK|TVAR|TCOPY|TSAVE|TLOAD|TARRAY|TUPDATE|TFUNC|TCOORD)\\b",
-							"name": "keyword.text-screen.sb4"
-						},
-						{
-							"match": "(?i)\\b(XCTRLSTYLE|CONTROLLER|BUTTON|BREPEAT|STICK|ACCEL|GYROV|GYROA|GYROSYNC|VIBRATE|TOUCH|MOUSE|MBUTTON|IRSTART|IRSTOP|IRSTATE|IRREAD|IRSPRITE|KEYBOARD)\\b",
-							"name": "keyword.input.sb4"
-						},
-						{
-							"match": "(?i)\\b(TCPIANO|TCHOUSE|TCFISHING|TCBIKE|TCROBOT|TCVISOR|TCCAR|TCPLANE|TCSUBM|TCVEHICLE)\\b",
-							"name": "keyword.toy-con.sb4"
-						},
-						{
-							"match": "(?i)\\b(BEEP|BEEPPAN|BEEPPIT|BEEPSTOP|BEEPVOL|BGMCLEAR|BGMCONT|BGMPITCH|BGMPLAY|BGMPAUSE|BGMSET|BGMSETD|BGMSTOP|BGMVAR|BGMVOL|BGMWET|BGMCHK|WAVSET|WAVSETA|EFCEN|EFCSET|EFCWET|PCMCONT|PCMPOS|PCMSTOP|PCMSTREAM|PCMVOL|SNDMSBAL|SNDMVOL|SNDSTOP|TALK|TALKCHK|TALKSTOP|CHKMML|RECCHK|RECDATA|RECLEN|RECPOS|RECSAVE|RECSTART|RECSTOP)\\b",
-							"name": "keyword.sound.sb4"
-						},
-						{
-							"match": "(?i)\\b(BIQUAD|BQPARAM|FFT|IFFT|FFTWFN|ARYOP)\\b",
-							"name": "keyword.advanced.sb4"
-						},
-						{
-							"match": "(?i)\\b(PRGGET|PRGNAME)\\$|\\b(PRGEDIT|PRGSEEK|PRGSET|PRGINS|PRGDEL|PRGSIZE)\\b",
-							"name": "keyword.source.sb4"
-						},
-						{
-							"match": "(?i)\\bENVINPUT\\$|\\b(XSUBSCREEN|ENVSTAT|ENVLOAD|ENVSAVE|ENVTYPE|ENVFOCUS|ENVPROJECT|ENVLOCATE|PUSHKEY|HELPINFO|HELPGET)\\b",
-							"name": "keyword.sub-program.sb4"
-						},
-						{
-							"match": "(?i)\\b(UISTATE|UIRUN|UISTOP|UIPUSHCMPL|UIGETCMPL|UIMASK|UIFOCUS)\\b",
-							"name": "keyword.ui.sb4"
-						}
-					]
-				},
-				"types": {
-					"patterns": [
-						{
-							"match": "(?i)\\b(DIM|VAR|CONST|ENUM)\\b",
-							"name": "storage.type.sb4"
-						}
-					]
-				},
-				"labels": {
-					"patterns": [
-						{
-							"match": "@\\w*",
-							"name": "entity.name.class.sb4"
-						}
-					]
-				},
-				"operator": {
-					"patterns": [
-						{
-							"match": "(?i)\\b(DIV|MOD|AND|OR|XOR|NOT)\\b",
-							"name": "keyword.other.operator.sb4"
-						}
-					]
-				},
-				"parameters": {
-					"patterns": [
-						{
-							"include": "#constant"
-						},
-						{
-							"include": "#numeric"
-						},
-						{
-							"include": "#strings"
-						}
-					],
-					"repository": {
-						"constant": {
-							"patterns": [
-								{
-									"match": "(?i)#(ON|OFF|YES|NO|TRUE|FALSE|PI|EXP)",
-									"name": "constant.language.generic.sb4"
-								},
-								{
-									"match": "(?i)#C_(CLEAR|AQUA|BLACK|BLUE|CYAN|FUCHSIA|GRAY|GREEN|LIME|MAGENTA|MAROON|NAVY|OLIVE|PURPLE|RED|SILVER|TEAL|WHITE|YELLOW)",
-									"name": "constant.other.rgb-value.sb4"
-								},
-								{
-									"match": "(?i)#B_(RUP|RDOWN|RLEFT|RRIGHT|LUP|LDOWN|LLEFT|LRIGHT|L1|R1|L2|R2|SL|SR|S1|S2|LSTICK|RSTICK|RANY|LANY|ANY|A|B|X|Y)",
-									"name": "constant.language.button.sb4"
-								},
-								{
-									"match": "(?i)#A_(ROT0|ROT90|ROT180|ROT270|REVH|REVV|ADD)",
-									"name": "constant.language.attr.sb4"
-								},
-								{
-									"match": "(?i)#(CHKXY|CHKZ|CHKR|CHKS|CHKC|CHKV|CHKUV|CHKI)",
-									"name": "constant.language.chk.sb4"
-								},
-								{
-									"match": "(?i)#T_(DEFAULT|INTARRAY|REALARRAY|STRARRAY|INT|REAL|STR)",
-									"name": "constant.language.typedef.sb4"
-								},
-								{
-									"match": "(?i)#G_(NORMAL2|NORMAL|ALPHA2|ALPHA|ADD)",
-									"name": "constant.language.graphic.sb4"
-								},
-								{
-									"match": "(?i)#BQ(APF|LPF|HPF|BPF|BSF|LSF|HSF|PEQ)",
-									"name": "constant.language.bq.sb4"
-								},
-								{
-									"match": "(?i)#WF(RECT|HAMM|HANN|BLKM)",
-									"name": "constant.language.fftwfn.sb4"
-								},
-								{
-									"match": "(?i)#AOP(ADD|SUB|MUL|DIV|MAD|LIP|CLP)",
-									"name": "constant.language.aryop.sb4"
-								},
-								{
-									"match": "(?i)#EFC(OFF|ON|BATH|CAVE|SPACE|REFSROOM|REFLROOM|REFHALL|REFCAVE|REFNONE|REVROOM|REVHALL|REVMETAL|REVCAVE|REVREV)",
-									"name": "constant.language.efc.sb4"
-								},
-								{
-									"match": "(?i)#PV(LEFT|RIGHT)|(?i)#GRP(WIDTH|HEIGHT|F)|(?i)#MAX(T|SP|GRP)|(?i)#(GSPRITE|TCONSOLE|HARDWARE|VERSION|_LINE|_SLOT|_FILENAME)",
-									"name": "constant.language.uncategorized.sb4"
-								},
-								{
-									"match": "#\\w*[#$%]?",
-									"name": "variable.constant.sb4"
-								}
-							]
-						},
-						"numeric": {
-							"patterns": [
-								{
-									"match": "(?i)&H[A-F0-9]+",
-									"name": "constant.numeric.hex.sb4"
-								},
-								{
-									"match": "&[bB][01]+",
-									"name": "constant.numeric.binary.sb4"
-								},
-								{
-									"match": "\\-??\\b[0-9.]+\\b|\\-??\\b[0-9.]+[eE][+-]??[0-9.]+\\b",
-									"name": "constant.numeric.sb4"
-								}
-							]
-						},
-						"strings": {
-							"patterns": [
-								{
-									"begin": "\"",
-									"end": "\"",
-									"name": "string.quoted.double.sb4"
-								}
-							]
-						}
-					}
-				},
-				"comments": {
-					"patterns": [
-						{
-							"match": "(?i)\\bREM\\b\\W.*|'.*",
-							"name": "comment.line"
-						}
-					]
-				}
-			}
-		}
-	}
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "SB4",
+    "scopeName": "source.prg",
+    "patterns": [
+        {
+            "include": "#code"
+        }
+    ],
+    "repository": {
+        "code": {
+            "patterns": [
+                {
+                    "include": "#define"
+                },
+                {
+                    "include": "#keywords"
+                },
+                {
+                    "include": "#types"
+                },
+                {
+                    "include": "#labels"
+                },
+                {
+                    "include": "#operator"
+                },
+                {
+                    "include": "#parameters"
+                },
+                {
+                    "include": "#comments"
+                }
+            ],
+            "repository": {
+                "define": {
+                    "patterns": [
+                        {
+                            "begin": "(?i)(\\bCOMMON?\\b\\s+)?\\b(DEF)\\b\\s+(\\w+[#$%]?)",
+                            "beginCaptures": {
+                                "1": {
+                                    "name": "storage.modifier.sb4"
+                                },
+                                "2": {
+                                    "name": "storage.type.sb4"
+                                },
+                                "3": {
+                                    "name": "entity.name.function.sb4"
+                                }
+                            },
+                            "end": "(?i)\\bEND\\b",
+                            "endCaptures": {
+                                "0": {
+                                    "name": "storage.type.sb4"
+                                }
+                            },
+                            "name": "meta.function.sb4",
+                            "patterns": [
+                                {
+                                    "include": "#code"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "keywords": {
+                    "patterns": [
+                        {
+                            "match": "(?i)\\bARRAY[#$%]|\\b(SWAP|INC|DEC|COPY|RINGCOPY|SORT|RSORT|PUSH|POP|UNSHIFT|SHIFT|FILL|TYPEOF|RESIZE|INSERT|REMOVE|FIND|INSPECT)\\b",
+                            "name": "keyword.storage.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(ON|GOTO|GOSUB|RETURN|IF|THEN|ELSEIF|ELSE|ENDIF|CASE|WHEN|OTHERWISE|ENDCASE|LOOP|ENDLOOP|FOR|TO|NEXT|WHILE|WEND|REPEAT|UNTIL|CONTINUE|BREAK|END|STOP|DEFARGC|DEFARG|DEFOUTC|DEFOUT|CALL|OUT)\\b",
+                            "name": "keyword.control.sb4"
+                        },
+                        {
+                            "match": "(?i)\\bINKEY\\$|\\b(CLS|COLOR|LOCATE|PRINT|INPUT|LINPUT)\\b",
+                            "name": "keyword.console.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(INT|FLOAT|FLOOR|ROUND|CEIL|ABS|SGN|MIN|MAX|RND|RNDF|RANDOMIZE|SQR|EXP|LOG|POW|RAD|DEG|SIN|COS|TAN|ASIN|ACOS|ATAN|SINH|COSH|TANH|CLASSIFY)\\b",
+                            "name": "keyword.math.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(CHR|STR|HEX|BIN|FORMAT|MID|LEFT|RIGHT|SUBST|DATE|TIME)\\$|\\b(ASC|VAL|LEN|LAST|INSTR)\\b",
+                            "name": "keyword.string.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(FILES|LOAD|LOADG|LOADV|SAVE|SAVEG|SAVEV|PROJECT|EXEC|CHKFILE|DELETE|RENAME)\\b",
+                            "name": "keyword.file.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(DATA|READ|RESTORE|OPTION|WAIT|VSYNC|TMREAD|DTREAD|CHKLABEL|CHKCALL|CHKVAR|DIALOG|RESULT|CALLIDX|CLIPBOARD|KEY|FONTINFO|FREEMEM|MILLISEC|MAINCNT|SYSPARAM|PERFBEGIN|PERFEND|METALOAD|METAEDIT|METASAVE)\\b",
+                            "name": "keyword.other.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(ACLS|XSCREEN|ANIMDEF|BACKCOLOR|FADE|FADECHK|LAYER|LFILTER|LCLIP|LMATRIX)\\b",
+                            "name": "keyword.screen.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(GTARGET|GCOLOR|RGB|RGBF|HSV|HSVF|GCLIP|GCLS|GPSET|GPGET|GLINE|GCIRCLE|GBOX|GFILL|GPAINT|GCOPY|GSAVE|GLOAD|GTRI|GPUTCHR|GPUTCHRP|GARRAY|GUPDATE|GSAMPLE)\\b",
+                            "name": "keyword.graphic.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(SPSET|SPCLR|SPSHOW|SPHIDE|SPHOME|SPOFS|SPROT|SPSCALE|SPCOLOR|SPCHR|SPPAGE|SPLAYER|SPDEF|SPLINK|SPUNLINK|SPANIM|SPSTOP|SPSTART|SPCHK|SPVAR|SPCOL|SPCOLVEC|SPHITSP|SPHITRC|SPHITINFO|SPFUNC|SPUSED)\\b",
+                            "name": "keyword.sprite.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(TPRINT|ATTR|SCROLL|CHKCHR|TSCREEN|TPAGE|TCOLOR|TLAYER|TPUT|TFILL|THOME|TOFS|TROT|TSCALE|TSHOW|THIDE|TBLEND|TANIM|TSTOP|TSTART|TCHK|TVAR|TCOPY|TSAVE|TLOAD|TARRAY|TUPDATE|TFUNC|TCOORD)\\b",
+                            "name": "keyword.text-screen.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(XCTRLSTYLE|CONTROLLER|BUTTON|BREPEAT|STICK|ACCEL|GYROV|GYROA|GYROSYNC|VIBRATE|TOUCH|MOUSE|MBUTTON|IRSTART|IRSTOP|IRSTATE|IRREAD|IRSPRITE|KEYBOARD)\\b",
+                            "name": "keyword.input.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(TCPIANO|TCHOUSE|TCFISHING|TCBIKE|TCROBOT|TCVISOR|TCCAR|TCPLANE|TCSUBM|TCVEHICLE)\\b",
+                            "name": "keyword.toy-con.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(BEEP|BEEPPAN|BEEPPIT|BEEPSTOP|BEEPVOL|BGMCLEAR|BGMCONT|BGMPITCH|BGMPLAY|BGMPAUSE|BGMSET|BGMSETD|BGMSTOP|BGMVAR|BGMVOL|BGMWET|BGMCHK|WAVSET|WAVSETA|EFCEN|EFCSET|EFCWET|PCMCONT|PCMPOS|PCMSTOP|PCMSTREAM|PCMVOL|SNDMSBAL|SNDMVOL|SNDSTOP|TALK|TALKCHK|TALKSTOP|CHKMML|RECCHK|RECDATA|RECLEN|RECPOS|RECSAVE|RECSTART|RECSTOP)\\b",
+                            "name": "keyword.sound.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(BIQUAD|BQPARAM|FFT|IFFT|FFTWFN|ARYOP)\\b",
+                            "name": "keyword.advanced.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(PRGGET|PRGNAME)\\$|\\b(PRGEDIT|PRGSEEK|PRGSET|PRGINS|PRGDEL|PRGSIZE)\\b",
+                            "name": "keyword.source.sb4"
+                        },
+                        {
+                            "match": "(?i)\\bENVINPUT\\$|\\b(XSUBSCREEN|ENVSTAT|ENVLOAD|ENVSAVE|ENVTYPE|ENVFOCUS|ENVPROJECT|ENVLOCATE|PUSHKEY|HELPINFO|HELPGET)\\b",
+                            "name": "keyword.sub-program.sb4"
+                        },
+                        {
+                            "match": "(?i)\\b(UISTATE|UIRUN|UISTOP|UIPUSHCMPL|UIGETCMPL|UIMASK|UIFOCUS)\\b",
+                            "name": "keyword.ui.sb4"
+                        }
+                    ]
+                },
+                "types": {
+                    "patterns": [
+                        {
+                            "match": "(?i)\\b(DIM|VAR|CONST|ENUM)\\b",
+                            "name": "storage.type.sb4"
+                        }
+                    ]
+                },
+                "labels": {
+                    "patterns": [
+                        {
+                            "match": "@\\w*",
+                            "name": "entity.name.class.sb4"
+                        }
+                    ]
+                },
+                "operator": {
+                    "patterns": [
+                        {
+                            "match": "(?i)\\b(DIV|MOD|AND|OR|XOR|NOT)\\b",
+                            "name": "keyword.other.operator.sb4"
+                        }
+                    ]
+                },
+                "parameters": {
+                    "patterns": [
+                        {
+                            "include": "#constant"
+                        },
+                        {
+                            "include": "#numeric"
+                        },
+                        {
+                            "include": "#strings"
+                        }
+                    ],
+                    "repository": {
+                        "constant": {
+                            "patterns": [
+                                {
+                                    "match": "(?i)#(ON|OFF|YES|NO|TRUE|FALSE|PI|EXP)",
+                                    "name": "constant.language.generic.sb4"
+                                },
+                                {
+                                    "match": "(?i)#C_(CLEAR|AQUA|BLACK|BLUE|CYAN|FUCHSIA|GRAY|GREEN|LIME|MAGENTA|MAROON|NAVY|OLIVE|PURPLE|RED|SILVER|TEAL|WHITE|YELLOW)",
+                                    "name": "constant.other.rgb-value.sb4"
+                                },
+                                {
+                                    "match": "(?i)#B_(RUP|RDOWN|RLEFT|RRIGHT|LUP|LDOWN|LLEFT|LRIGHT|L1|R1|L2|R2|SL|SR|S1|S2|LSTICK|RSTICK|RANY|LANY|ANY|A|B|X|Y)",
+                                    "name": "constant.language.button.sb4"
+                                },
+                                {
+                                    "match": "(?i)#A_(ROT0|ROT90|ROT180|ROT270|REVH|REVV|ADD)",
+                                    "name": "constant.language.attr.sb4"
+                                },
+                                {
+                                    "match": "(?i)#(CHKXY|CHKZ|CHKR|CHKS|CHKC|CHKV|CHKUV|CHKI)",
+                                    "name": "constant.language.chk.sb4"
+                                },
+                                {
+                                    "match": "(?i)#T_(DEFAULT|INTARRAY|REALARRAY|STRARRAY|INT|REAL|STR)",
+                                    "name": "constant.language.typedef.sb4"
+                                },
+                                {
+                                    "match": "(?i)#G_(NORMAL2|NORMAL|ALPHA2|ALPHA|ADD)",
+                                    "name": "constant.language.graphic.sb4"
+                                },
+                                {
+                                    "match": "(?i)#BQ(APF|LPF|HPF|BPF|BSF|LSF|HSF|PEQ)",
+                                    "name": "constant.language.bq.sb4"
+                                },
+                                {
+                                    "match": "(?i)#WF(RECT|HAMM|HANN|BLKM)",
+                                    "name": "constant.language.fftwfn.sb4"
+                                },
+                                {
+                                    "match": "(?i)#AOP(ADD|SUB|MUL|DIV|MAD|LIP|CLP)",
+                                    "name": "constant.language.aryop.sb4"
+                                },
+                                {
+                                    "match": "(?i)#EFC(OFF|ON|BATH|CAVE|SPACE|REFSROOM|REFLROOM|REFHALL|REFCAVE|REFNONE|REVROOM|REVHALL|REVMETAL|REVCAVE|REVREV)",
+                                    "name": "constant.language.efc.sb4"
+                                },
+                                {
+                                    "match": "(?i)#PV(LEFT|RIGHT)|(?i)#GRP(WIDTH|HEIGHT|F)|(?i)#MAX(T|SP|GRP)|(?i)#(GSPRITE|TCONSOLE|HARDWARE|VERSION|_LINE|_SLOT|_FILENAME)",
+                                    "name": "constant.language.uncategorized.sb4"
+                                },
+                                {
+                                    "match": "#\\w*[#$%]?",
+                                    "name": "variable.constant.sb4"
+                                }
+                            ]
+                        },
+                        "numeric": {
+                            "patterns": [
+                                {
+                                    "match": "(?i)&H[A-F0-9]+",
+                                    "name": "constant.numeric.hex.sb4"
+                                },
+                                {
+                                    "match": "&[bB][01]+",
+                                    "name": "constant.numeric.binary.sb4"
+                                },
+                                {
+                                    "match": "\\-??\\b[0-9.]+\\b|\\-??\\b[0-9.]+[eE][+-]??[0-9.]+\\b",
+                                    "name": "constant.numeric.sb4"
+                                }
+                            ]
+                        },
+                        "strings": {
+                            "patterns": [
+                                {
+                                    "begin": "\"",
+                                    "end": "\"",
+                                    "name": "string.quoted.double.sb4"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "comments": {
+                    "patterns": [
+                        {
+                            "match": "(?i)\\bREM\\b\\W.*|'.*",
+                            "name": "comment.line"
+                        }
+                    ]
+                }
+            }
+        }
+    }
 }

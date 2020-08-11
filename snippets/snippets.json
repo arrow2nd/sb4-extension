@@ -1,100 +1,100 @@
 {
-	"Set the operating mode": {
-		"prefix": "option",
-		"body": [
-			"OPTION ${1|STRICT,DEFINT|}"
-		],
-		"description": "Set the operating mode"
-	},
-	"IF Statement": {
-		"prefix": "if",
-		"body": [
-			"IF ${1:condition} THEN $0"
-		],
-		"description": "IF Statement"
-	},
-	"IF-ELSE Statement": {
-		"prefix": "ifelse",
-		"body": [
-			"IF ${1:condition} THEN",
-			" $0",
-			"ELSE",
-			" ",
-			"ENDIF"
-		],
-		"description": "IF-ELSE Statement"
-	},
-	"ELSEIF Statement": {
-		"prefix": "elseif",
-		"body": [
-			"ELSEIF ${1:condition} THEN $0"
-		],
-		"description": "ELSEIF Statement"
-	},
-	"CASE Statement": {
-		"prefix": "case",
-		"body": [
-			"CASE ${1:variable}",
-			"WHEN ${2:value}",
-			"ENDCASE"
-		],
-		"description": ""
-	},
-	"LOOP-ENDLOOP Loop": {
-		"prefix": "loop",
-		"body": [
-			"LOOP",
-			" $0",
-			"ENDLOOP"
-		],
-		"description": "LOOP-ENDLOOP Loop"
-	},
-	"FOR-TO Loop": {
-		"prefix": "for",
-		"body": [
-			"FOR ${1:index}=${2:start} TO ${3:end}",
-			" $0",
-			"NEXT"
-		],
-		"description": "FOR-TO Loop"
-	},
-	"WHILE-WEND Loop": {
-		"prefix": "while",
-		"body": [
-			"WHILE ${1:formula}",
-			" $0",
-			"WEND"
-		],
-		"description": "WHILE-WEND Loop"
-	},
-	"REPEAT-UNTIL Loop": {
-		"prefix": [
-			"repeat",
-			"until"
-		],
-		"body": [
-			"REPEAT",
-			" $0",
-			"UNTIL ${1:formula}"
-		],
-		"description": "REPEAT-UNTIL Loop"
-	},
-	"DEF-END": {
-		"prefix": "def",
-		"body": [
-			"DEF ${1:name}",
-			" $0",
-			"END"
-		],
-		"description": "Define the function"
-	},
-	"COMMON DEF-END": {
-		"prefix": "common",
-		"body": [
-			"COMMON DEF ${1:name}",
-			" $0",
-			"END"
-		],
-		"description": "Common Define the function"
-	}
+    "Set the operating mode": {
+        "prefix": "option",
+        "body": [
+            "OPTION ${1|STRICT,DEFINT|}"
+        ],
+        "description": "Set the operating mode"
+    },
+    "IF Statement": {
+        "prefix": "if",
+        "body": [
+            "IF ${1:condition} THEN $0"
+        ],
+        "description": "IF Statement"
+    },
+    "IF-ELSE Statement": {
+        "prefix": "ifelse",
+        "body": [
+            "IF ${1:condition} THEN",
+            " $0",
+            "ELSE",
+            " ",
+            "ENDIF"
+        ],
+        "description": "IF-ELSE Statement"
+    },
+    "ELSEIF Statement": {
+        "prefix": "elseif",
+        "body": [
+            "ELSEIF ${1:condition} THEN $0"
+        ],
+        "description": "ELSEIF Statement"
+    },
+    "CASE Statement": {
+        "prefix": "case",
+        "body": [
+            "CASE ${1:variable}",
+            "WHEN ${2:value}",
+            "ENDCASE"
+        ],
+        "description": ""
+    },
+    "LOOP-ENDLOOP Loop": {
+        "prefix": "loop",
+        "body": [
+            "LOOP",
+            " $0",
+            "ENDLOOP"
+        ],
+        "description": "LOOP-ENDLOOP Loop"
+    },
+    "FOR-TO Loop": {
+        "prefix": "for",
+        "body": [
+            "FOR ${1:index}=${2:start} TO ${3:end}",
+            " $0",
+            "NEXT"
+        ],
+        "description": "FOR-TO Loop"
+    },
+    "WHILE-WEND Loop": {
+        "prefix": "while",
+        "body": [
+            "WHILE ${1:formula}",
+            " $0",
+            "WEND"
+        ],
+        "description": "WHILE-WEND Loop"
+    },
+    "REPEAT-UNTIL Loop": {
+        "prefix": [
+            "repeat",
+            "until"
+        ],
+        "body": [
+            "REPEAT",
+            " $0",
+            "UNTIL ${1:formula}"
+        ],
+        "description": "REPEAT-UNTIL Loop"
+    },
+    "DEF-END": {
+        "prefix": "def",
+        "body": [
+            "DEF ${1:name}",
+            " $0",
+            "END"
+        ],
+        "description": "Define the function"
+    },
+    "COMMON DEF-END": {
+        "prefix": "common",
+        "body": [
+            "COMMON DEF ${1:name}",
+            " $0",
+            "END"
+        ],
+        "description": "Common Define the function"
+    }
 }
