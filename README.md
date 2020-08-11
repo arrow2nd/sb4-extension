@@ -20,8 +20,6 @@ SmileBasic4向けのちょっとしたVSCode用拡張機能です
 
 ## Known Issues
 
-- 「#」だけを入力したとき補完候補が表示されない
-
 ## Release Notes
 
 ### [Unreleased]
