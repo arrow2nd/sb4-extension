@@ -167,11 +167,11 @@ function scanSourceCode(document) {
 			let name = key;
 			let isLocal = false;
 			key = name.toUpperCase();
-			if (declarationResult[key]) continue;	// 名前が重複するものは追加しない
 			if (isDef && type != 'DEF') {
 				key = `${defId}:${key}`;
 				isLocal = true
 			};
+			if (declarationResult[key]) continue;	// 名前が重複するものは追加しない
 			declarationResult[key] = {
 				"name": name,
 				"type": type,
