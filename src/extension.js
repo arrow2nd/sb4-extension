@@ -71,7 +71,6 @@ class sb4CompletionItemProvider {
 					});
 				};
 			};
-			
 			this.saveLine = currentLine;
 			this.completionItems = defaultCommplationItems.concat(addCommplationItems);
 		};
@@ -164,7 +163,7 @@ function scanSourceCode(document) {
 
 		// リストに追加
 		for (let key of keys) {
-			let name = key;
+			let name 	= key;
 			let isLocal = false;
 			key = name.toUpperCase();
 			if (isDef && type != 'DEF') {
