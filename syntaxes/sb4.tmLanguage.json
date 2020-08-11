@@ -3,18 +3,34 @@
 	"name": "SB4",
 	"scopeName": "source.prg",
 	"patterns": [
-		{"include": "#code"}
+		{
+			"include": "#code"
+		}
 	],
 	"repository": {
 		"code": {
 			"patterns": [
-				{"include": "#define"},
-				{"include": "#keywords"},
-				{"include": "#types"},
-				{"include": "#labels"},
-				{"include": "#operator"},
-				{"include": "#parameters"},
-				{"include": "#comments"}
+				{
+					"include": "#define"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#types"
+				},
+				{
+					"include": "#labels"
+				},
+				{
+					"include": "#operator"
+				},
+				{
+					"include": "#parameters"
+				},
+				{
+					"include": "#comments"
+				}
 			],
 			"repository": {
 				"define": {
@@ -22,17 +38,27 @@
 						{
 							"begin": "(?i)(\\bCOMMON?\\b\\s+)?\\b(DEF)\\b\\s+(\\w+[#$%]?)",
 							"beginCaptures": {
-								"1": {"name": "storage.modifier.sb4"},
-								"2": {"name": "storage.type.sb4"},
-								"3": {"name": "entity.name.function.sb4"}
+								"1": {
+									"name": "storage.modifier.sb4"
+								},
+								"2": {
+									"name": "storage.type.sb4"
+								},
+								"3": {
+									"name": "entity.name.function.sb4"
+								}
 							},
 							"end": "(?i)\\bEND\\b",
 							"endCaptures": {
-								"0": {"name": "storage.type.sb4"}
+								"0": {
+									"name": "storage.type.sb4"
+								}
 							},
 							"name": "meta.function.sb4",
 							"patterns": [
-								{"include": "#code"}
+								{
+									"include": "#code"
+								}
 							]
 						}
 					]
@@ -121,7 +147,7 @@
 						}
 					]
 				},
-				"labels":{
+				"labels": {
 					"patterns": [
 						{
 							"match": "@\\w*",
@@ -139,9 +165,15 @@
 				},
 				"parameters": {
 					"patterns": [
-						{"include": "#constant"},
-						{"include": "#numeric"},
-						{"include": "#strings"}
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#numeric"
+						},
+						{
+							"include": "#strings"
+						}
 					],
 					"repository": {
 						"constant": {
@@ -227,7 +259,7 @@
 						}
 					}
 				},
-				"comments":{
+				"comments": {
 					"patterns": [
 						{
 							"match": "(?i)\\bREM\\b\\W.*|'.*",
