@@ -9,7 +9,7 @@ let saveDefineData = [];		// def定義データ保持用
  * ホバー表示
  */
 class sb4HoverProvider {
-    provideHover(document, position) {
+	provideHover(document, position) {
 		// ホバーされている単語を切り出す
 		const wordRange = document.getWordRangeAtPosition(position, /[a-zA-Z0-9_#$%]+/);
 		if (!wordRange) return Promise.reject("Not Found");
@@ -18,7 +18,7 @@ class sb4HoverProvider {
 		// 現在の行がDEF内かチェック
 		let defId = getDefId(position.line + 1);
 		let chkKey = (defId != null) ? `${defId}:${currentWord}` : currentWord;
-//		console.log(`hover: ${currentWord} / defId: ${defId}`);
+		//		console.log(`hover: ${currentWord} / defId: ${defId}`);
 
 		// 宣言データを参照
 		let data;
@@ -41,7 +41,7 @@ class sb4HoverProvider {
 		// 表示メッセージを作成
 		const message = createMarkdown(data, desc, true);
 		return Promise.resolve(new vscode.Hover(message));
-    };
+	};
 };
 
 /**
@@ -53,9 +53,9 @@ class sb4CompletionItemProvider {
 		this.completionItems = [];
 	};
 
-    provideCompletionItems(document, position) {
+	provideCompletionItems(document, position) {
 		const currentLine = position.line + 1;
-//		console.log(`current: ${currentLine} / save: ${this.saveLine}`);
+		//		console.log(`current: ${currentLine} / save: ${this.saveLine}`);
 
 		if (this.saveLine != currentLine) {
 			// ユーザー定義を候補に追加
@@ -76,8 +76,8 @@ class sb4CompletionItemProvider {
 			this.completionItems = defaultCommplationItems.concat(addCommplationItems);
 		};
 
-        return Promise.resolve(new vscode.CompletionList(this.completionItems, false));
-    };
+		return Promise.resolve(new vscode.CompletionList(this.completionItems, false));
+	};
 };
 
 /**
@@ -156,7 +156,7 @@ function scanSourceCode(document) {
 		let segmented = define[2].replace(/[\[|\(|"].*?[\]|\)|"]/g, '').split(",");
 		if (type === 'DEF') {
 			keys.push(segmented[0].split(' ')[0]);
-			defineResult.push({'id': defId, 'startLine': i + 1, 'endLine': null});
+			defineResult.push({ 'id': defId, 'startLine': i + 1, 'endLine': null });
 			isDef = true;
 		} else {
 			keys = segmented.map(value => value.replace(/ /g, '').split(/\s*?=/)[0]);
@@ -164,7 +164,7 @@ function scanSourceCode(document) {
 
 		// リストに追加
 		for (let key of keys) {
-			let name 	= key;
+			let name = key;
 			let isLocal = false;
 			key = name.toUpperCase();
 			if (isDef && type != 'DEF') {
@@ -181,8 +181,8 @@ function scanSourceCode(document) {
 			};
 		};
 	});
-//	console.log(declarationResult);
-//	console.log(defineResult);
+	//	console.log(declarationResult);
+	//	console.log(defineResult);
 
 	return [declarationResult, defineResult];
 };
