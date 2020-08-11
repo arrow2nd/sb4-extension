@@ -14,10 +14,11 @@ class sb4HoverProvider {
 		const wordRange = document.getWordRangeAtPosition(position, /[a-zA-Z0-9_#$%]+/);
 		if (!wordRange) return Promise.reject("Not Found");
 		const currentWord = document.lineAt(position.line).text.slice(wordRange.start.character, wordRange.end.character).toUpperCase();
-		
+
 		// 現在の行がDEF内かチェック
 		let defId = getDefId(position.line + 1);
 		let chkKey = (defId != null) ? `${defId}:${currentWord}` : currentWord;
+		console.log(`hover: ${currentWord} / defId: ${defId}`);
 
 		// 宣言データを参照
 		let data;
@@ -35,27 +36,16 @@ class sb4HoverProvider {
 
 		// コメント取得
 		let desc = data.desc;
-		// コメントが無い場合、上方向のコメントを検索
-		let commentLine = data.line - 2;
-		if (desc === '' && commentLine >= 0) {
-			let comment = document.lineAt(commentLine).text;
-			while (comment.match(/^'/)) {
-				desc = comment.slice(1) + '\n\n' + desc;
-				commentLine--;
-				if (commentLine < 0) break;
-				comment = document.lineAt(commentLine).text;
-			};
-		};
 		desc = (desc === '') ? 'No Comment...' : desc;
 
 		// 表示メッセージを作成
-		const message = createMarkdown(data, desc);
+		const message = createMarkdown(data, desc, true);
 		return Promise.resolve(new vscode.Hover(message));
     };
 };
 
 /**
- * コード補完
+ * 入力補完
  */
 class sb4CompletionItemProvider {
 	constructor() {
@@ -63,28 +53,25 @@ class sb4CompletionItemProvider {
 		this.completionItems = [];
 	};
 
-    provideCompletionItems(document, position, token) {
+    provideCompletionItems(document, position) {
 		const currentLine = position.line + 1;
 
 		if (this.saveLine != currentLine) {
-			// 現在の行がDEF内かチェック
-			let defId = getDefId(currentLine);
-			console.log(`line ${currentLine} defId:${defId}`);
-
 			// ユーザー定義を候補に追加
-			const regex = new RegExp((defId != null) ? `^((?!\\w:)|${defId}:).+` : `^(?!\\w:).+`);
 			let addCommplationItems = [];
 			for (let key in saveDeclarationData) {
-				if (key.match(regex)) {
-					let data = saveDeclarationData[key];
+				let data = saveDeclarationData[key];
+				// 名前が重複するものは追加しない
+				const hasSameDataRegistered = addCommplationItems.some(d => d.label == data.name);
+				if (!hasSameDataRegistered) {
 					addCommplationItems.push({
 						"label": data.name,
-						"documentation": createMarkdown(data, null),
+						"documentation": createMarkdown(data, data.desc, false),
 						"kind": (data.type === 'DEF') ? 2 : 5
 					});
 				};
 			};
-
+			
 			this.saveLine = currentLine;
 			this.completionItems = defaultCommplationItems.concat(addCommplationItems);
 		};
@@ -94,17 +81,30 @@ class sb4CompletionItemProvider {
 };
 
 /**
- * マークダウン形式の表示テキストを作成する
- * @param  {Object} data  定義データ
- * @param  {String} desc  コメント
- * @return {String}       マークダウンテキスト
+ * 行番号からDEFIDを取得
+ * @param  {Number} line 行番号
+ * @return {Number}      DEFID
  */
-function createMarkdown(data, desc) {
+function getDefId(line) {
+	for (let data of saveDefineData) {
+		if (data.startLine < line && data.endLine > line) return data.id;
+	};
+	return null;
+};
+
+/**
+ * マークダウン形式の表示テキストを作成する
+ * @param  {Object}  data   定義データ
+ * @param  {String}  desc   コメント
+ * @param  {Boolean} showHr 水平線を表示するか
+ * @return {String}         マークダウンテキスト
+ */
+function createMarkdown(data, desc, showHr) {
 	const scope = (data.isLocal) ? '[Local] ' : '';
 	let message = new vscode.MarkdownString();
 	// 追加
 	message.appendCodeblock(`${scope}${data.type} ${data.name} '(Line ${data.line})`);
-	if (desc != null) message.appendMarkdown(`\n\n***\n\n${desc}`);
+	if (desc != null) message.appendMarkdown(((showHr) ? '\n\n***' : '') + `\n\n${desc}`);
 	return message;
 };
 
@@ -122,10 +122,11 @@ function scanSourceCode(document) {
 	let defineResult = [];
 
 	lines.forEach((line, i) => {
+		// 定義のある行を探す
 		let define = line.match(/(?<!\s*'\s*)\b(CONST|ENUM|DIM|VAR|DEF)\b\s+([ -&(-~]+)/i);
 		if (!define) {
 			// DEFの終端
-			if (isDef && line.match(/\bEND\b/i)) {
+			if (isDef && line.match(/^\s*\bEND\b/i)) {
 				defineResult[defId].endLine = i + 1;
 				defId++;
 				isDef = false;
@@ -133,15 +134,26 @@ function scanSourceCode(document) {
 			return;
 		};
 
-		// 右側のコメントを抽出
+		// コメントを抽出
 		let desc = line.split("'");
 		desc = (desc.length > 1) ? desc[1] : '';
+		// コメントが取得できなかった場合、上方向にコメントがないか探す
+		let commentLine = i - 1;
+		if (desc === '' && commentLine >= 0) {
+			let comment = document.lineAt(commentLine).text;
+			while (comment.match(/^'/)) {
+				desc = comment.slice(1) + '\n\n' + desc;
+				commentLine--;
+				if (commentLine < 0) break;
+				comment = document.lineAt(commentLine).text;
+			};
+		};
+
 		// 宣言タイプ
 		let type = define[1].toUpperCase();
-		// 括弧を削除して変数・関数名をカンマで分割
+		// 宣言名を解析
 		let keys = [];
 		let segmented = define[2].replace(/[\[|\(|"].*?[\]|\)|"]/g, '').split(",");
-		// キーを作成
 		if (type === 'DEF') {
 			keys.push(segmented[0].split(' ')[0]);
 			defineResult.push({'id': defId, 'startLine': i + 1, 'endLine': null});
@@ -150,16 +162,16 @@ function scanSourceCode(document) {
 			keys = segmented.map(value => value.replace(/ /g, '').split(/\s*?=/)[0]);
 		};
 
-		// 追加
+		// リストに追加
 		for (let key of keys) {
 			let name = key;
 			let isLocal = false;
 			key = name.toUpperCase();
+			if (declarationResult[key]) continue;	// 名前が重複するものは追加しない
 			if (isDef && type != 'DEF') {
 				key = `${defId}:${key}`;
 				isLocal = true
 			};
-			if (declarationResult[key]) continue;	// 同じ名前が記録されている場合スキップ
 			declarationResult[key] = {
 				"name": name,
 				"type": type,
@@ -174,18 +186,6 @@ function scanSourceCode(document) {
 	console.log(defineResult);
 
 	return [declarationResult, defineResult];
-};
-
-/**
- * 行番号からDEFIDを取得
- * @param  {Number} line 行番号
- * @return {Number}      DEFID
- */
-function getDefId(line) {
-	for (let data of saveDefineData) {
-		if (data.startLine < line && data.endLine > line) return data.id;
-	};
-	return null;
 };
 
 /**
@@ -212,7 +212,7 @@ function activate(context) {
 		if (timeout != null) {
 			clearTimeout(timeout);
 		};
-		// スキャンとインターバル設定
+		// インターバル設定
 		timeout = setInterval(() => {
 			clearTimeout(timeout);
 			timeout = null;
