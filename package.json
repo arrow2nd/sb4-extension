@@ -5,7 +5,7 @@
 	"version": "0.0.1",
     "publisher": "arrow2nd",
     "license": "MIT",
-	"engines": {
+    "engines": {
 		"vscode": "^1.47.0"
 	},
 	"categories": [
@@ -15,10 +15,19 @@
     "keywords": [
         "SmileBasic"
     ],
-	"activationEvents": [
+    "icon": ".img/icon.png",
+    "bugs": {
+        "url": "https://github.com/arrow2nd/sb4-extension/issues",
+        "email": "arrow2nd_workspace@zohomail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/arrow2nd/sb4-extension"
+    },    
+    "main": "./src/extension.js",
+    "activationEvents": [
         "onLanguage:sb4"
 	],
-	"main": "./src/extension.js",
 	"contributes": {
         "languages": [
             {
