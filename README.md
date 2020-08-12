@@ -5,7 +5,7 @@ SmileBasic4向けのちょっとしたVSCode用拡張機能です
 ## 機能
 
 ### シンタックスハイライト
-![syntax](https://user-images.githubusercontent.com/44780846/89897565-308c8f80-dc1a-11ea-88e2-57390b3c9a4f.png)
+![syntax](https://user-images.githubusercontent.com/44780846/89967349-328f3680-dc8c-11ea-817b-2226a102f72f.png)
 
 ### コード補完
 ![completion](https://user-images.githubusercontent.com/44780846/89897597-3edaab80-dc1a-11ea-96d8-45ecc6f848db.gif)
