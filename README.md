@@ -2,9 +2,7 @@
 
 SmileBasic4向けのちょっとしたVSCode用拡張機能です
 
-## Features
-
-以下の機能を提供します
+## 機能
 
 ### シンタックスハイライト
 ![syntax](https://user-images.githubusercontent.com/44780846/89897565-308c8f80-dc1a-11ea-88e2-57390b3c9a4f.png)
@@ -18,10 +16,20 @@ SmileBasic4向けのちょっとしたVSCode用拡張機能です
 ### コメントのホバー表示
 ![hover](https://user-images.githubusercontent.com/44780846/89897673-574ac600-dc1a-11ea-9c71-b6a7ddf83c17.gif)
 
-## Known Issues
+## 仕様
+### コメントのホバー表示
 
-## Release Notes
+- 関数・定数・変数宣言文の右、または上に記載されているコメントを表示します
 
-### [Unreleased]
+## 既知の問題
 
-- リリースしました
+- 「\」（バックスラッシュ）を使い、複数行に渡って宣言されている定数・変数の分析ができない
+
+## リリースノート
+### [1.0.0] - 2020-08-12
+
+- リリースしました！
+
+## ライセンス
+
+[SmileBASIC](https://www.petc4.smilebasic.com/)は[株式会社スマイルブーム](https://smileboom.com/)の登録商標です。
