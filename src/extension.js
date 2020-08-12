@@ -18,7 +18,7 @@ class sb4HoverProvider {
         // 現在の行がDEF内かチェック
         let defId = getDefId(position.line + 1);
         let chkKey = (defId != null) ? `${defId}:${currentWord}` : currentWord;
-        //		console.log(`hover: ${currentWord} / defId: ${defId}`);
+        //console.log(`hover: ${currentWord} / defId: ${defId}`);
 
         // 宣言データを参照
         let data;
@@ -55,7 +55,7 @@ class sb4CompletionItemProvider {
 
     provideCompletionItems(document, position) {
         const currentLine = position.line + 1;
-        //		console.log(`current: ${currentLine} / save: ${this.saveLine}`);
+        //console.log(`current: ${currentLine} / save: ${this.saveLine}`);
 
         if (this.saveLine != currentLine) {
             // ユーザー定義を候補に追加
@@ -181,8 +181,8 @@ function scanSourceCode(document) {
             };
         };
     });
-    //	console.log(declarationResult);
-    //	console.log(defineResult);
+    //console.log(declarationResult);
+    //console.log(defineResult);
 
     return [declarationResult, defineResult];
 };
