@@ -15,7 +15,7 @@
     "keywords": [
         "SmileBasic"
     ],
-    "icon": ".img/icon.png",
+    "icon": "img/icon.png",
     "bugs": {
         "url": "https://github.com/arrow2nd/sb4-extension/issues",
         "email": "arrow2nd_workspace@zohomail.com"
