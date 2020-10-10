@@ -2,8 +2,8 @@ const vscode = require('vscode');
 const defaultCommplationItems = require('./completionItems.json');
 const SB4_MODE = { scheme: 'file', language: 'sb4' };
 
-let saveDeclarationData = {};	// 宣言データ保持用
-let saveDefineData = [];		// def定義データ保持用
+let saveDeclarationData = {};   // 宣言データ保持用
+let saveDefineData = [];        // def定義データ保持用
 
 /**
  * ホバー表示
@@ -188,7 +188,7 @@ function scanSourceCode(document) {
  * 
  * @param   {Object} document ドキュメント
  * @param   {String} line     行
- * @param   {Numbet} i        行番号
+ * @param   {Number} i        行番号
  * @returns {String}          宣言のある行
  */
 function findDefinition(document, line, i) {
@@ -214,7 +214,7 @@ function findDefinition(document, line, i) {
  * 
  * @param   {Object} document ドキュメント
  * @param   {String} line     行
- * @param   {Numbet} i        行番号
+ * @param   {Number} i        行番号
  * @returns {String}          コメント文
  */
 function findComment(document, line, i) {
