@@ -179,51 +179,51 @@
                         "constant": {
                             "patterns": [
                                 {
-                                    "match": "(?i)#(ON|OFF|YES|NO|TRUE|FALSE|PI|EXP)",
+                                    "match": "(?i)#(ON|OFF|YES|NO|TRUE|FALSE|PI|EXP)\\b",
                                     "name": "constant.language.generic.sb4"
                                 },
                                 {
-                                    "match": "(?i)#C_(CLEAR|AQUA|BLACK|BLUE|CYAN|FUCHSIA|GRAY|GREEN|LIME|MAGENTA|MAROON|NAVY|OLIVE|PURPLE|RED|SILVER|TEAL|WHITE|YELLOW)",
+                                    "match": "(?i)#C_(CLEAR|AQUA|BLACK|BLUE|CYAN|FUCHSIA|GRAY|GREEN|LIME|MAGENTA|MAROON|NAVY|OLIVE|PURPLE|RED|SILVER|TEAL|WHITE|YELLOW)\\b",
                                     "name": "constant.other.rgb-value.sb4"
                                 },
                                 {
-                                    "match": "(?i)#B_(RUP|RDOWN|RLEFT|RRIGHT|LUP|LDOWN|LLEFT|LRIGHT|L1|R1|L2|R2|SL|SR|S1|S2|LSTICK|RSTICK|RANY|LANY|ANY|A|B|X|Y)",
+                                    "match": "(?i)#B_(RUP|RDOWN|RLEFT|RRIGHT|LUP|LDOWN|LLEFT|LRIGHT|L1|R1|L2|R2|SL|SR|S1|S2|LSTICK|RSTICK|RANY|LANY|ANY|A|B|X|Y)\\b",
                                     "name": "constant.language.button.sb4"
                                 },
                                 {
-                                    "match": "(?i)#A_(ROT0|ROT90|ROT180|ROT270|REVH|REVV|ADD)",
+                                    "match": "(?i)#A_(ROT0|ROT90|ROT180|ROT270|REVH|REVV|ADD)\\b",
                                     "name": "constant.language.attr.sb4"
                                 },
                                 {
-                                    "match": "(?i)#(CHKXY|CHKZ|CHKR|CHKS|CHKC|CHKV|CHKUV|CHKI)",
+                                    "match": "(?i)#(CHKXY|CHKZ|CHKR|CHKS|CHKC|CHKV|CHKUV|CHKI)\\b",
                                     "name": "constant.language.chk.sb4"
                                 },
                                 {
-                                    "match": "(?i)#T_(DEFAULT|INTARRAY|REALARRAY|STRARRAY|INT|REAL|STR)",
+                                    "match": "(?i)#T_(DEFAULT|INTARRAY|REALARRAY|STRARRAY|INT|REAL|STR)\\b",
                                     "name": "constant.language.typedef.sb4"
                                 },
                                 {
-                                    "match": "(?i)#G_(NORMAL2|NORMAL|ALPHA2|ALPHA|ADD)",
+                                    "match": "(?i)#G_(NORMAL2|NORMAL|ALPHA2|ALPHA|ADD)\\b",
                                     "name": "constant.language.graphic.sb4"
                                 },
                                 {
-                                    "match": "(?i)#BQ(APF|LPF|HPF|BPF|BSF|LSF|HSF|PEQ)",
+                                    "match": "(?i)#BQ(APF|LPF|HPF|BPF|BSF|LSF|HSF|PEQ)\\b",
                                     "name": "constant.language.bq.sb4"
                                 },
                                 {
-                                    "match": "(?i)#WF(RECT|HAMM|HANN|BLKM)",
+                                    "match": "(?i)#WF(RECT|HAMM|HANN|BLKM)\\b",
                                     "name": "constant.language.fftwfn.sb4"
                                 },
                                 {
-                                    "match": "(?i)#AOP(ADD|SUB|MUL|DIV|MAD|LIP|CLP)",
+                                    "match": "(?i)#AOP(ADD|SUB|MUL|DIV|MAD|LIP|CLP)\\b",
                                     "name": "constant.language.aryop.sb4"
                                 },
                                 {
-                                    "match": "(?i)#EFC(OFF|ON|BATH|CAVE|SPACE|REFSROOM|REFLROOM|REFHALL|REFCAVE|REFNONE|REVROOM|REVHALL|REVMETAL|REVCAVE|REVREV)",
+                                    "match": "(?i)#EFC(OFF|ON|BATH|CAVE|SPACE|REFSROOM|REFLROOM|REFHALL|REFCAVE|REFNONE|REVROOM|REVHALL|REVMETAL|REVCAVE|REVREV)\\b",
                                     "name": "constant.language.efc.sb4"
                                 },
                                 {
-                                    "match": "(?i)#PV(LEFT|RIGHT)|(?i)#GRP(WIDTH|HEIGHT|F)|(?i)#MAX(T|SP|GRP)|(?i)#(GSPRITE|TCONSOLE|HARDWARE|VERSION|_LINE|_SLOT|_FILENAME)",
+                                    "match": "(?i)#PV(LEFT|RIGHT)\\b|(?i)#GRP(WIDTH|HEIGHT|F)|(?i)#MAX(T|SP|GRP)|(?i)#(GSPRITE|TCONSOLE|HARDWARE|VERSION|_LINE|_SLOT|_FILENAME)\\b",
                                     "name": "constant.language.uncategorized.sb4"
                                 },
                                 {
