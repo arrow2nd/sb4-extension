@@ -82,6 +82,7 @@ class sb4CompletionItemProvider {
 
 /**
  * 行番号からDEFIDを取得
+ * 
  * @param  {Number} line 行番号
  * @return {Number}      DEFID
  */
@@ -94,6 +95,7 @@ function getDefId(line) {
 
 /**
  * マークダウン形式の表示テキストを作成する
+ * 
  * @param  {Object}  data   定義データ
  * @param  {String}  desc   コメント
  * @param  {Boolean} showHr 水平線を表示するか
@@ -110,54 +112,45 @@ function createMarkdown(data, desc, showHr) {
 
 /**
  * ソースコードをスキャン
+ * 
  * @param   {Object} document ドキュメント
  * @returns {Object}          宣言データ
  * @returns {Array}           def定義データ
  */
 function scanSourceCode(document) {
     const lines = document.getText().split(/\r?\n/g);
-    let isDef = false;
+    let isFuncDef = false;
     let defId = 0;
     let declarationResult = {};
     let defineResult = [];
 
     lines.forEach((line, i) => {
-        // 定義のある行を探す
-        let define = line.match(/(?<!\s*'\s*)\b(CONST|ENUM|DIM|VAR|DEF)\b\s+([ -&(-~]+)/i);
-        if (!define) {
-            // DEFの終端
-            if (isDef && line.match(/^\s*\bEND\b/i)) {
+        // 宣言文を探す
+        let defLine = findDefinition(document, line, i);
+        
+        // 宣言文ではない
+        if (!defLine) {
+            // 関数宣言の終端
+            if (isFuncDef && line.match(/^\s*\bEND\b/i)) {
                 defineResult[defId].endLine = i + 1;
                 defId++;
-                isDef = false;
+                isFuncDef = false;
             };
             return;
         };
 
-        // コメントを抽出
-        let desc = line.match(/'.*/);
-        desc = (desc == null) ? '' : desc[0].slice(1);
-        // コメントが取得できなかった場合、上方向にコメントがないか探す
-        let commentLine = i - 1;
-        if (desc === '' && commentLine >= 0) {
-            let comment = document.lineAt(commentLine).text;
-            while (comment.match(/^'/)) {
-                desc = comment.slice(1) + '\n\n' + desc;
-                commentLine--;
-                if (commentLine < 0) break;
-                comment = document.lineAt(commentLine).text;
-            };
-        };
+        // コメントを探す
+        const desc = findComment(document, line, i);
 
-        // 宣言タイプ
-        let type = define[1].toUpperCase();
-        // 宣言名を解析
+        // 宣言文を解析
+        let type = defLine[1].toUpperCase();
         let keys = [];
-        let segmented = define[2].replace(/[\[|\(|"].*?[\]|\)|"]/g, '').split(",");
+        let segmented = defLine[2].replace(/[\[|\(|"].*?[\]|\)|"]/g, '').split(",");
+
         if (type === 'DEF') {
             keys.push(segmented[0].split(' ')[0]);
             defineResult.push({ 'id': defId, 'startLine': i + 1, 'endLine': null });
-            isDef = true;
+            isFuncDef = true;
         } else {
             keys = segmented.map(value => value.replace(/ /g, '').split(/\s*?=/)[0]);
         };
@@ -167,11 +160,16 @@ function scanSourceCode(document) {
             let name = key;
             let isLocal = false;
             key = name.toUpperCase();
-            if (isDef && type != 'DEF') {
+
+            // ローカル変数
+            if (isFuncDef && type != 'DEF') {
                 key = `${defId}:${key}`;
                 isLocal = true
             };
-            if (declarationResult[key]) continue;	// 名前が重複するものは追加しない
+
+            // 名前が重複するものは追加しない
+            if (declarationResult[key]) continue;
+
             declarationResult[key] = {
                 "name": name,
                 "type": type,
@@ -181,14 +179,68 @@ function scanSourceCode(document) {
             };
         };
     });
-    //console.log(declarationResult);
-    //console.log(defineResult);
 
     return [declarationResult, defineResult];
 };
 
 /**
- * 拡張機能起動時に呼ばれるやつ
+ * 宣言を探す
+ * 
+ * @param   {Object} document ドキュメント
+ * @param   {String} line     行
+ * @param   {Numbet} i        行番号
+ * @returns {String}          宣言のある行
+ */
+function findDefinition(document, line, i) {
+    let defLine = line.match(/(?!\s*'\s*)\b(CONST|ENUM|DIM|VAR|DEF)\b\s+([ -&(-~]+)/i);
+
+    // 行末に"\"がある場合次の行を結合する
+    if (defLine && line.match(/\\.*$/)) {
+        let addCount = 1;
+        let addLine = document.lineAt(i + addCount).text;
+
+        while (defLine[2].match(/\\.*$/)) {
+            defLine[2] = defLine[2].replace(/\\.*$/, '') + addLine;
+            addCount++;
+            addLine = document.lineAt(i + addCount).text;
+        };
+    };
+
+    return defLine;
+};
+
+/**
+ * コメントを探す
+ * 
+ * @param   {Object} document ドキュメント
+ * @param   {String} line     行
+ * @param   {Numbet} i        行番号
+ * @returns {String}          コメント文
+ */
+function findComment(document, line, i) {
+    // 行末のコメントを抽出
+    let desc = line.match(/'.*/);
+    desc = (desc == null) ? '' : desc[0].slice(1);
+
+    // コメントが抽出できなかった場合、上方向にコメントがないか探す
+    let commentLine = i - 1;
+    if (desc === '' && commentLine >= 0) {
+        let comment = document.lineAt(commentLine).text.match(/^\s*'(.*)/);
+        
+        while (comment) {
+            desc = comment[1] + '\n\n' + desc;
+            commentLine--;
+            if (commentLine < 0) break;
+            comment = document.lineAt(commentLine).text.match(/^\s*'(.*)/);
+        };
+    };
+    
+    return desc;
+};
+
+/**
+ * 拡張機能起動時の処理
+ * 
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
@@ -234,7 +286,7 @@ function activate(context) {
 exports.activate = activate;
 
 /**
- * VSCode終了時に呼ばれるとこ
+ * VSCode終了時の処理
  */
 function deactivate() {
     return undefined;
