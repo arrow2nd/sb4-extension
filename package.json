@@ -2,7 +2,7 @@
     "name": "sb4-extension",
     "displayName": "sb4-extension",
     "description": "Extensions for SmileBasic4",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "publisher": "arrow2nd",
     "license": "MIT",
     "engines": {

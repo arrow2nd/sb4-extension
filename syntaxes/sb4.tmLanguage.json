@@ -66,75 +66,95 @@
                 "keywords": {
                     "patterns": [
                         {
-                            "match": "(?i)(?<![A-Za-z_])(ARRAY[#$%]|(SWAP|INC|DEC|COPY|RINGCOPY|SORT|RSORT|PUSH|POP|UNSHIFT|SHIFT|FILL|TYPEOF|RESIZE|INSERT|REMOVE|FIND|INSPECT))\\b",
+                            "match": "(?i)(?<![A-Za-z_])ARRAY[#$%]",
                             "name": "keyword.storage.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(ON|GOTO|GOSUB|RETURN|IF|THEN|ELSEIF|ELSE|ENDIF|CASE|WHEN|OTHERWISE|ENDCASE|LOOP|ENDLOOP|FOR|TO|NEXT|WHILE|WEND|REPEAT|UNTIL|CONTINUE|BREAK|END|STOP|DEFARGC|DEFARG|DEFOUTC|DEFOUT|CALL|OUT)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(SWAP|INC|DEC|COPY|RINGCOPY|SORT|RSORT|PUSH|POP|UNSHIFT|SHIFT|FILL|TYPEOF|RESIZE|INSERT|REMOVE|FIND|INSPECT)(?![A-Za-z0-9_#$%])",
+                            "name": "keyword.storage.sb4"
+                        },
+                        {
+                            "match": "(?i)(?<![A-Za-z_])(ON|GOTO|GOSUB|RETURN|IF|THEN|ELSEIF|ELSE|ENDIF|CASE|WHEN|OTHERWISE|ENDCASE|LOOP|ENDLOOP|FOR|TO|NEXT|WHILE|WEND|REPEAT|UNTIL|CONTINUE|BREAK|END|STOP|DEFARGC|DEFARG|DEFOUTC|DEFOUT|CALL|OUT)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.control.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(INKEY\\$|(CLS|COLOR|LOCATE|PRINT|INPUT|LINPUT))\\b",
+                            "match": "(?i)(?<![A-Za-z_])INKEY\\$",
                             "name": "keyword.console.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(INT|FLOAT|FLOOR|ROUND|CEIL|ABS|SGN|MIN|MAX|RND|RNDF|RANDOMIZE|SQR|EXP|LOG|POW|RAD|DEG|SIN|COS|TAN|ASIN|ACOS|ATAN|SINH|COSH|TANH|CLASSIFY)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(CLS|COLOR|LOCATE|PRINT|INPUT|LINPUT)(?![A-Za-z0-9_#$%])",
+                            "name": "keyword.console.sb4"
+                        },
+                        {
+                            "match": "(?i)(?<![A-Za-z_])(INT|FLOAT|FLOOR|ROUND|CEIL|ABS|SGN|MIN|MAX|RND|RNDF|RANDOMIZE|SQR|EXP|LOG|POW|RAD|DEG|SIN|COS|TAN|ASIN|ACOS|ATAN|SINH|COSH|TANH|CLASSIFY)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.math.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(CHR|STR|HEX|BIN|FORMAT|MID|LEFT|RIGHT|SUBST|DATE|TIME)\\$|\\b(ASC|VAL|LEN|LAST|INSTR)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(CHR|STR|HEX|BIN|FORMAT|MID|LEFT|RIGHT|SUBST|DATE|TIME)\\$",
                             "name": "keyword.string.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(FILES|LOAD|LOADG|LOADV|SAVE|SAVEG|SAVEV|PROJECT|EXEC|CHKFILE|DELETE|RENAME)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(ASC|VAL|LEN|LAST|INSTR)(?![A-Za-z0-9_#$%])",
+                            "name": "keyword.string.sb4"
+                        },
+                        {
+                            "match": "(?i)(?<![A-Za-z_])(FILES|LOAD|LOADG|LOADV|SAVE|SAVEG|SAVEV|PROJECT|EXEC|CHKFILE|DELETE|RENAME)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.file.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(DATA|READ|RESTORE|OPTION|WAIT|VSYNC|TMREAD|DTREAD|CHKLABEL|CHKCALL|CHKVAR|DIALOG|RESULT|CALLIDX|CLIPBOARD|KEY|FONTINFO|FREEMEM|MILLISEC|MAINCNT|SYSPARAM|PERFBEGIN|PERFEND|METALOAD|METAEDIT|METASAVE)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(DATA|READ|RESTORE|OPTION|WAIT|VSYNC|TMREAD|DTREAD|CHKLABEL|CHKCALL|CHKVAR|DIALOG|RESULT|CALLIDX|CLIPBOARD|KEY|FONTINFO|FREEMEM|MILLISEC|MAINCNT|SYSPARAM|PERFBEGIN|PERFEND|METALOAD|METAEDIT|METASAVE)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.other.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(ACLS|XSCREEN|ANIMDEF|BACKCOLOR|FADE|FADECHK|LAYER|LFILTER|LCLIP|LMATRIX)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(ACLS|XSCREEN|ANIMDEF|BACKCOLOR|FADE|FADECHK|LAYER|LFILTER|LCLIP|LMATRIX)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.screen.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(GTARGET|GCOLOR|RGB|RGBF|HSV|HSVF|GCLIP|GCLS|GPSET|GPGET|GLINE|GCIRCLE|GBOX|GFILL|GPAINT|GCOPY|GSAVE|GLOAD|GTRI|GPUTCHR|GPUTCHRP|GARRAY|GUPDATE|GSAMPLE)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(GTARGET|GCOLOR|RGB|RGBF|HSV|HSVF|GCLIP|GCLS|GPSET|GPGET|GLINE|GCIRCLE|GBOX|GFILL|GPAINT|GCOPY|GSAVE|GLOAD|GTRI|GPUTCHR|GPUTCHRP|GARRAY|GUPDATE|GSAMPLE)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.graphic.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(SPSET|SPCLR|SPSHOW|SPHIDE|SPHOME|SPOFS|SPROT|SPSCALE|SPCOLOR|SPCHR|SPPAGE|SPLAYER|SPDEF|SPLINK|SPUNLINK|SPANIM|SPSTOP|SPSTART|SPCHK|SPVAR|SPCOL|SPCOLVEC|SPHITSP|SPHITRC|SPHITINFO|SPFUNC|SPUSED)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(SPSET|SPCLR|SPSHOW|SPHIDE|SPHOME|SPOFS|SPROT|SPSCALE|SPCOLOR|SPCHR|SPPAGE|SPLAYER|SPDEF|SPLINK|SPUNLINK|SPANIM|SPSTOP|SPSTART|SPCHK|SPVAR|SPCOL|SPCOLVEC|SPHITSP|SPHITRC|SPHITINFO|SPFUNC|SPUSED)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.sprite.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(TPRINT|ATTR|SCROLL|CHKCHR|TSCREEN|TPAGE|TCOLOR|TLAYER|TPUT|TFILL|THOME|TOFS|TROT|TSCALE|TSHOW|THIDE|TBLEND|TANIM|TSTOP|TSTART|TCHK|TVAR|TCOPY|TSAVE|TLOAD|TARRAY|TUPDATE|TFUNC|TCOORD)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(TPRINT|ATTR|SCROLL|CHKCHR|TSCREEN|TPAGE|TCOLOR|TLAYER|TPUT|TFILL|THOME|TOFS|TROT|TSCALE|TSHOW|THIDE|TBLEND|TANIM|TSTOP|TSTART|TCHK|TVAR|TCOPY|TSAVE|TLOAD|TARRAY|TUPDATE|TFUNC|TCOORD)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.text-screen.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(XCTRLSTYLE|CONTROLLER|BUTTON|BREPEAT|STICK|ACCEL|GYROV|GYROA|GYROSYNC|VIBRATE|TOUCH|MOUSE|MBUTTON|IRSTART|IRSTOP|IRSTATE|IRREAD|IRSPRITE|KEYBOARD)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(XCTRLSTYLE|CONTROLLER|BUTTON|BREPEAT|STICK|ACCEL|GYROV|GYROA|GYROSYNC|VIBRATE|TOUCH|MOUSE|MBUTTON|IRSTART|IRSTOP|IRSTATE|IRREAD|IRSPRITE|KEYBOARD)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.input.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(TCPIANO|TCHOUSE|TCFISHING|TCBIKE|TCROBOT|TCVISOR|TCCAR|TCPLANE|TCSUBM|TCVEHICLE)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(TCPIANO|TCHOUSE|TCFISHING|TCBIKE|TCROBOT|TCVISOR|TCCAR|TCPLANE|TCSUBM|TCVEHICLE)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.toy-con.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(BEEP|BEEPPAN|BEEPPIT|BEEPSTOP|BEEPVOL|BGMCLEAR|BGMCONT|BGMPITCH|BGMPLAY|BGMPAUSE|BGMSET|BGMSETD|BGMSTOP|BGMVAR|BGMVOL|BGMWET|BGMCHK|WAVSET|WAVSETA|EFCEN|EFCSET|EFCWET|PCMCONT|PCMPOS|PCMSTOP|PCMSTREAM|PCMVOL|SNDMSBAL|SNDMVOL|SNDSTOP|TALK|TALKCHK|TALKSTOP|CHKMML|RECCHK|RECDATA|RECLEN|RECPOS|RECSAVE|RECSTART|RECSTOP)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(BEEP|BEEPPAN|BEEPPIT|BEEPSTOP|BEEPVOL|BGMCLEAR|BGMCONT|BGMPITCH|BGMPLAY|BGMPAUSE|BGMSET|BGMSETD|BGMSTOP|BGMVAR|BGMVOL|BGMWET|BGMCHK|WAVSET|WAVSETA|EFCEN|EFCSET|EFCWET|PCMCONT|PCMPOS|PCMSTOP|PCMSTREAM|PCMVOL|SNDMSBAL|SNDMVOL|SNDSTOP|TALK|TALKCHK|TALKSTOP|CHKMML|RECCHK|RECDATA|RECLEN|RECPOS|RECSAVE|RECSTART|RECSTOP)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.sound.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(BIQUAD|BQPARAM|FFT|IFFT|FFTWFN|ARYOP)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(BIQUAD|BQPARAM|FFT|IFFT|FFTWFN|ARYOP)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.advanced.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])((PRGGET|PRGNAME)\\$|(PRGEDIT|PRGSEEK|PRGSET|PRGINS|PRGDEL|PRGSIZE))\\b",
+                            "match": "(?i)(?<![A-Za-z_])(PRGGET|PRGNAME)\\$",
                             "name": "keyword.source.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(ENVINPUT\\$|(XSUBSCREEN|ENVSTAT|ENVLOAD|ENVSAVE|ENVTYPE|ENVFOCUS|ENVPROJECT|ENVLOCATE|PUSHKEY|HELPINFO|HELPGET))\\b",
+                            "match": "(?i)(?<![A-Za-z_])(PRGEDIT|PRGSEEK|PRGSET|PRGINS|PRGDEL|PRGSIZE)(?![A-Za-z0-9_#$%])",
+                            "name": "keyword.source.sb4"
+                        },
+                        {
+                            "match": "(?i)(?<![A-Za-z_])ENVINPUT\\$",
                             "name": "keyword.sub-program.sb4"
                         },
                         {
-                            "match": "(?i)(?<![A-Za-z_])(UISTATE|UIRUN|UISTOP|UIPUSHCMPL|UIGETCMPL|UIMASK|UIFOCUS)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(XSUBSCREEN|ENVSTAT|ENVLOAD|ENVSAVE|ENVTYPE|ENVFOCUS|ENVPROJECT|ENVLOCATE|PUSHKEY|HELPINFO|HELPGET)(?![A-Za-z0-9_#$%])",
+                            "name": "keyword.sub-program.sb4"
+                        },
+                        {
+                            "match": "(?i)(?<![A-Za-z_])(UISTATE|UIRUN|UISTOP|UIPUSHCMPL|UIGETCMPL|UIMASK|UIFOCUS)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.ui.sb4"
                         }
                     ]
@@ -142,7 +162,7 @@
                 "types": {
                     "patterns": [
                         {
-                            "match": "(?i)(?<![A-Za-z_])(DIM|VAR|CONST|ENUM)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(DIM|VAR|CONST|ENUM)(?![A-Za-z0-9_#$%])",
                             "name": "storage.type.sb4"
                         }
                     ]
@@ -158,7 +178,7 @@
                 "operator": {
                     "patterns": [
                         {
-                            "match": "(?i)\\b(DIV|MOD|AND|OR|XOR|NOT)\\b",
+                            "match": "(?i)(?<![A-Za-z_])(DIV|MOD|AND|OR|XOR|NOT)(?![A-Za-z0-9_#$%])",
                             "name": "keyword.other.operator.sb4"
                         }
                     ]
@@ -252,7 +272,7 @@
                             "patterns": [
                                 {
                                     "begin": "\"",
-                                    "end": "\"",
+                                    "end": "\"|\n|\r\n|\r",
                                     "name": "string.quoted.double.sb4"
                                 }
                             ]
