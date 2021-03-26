@@ -1,81 +1,81 @@
 {
-    "name": "sb4-extension",
-    "displayName": "sb4-extension",
-    "description": "Extensions for SmileBasic4",
-    "version": "1.0.2",
-    "publisher": "arrow2nd",
-    "license": "MIT",
-    "engines": {
-        "vscode": "^1.47.0"
-    },
-    "categories": [
-        "Programming Languages",
-        "Snippets"
-    ],
-    "keywords": [
-        "SmileBasic"
-    ],
-    "icon": "img/icon.png",
-    "bugs": {
-        "url": "https://github.com/arrow2nd/sb4-extension/issues",
-        "email": "arrow2nd_workspace@zohomail.com"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/arrow2nd/sb4-extension"
-    },
-    "main": "./src/extension.js",
-    "activationEvents": [
-        "onLanguage:sb4"
-    ],
-    "contributes": {
-        "languages": [
-            {
-                "id": "sb4",
-                "aliases": [
-                    "SB4",
-                    "sb4"
-                ],
-                "extensions": [
-                    ".prg"
-                ],
-                "configuration": "./language-configuration.json"
-            }
+  "name": "sb4-extension",
+  "displayName": "sb4-extension",
+  "description": "Extensions for SmileBasic4",
+  "version": "1.0.3",
+  "publisher": "arrow2nd",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.47.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "SmileBasic"
+  ],
+  "icon": "img/icon.png",
+  "bugs": {
+    "url": "https://github.com/arrow2nd/sb4-extension/issues",
+    "email": "arrow2nd_workspace@zohomail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arrow2nd/sb4-extension"
+  },
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onLanguage:sb4"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "sb4",
+        "aliases": [
+          "SB4",
+          "sb4"
         ],
-        "grammars": [
-            {
-                "language": "sb4",
-                "scopeName": "source.prg",
-                "path": "./syntaxes/sb4.tmLanguage.json"
-            }
+        "extensions": [
+          ".prg"
         ],
-        "snippets": [
-            {
-                "language": "sb4",
-                "path": "./snippets/snippets.json"
-            }
-        ],
-        "configurationDefaults": {
-            "[sb4]": {
-                "editor.tabSize": 1,
-                "editor.insertSpaces": true
-            }
-        }
-    },
-    "scripts": {
-        "lint": "eslint .",
-        "pretest": "yarn run lint",
-        "test": "node ./test/runTest.js"
-    },
-    "devDependencies": {
-        "@types/vscode": "^1.47.0",
-        "@types/glob": "^7.1.1",
-        "@types/mocha": "^7.0.2",
-        "@types/node": "^13.11.0",
-        "eslint": "^6.8.0",
-        "glob": "^7.1.6",
-        "mocha": "^7.1.2",
-        "typescript": "^3.8.3",
-        "vscode-test": "^1.3.0"
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "sb4",
+        "scopeName": "source.prg",
+        "path": "./syntaxes/sb4.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "sb4",
+        "path": "./snippets/snippets.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[sb4]": {
+        "editor.tabSize": 1,
+        "editor.insertSpaces": true
+      }
     }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "yarn run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.47.0",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.0",
+    "eslint": "^6.8.0",
+    "glob": "^7.1.6",
+    "mocha": "^7.1.2",
+    "typescript": "^3.8.3",
+    "vscode-test": "^1.3.0"
+  }
 }
