@@ -1,19 +1,26 @@
 import * as vscode from 'vscode'
+import { sb4CompletionItemProvider } from './completion'
+import { sb4HoverProvider } from './hover'
+import { scan } from './scan'
+
+const SB4_MODE = { scheme: 'file', language: 'sb4' }
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Congratulations, your extension "sb4-extension" is now active!')
+  const s = new scan()
+  s.update()
 
-  let disposable = vscode.commands.registerCommand(
-    'sb4-extension.helloWorld',
-    () => {
-      // The code you place here will be executed every time your command is executed
-
-      // Display a message box to the user
-      vscode.window.showInformationMessage('Hello World from sb4-extension!')
-    }
+  // ホバー
+  context.subscriptions.push(
+    vscode.languages.registerHoverProvider(SB4_MODE, new sb4HoverProvider())
   )
 
-  context.subscriptions.push(disposable)
+  // コード補完
+  context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider(
+      SB4_MODE,
+      new sb4CompletionItemProvider()
+    )
+  )
 }
 
 export function deactivate() {}
