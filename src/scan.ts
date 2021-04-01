@@ -33,6 +33,10 @@ export class scanSouceCode {
     let isDef = false
     let tmpScopeData: scopeDataType
 
+    // 初期化
+    this.scopeData = []
+    this.declarationData = {}
+
     // 全ての行を捜索
     const lines = document.getText().split(/[\r\n]/g)
     lines.forEach((line, index) => {
@@ -86,6 +90,9 @@ export class scanSouceCode {
         })
       }
     })
+
+    console.log(this.scopeData)
+    console.log(this.declarationData)
   }
 
   /**
@@ -143,7 +150,6 @@ export class scanSouceCode {
         (data) => data.name === word
       )
       if (matchedData) {
-        console.log(matchedData.name)
         return this.createMarkdown(matchedData)
       }
     }
