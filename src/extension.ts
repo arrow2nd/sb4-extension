@@ -11,7 +11,10 @@ export function activate(context: vscode.ExtensionContext) {
 
   // ホバー
   context.subscriptions.push(
-    vscode.languages.registerHoverProvider(SB4_MODE, new hoverProvider())
+    vscode.languages.registerHoverProvider(
+      SB4_MODE,
+      new hoverProvider(scan.getHoverContent)
+    )
   )
 
   // コード補完
