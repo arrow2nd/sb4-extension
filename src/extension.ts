@@ -7,12 +7,12 @@ const SB4_MODE = { scheme: 'file', language: 'sb4' }
 
 export function activate(context: vscode.ExtensionContext) {
   const scan = new scanSouceCode()
-  let updateTimeoutId: NodeJS.Timeout | null
+  let updateTimeoutId: NodeJS.Timeout | null = null
 
-  // 全体のコードをスキャン
+  // スキャン
   scan.update()
 
-  // エディタの画面が切り替えられた
+  // 画面が切り替わった
   const handleChangeActiveEditor = vscode.window.onDidChangeActiveTextEditor(
     (event) => {
       if (event && event.document.languageId === 'sb4') {
@@ -27,17 +27,16 @@ export function activate(context: vscode.ExtensionContext) {
     (event) => {
       if (event.document.languageId !== 'sb4') return
 
-      // タイムアウト前なら破棄
+      // タイムアウト前ならクリア
       if (updateTimeoutId !== null) {
         clearTimeout(updateTimeoutId)
       }
 
-      // 0.5秒後にスキャンを実行
-      updateTimeoutId = setInterval(() => {
+      // 0.5秒後に更新
+      updateTimeoutId = setTimeout(() => {
         scan.update()
-        clearTimeout(updateTimeoutId!)
         updateTimeoutId = null
-      }, 600)
+      }, 500)
     }
   )
   context.subscriptions.push(handleChangeTextDocument)
