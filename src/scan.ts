@@ -169,7 +169,7 @@ export class scanSourceCode {
   ): [string, string[], string] {
     // 宣言文を分割
     const declStatement = line.match(
-      /(?!\s*'\s*)\b(CONST|ENUM|DIM|VAR|DEF)\b\s+([ -&(-~]+)/i
+      /(?!\s*'\s*)\b(CONST|ENUM|DIM|VAR|DEF)\b\s+(\S+)/i
     )
     if (!declStatement) return ['', [], '']
 
