@@ -20,7 +20,7 @@ export class scanSourceCode {
 
   constructor() {
     this.funcDefData = []
-    this.declStatementData = {}
+    this.declStatementData = { global: [] }
   }
 
   /**
@@ -34,7 +34,7 @@ export class scanSourceCode {
     let isDef = false
     let tmpFuncDefData: funcDefData
     this.funcDefData = []
-    this.declStatementData = {}
+    this.declStatementData = { global: [] }
 
     // 全ての行を捜索
     const lines = document.getText().split(/[\r\n]/g)
