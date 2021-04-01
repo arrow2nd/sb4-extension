@@ -74,7 +74,7 @@
               "name": "keyword.storage.sb4"
             },
             {
-              "match": "(?i)(?<![A-Za-z_])(ON|GOTO|GOSUB|RETURN|IF|THEN|ELSEIF|ELSE|ENDIF|CASE|WHEN|OTHERWISE|ENDCASE|LOOP|ENDLOOP|FOR|TO|NEXT|WHILE|WEND|REPEAT|UNTIL|CONTINUE|BREAK|END|STOP|DEFARGC|DEFARG|DEFOUTC|DEFOUT|CALL|OUT)(?![A-Za-z0-9_#$%])",
+              "match": "(?i)(?<![A-Za-z_])(ON|GOTO|GOSUB|RETURN|IF|THEN|ELSEIF|ELSE|ENDIF|CASE|WHEN|OTHERWISE|ENDCASE|LOOP|ENDLOOP|FOR|TO|STEP|NEXT|WHILE|WEND|REPEAT|UNTIL|CONTINUE|BREAK|END|STOP|DEFARGC|DEFARG|DEFOUTC|DEFOUT|CALL|OUT)(?![A-Za-z0-9_#$%])",
               "name": "keyword.control.sb4"
             },
             {
