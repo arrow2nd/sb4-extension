@@ -14,7 +14,7 @@ export class completionItemProvider {
     _document: vscode.TextDocument,
     position: vscode.Position
   ) {
-    const userDefinitionItems = this.getCompletionItems(position.line)
+    const userDefinitionItems = this.getCompletionItems(position.line + 1)
     const completionItems = defaultCompletionItems.concat(userDefinitionItems)
     return Promise.resolve(new vscode.CompletionList(completionItems, false))
   }

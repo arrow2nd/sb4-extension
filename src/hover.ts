@@ -29,7 +29,7 @@ export class hoverProvider {
       .text.slice(wordRange.start.character, wordRange.end.character)
 
     // ホバーコンテンツを取得
-    const content = this.getHoverContent(currentWord, position.line)
+    const content = this.getHoverContent(currentWord, position.line + 1)
     if (!content) return Promise.reject()
 
     return Promise.resolve(new vscode.Hover(content))
