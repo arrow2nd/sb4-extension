@@ -45,6 +45,7 @@ export class scanSouceCode {
         line,
         index
       )
+
       if (!type && !names.length) {
         // DEFの終端ならDEF定義データを追加
         if (isDef && /\bEND\b/i.test(line)) {
@@ -85,9 +86,6 @@ export class scanSouceCode {
         })
       }
     })
-
-    // console.log(this.scopeData)
-    // console.log(this.declarationData)
   }
 
   /**
@@ -118,6 +116,39 @@ export class scanSouceCode {
     }
 
     return completionItems
+  }
+
+  /**
+   * ホバー表示のコンテンツを取得
+   *
+   * @param word 単語
+   * @param position 行数
+   * @returns Markdownテキスト
+   */
+  public getHoverContent = (
+    word: string,
+    position: number
+  ): vscode.MarkdownString | null => {
+    const scopes = ['global']
+
+    // positionがDEF内なら定義名を取得
+    const defineName = this.getDefineName(position)
+    if (defineName) {
+      scopes.push(defineName)
+    }
+
+    // 検索
+    for (let scope of scopes) {
+      const matchedData = this.declarationData[scope].find(
+        (data) => data.name === word
+      )
+      if (matchedData) {
+        console.log(matchedData.name)
+        return this.createMarkdown(matchedData)
+      }
+    }
+
+    return null
   }
 
   /**

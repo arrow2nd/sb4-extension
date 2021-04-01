@@ -1,14 +1,16 @@
 import * as vscode from 'vscode'
 import { defaultCompletionItems } from './data/completionItems'
 
-export class completionItemProvider {
-  private getCompletionItems: (position: number) => vscode.CompletionItem[]
+type getCompletionItemsType = (position: number) => vscode.CompletionItem[]
 
-  constructor(func: (position: number) => vscode.CompletionItem[]) {
+export class completionItemProvider {
+  private getCompletionItems: getCompletionItemsType
+
+  constructor(func: getCompletionItemsType) {
     this.getCompletionItems = func
   }
 
-  provideCompletionItems(
+  public provideCompletionItems(
     _document: vscode.TextDocument,
     position: vscode.Position
   ) {
