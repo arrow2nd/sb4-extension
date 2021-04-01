@@ -1,21 +1,24 @@
 import * as vscode from 'vscode'
 import { defaultCompletionItems } from './data/completionItems'
 
-type getCompletionItemsType = (position: number) => vscode.CompletionItem[]
+type createCompletionItemsType = (position: number) => vscode.CompletionItem[]
 
 export class completionItemProvider {
-  private getCompletionItems: getCompletionItemsType
+  private createCompletionItems: createCompletionItemsType
 
-  constructor(func: getCompletionItemsType) {
-    this.getCompletionItems = func
+  constructor(func: createCompletionItemsType) {
+    this.createCompletionItems = func
   }
 
   public provideCompletionItems(
     _document: vscode.TextDocument,
     position: vscode.Position
   ) {
-    const userDefinitionItems = this.getCompletionItems(position.line + 1)
+    // ユーザー定義の候補を取得
+    const userDefinitionItems = this.createCompletionItems(position.line + 1)
+    // デフォルトの候補と結合
     const completionItems = defaultCompletionItems.concat(userDefinitionItems)
+
     return Promise.resolve(new vscode.CompletionList(completionItems, false))
   }
 }

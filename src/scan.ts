@@ -1,12 +1,12 @@
 import * as vscode from 'vscode'
 
-type scopeDataType = {
+type funcDefData = {
   name: string
   start: number
   end: number
 }
 
-type declarationDataType = {
+type declStatementData = {
   name: string
   comment: string
   statement: string
@@ -14,13 +14,13 @@ type declarationDataType = {
   kind: vscode.CompletionItemKind
 }
 
-export class scanSouceCode {
-  private scopeData: scopeDataType[]
-  private declarationData: { [key: string]: declarationDataType[] }
+export class scanSourceCode {
+  private funcDefData: funcDefData[]
+  private declStatementData: { [key: string]: declStatementData[] }
 
   constructor() {
-    this.scopeData = []
-    this.declarationData = {}
+    this.funcDefData = []
+    this.declStatementData = {}
   }
 
   /**
@@ -30,12 +30,11 @@ export class scanSouceCode {
     const document = vscode.window.activeTextEditor?.document
     if (!document) return
 
-    let isDef = false
-    let tmpScopeData: scopeDataType
-
     // 初期化
-    this.scopeData = []
-    this.declarationData = {}
+    let isDef = false
+    let tmpFuncDefData: funcDefData
+    this.funcDefData = []
+    this.declStatementData = {}
 
     // 全ての行を捜索
     const lines = document.getText().split(/[\r\n]/g)
@@ -43,29 +42,29 @@ export class scanSouceCode {
       const position = index + 1
       line = line.trim()
 
-      // 宣言内容を取得
-      const [type, names, statement] = this.getDeclarationStatement(
+      // 宣言文を解析
+      const [type, names, statement] = this.getDeclStatement(
         document,
         line,
         index
       )
 
       if (!type && !names.length) {
-        // DEFの終端ならDEF定義データを追加
+        // DEFの終端ならDEF定義のデータを追加
         if (isDef && /\bEND\b/i.test(line)) {
-          tmpScopeData.end = position
-          this.scopeData.push(tmpScopeData)
+          tmpFuncDefData.end = position
+          this.funcDefData.push(tmpFuncDefData)
           isDef = false
         }
         return
       }
 
-      // コメントを取得
-      const comment = this.getCommentSentence(document, line, index)
+      // 対応するコメント
+      const comment = this.getComment(document, line, index)
 
-      // DEF定義データを作成
+      // DEF定義のデータを作成
       if (type === 'DEF') {
-        tmpScopeData = {
+        tmpFuncDefData = {
           name: names[0],
           start: position,
           end: 0
@@ -73,44 +72,46 @@ export class scanSouceCode {
         isDef = true
       }
 
-      // 追加する宣言データのスコープ
-      const scope = isDef && type !== 'DEF' ? tmpScopeData.name : 'global'
-      if (!this.declarationData[scope]) {
-        this.declarationData[scope] = []
+      // 宣言文のスコープ
+      const scope = isDef && type !== 'DEF' ? tmpFuncDefData.name : 'global'
+      if (!this.declStatementData[scope]) {
+        this.declStatementData[scope] = []
       }
 
-      // 宣言データを追加
+      // 宣言文のデータを追加
       for (let name of names) {
-        this.declarationData[scope].push({
+        this.declStatementData[scope].push({
           name: name,
           comment: comment,
           statement: statement,
           position: position,
-          kind: this.getCompletionItemKind(type)
+          kind: this.convertToCompletionItemKind(type)
         })
       }
     })
   }
 
   /**
-   * 補完候補を取得
+   * 補完候補を作成
    *
    * @param position 行
    * @returns 補完候補
    */
-  public getCompletionItems = (position: number): vscode.CompletionItem[] => {
+  public createCompletionItems = (
+    position: number
+  ): vscode.CompletionItem[] => {
     const completionItems: vscode.CompletionItem[] = []
     const scopes = ['global']
 
     // positionがDEF内なら定義名を取得
-    const defineName = this.getDefineName(position)
+    const defineName = this.getFuncName(position)
     if (defineName) {
       scopes.push(defineName)
     }
 
     // スコープ内の変数、関数定義を入力候補に追加
     for (let scope of scopes) {
-      for (let data of this.declarationData[scope]) {
+      for (let data of this.declStatementData[scope]) {
         completionItems.push({
           label: data.name,
           documentation: this.createMarkdown(data),
@@ -123,27 +124,27 @@ export class scanSouceCode {
   }
 
   /**
-   * ホバー表示のコンテンツを取得
+   * ホバー表示の内容を作成
    *
    * @param word 単語
    * @param position 行数
    * @returns Markdownテキスト
    */
-  public getHoverContent = (
+  public createHoverContent = (
     word: string,
     position: number
   ): vscode.MarkdownString | null => {
     const scopes = ['global']
 
     // positionがDEF内なら定義名を取得
-    const defineName = this.getDefineName(position)
-    if (defineName) {
-      scopes.push(defineName)
+    const funcName = this.getFuncName(position)
+    if (funcName) {
+      scopes.push(funcName)
     }
 
     // 検索
     for (let scope of scopes) {
-      const matchedData = this.declarationData[scope].find(
+      const matchedData = this.declStatementData[scope].find(
         (data) => data.name === word
       )
       if (matchedData) {
@@ -162,28 +163,28 @@ export class scanSouceCode {
    * @param position 行数
    * @returns 宣言の種類, 宣言名
    */
-  private getDeclarationStatement(
+  private getDeclStatement(
     document: vscode.TextDocument,
     line: string,
     position: number
   ): [string, string[], string] {
-    const declaration = line.match(
+    // 宣言文を分割
+    const declStatement = line.match(
       /(?!\s*'\s*)\b(CONST|ENUM|DIM|VAR|DEF)\b\s+([ -&(-~]+)/i
     )
-    if (!declaration) return ['', [], '']
+    if (!declStatement) return ['', [], '']
 
-    // 種類
-    const type = declaration[1].toUpperCase()
-
-    // 名前
+    // 宣言名の末尾にバックスラッシュがある場合次の行を結合
     const backSlashRegExp = /\\.*$/
-    let name = declaration[2].trim().replace(/'.*/, '')
+    let name = declStatement[2].trim().replace(/'.*/, '')
     let addname = ''
-    // 行末にバックスラッシュがあるなら次の行を結合
     for (let count = 1; backSlashRegExp.test(name); count++) {
       addname = document.lineAt(position + count).text.trim()
       name = name.replace(backSlashRegExp, '') + addname
     }
+
+    const type = declStatement[1].toUpperCase()
+    const statement = `${type} ${name}`
 
     // ドットで分割して括弧、スペース、代入演算子以降を削除
     const names = name
@@ -191,19 +192,16 @@ export class scanSouceCode {
       .split(',')
       .map((e) => e.replace(/\s*=.*/, ''))
 
-    // 宣言文
-    const statement = `${type} ${name}`
-
     return [type, names, statement]
   }
 
   /**
-   * CompletionItemKindを取得
+   * CompletionItemKindに変換
    *
-   * @param type 宣言種類
+   * @param type 宣言の種類
    * @returns CompletionItemKind
    */
-  private getCompletionItemKind(type: string): vscode.CompletionItemKind {
+  private convertToCompletionItemKind(type: string): vscode.CompletionItemKind {
     switch (type) {
       case 'DEF':
         return vscode.CompletionItemKind.Function
@@ -217,23 +215,23 @@ export class scanSouceCode {
   }
 
   /**
-   * コメント文を取得
+   * コメントを取得
    *
    * @param document ドキュメント
    * @param line 行
    * @param position 行数
    * @returns コメント文
    */
-  private getCommentSentence(
+  private getComment(
     document: vscode.TextDocument,
     line: string,
     position: number
   ): string {
-    // 行末のコメントを探す
+    // 行端のコメントを探す
     const matchArray = line.match(/'.*/)
     let comment = matchArray ? matchArray[0].slice(1) : ''
 
-    // コメントが無いなら上方向にコメントを探す
+    // 上の行のコメントを探す
     if (!comment) {
       const commentRegExp = /^\s*'(.*)/
       const list: string[] = []
@@ -254,8 +252,8 @@ export class scanSouceCode {
    * @param position 行番号
    * @returns DEF定義名
    */
-  private getDefineName(position: number): string {
-    for (let data of this.scopeData) {
+  private getFuncName(position: number): string {
+    for (let data of this.funcDefData) {
       if (data.start < position && data.end > position) {
         return data.name
       }
@@ -269,7 +267,7 @@ export class scanSouceCode {
    * @param data 宣言データ
    * @returns Markdownテキスト
    */
-  private createMarkdown(data: declarationDataType): vscode.MarkdownString {
+  private createMarkdown(data: declStatementData): vscode.MarkdownString {
     const markdown = new vscode.MarkdownString()
     markdown.appendCodeblock(data.statement)
     if (data.comment) {

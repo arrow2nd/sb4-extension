@@ -1,15 +1,15 @@
 import * as vscode from 'vscode'
 import { completionItemProvider } from './completion'
 import { hoverProvider } from './hover'
-import { scanSouceCode } from './scan'
+import { scanSourceCode } from './scan'
 
 const SB4_MODE = { scheme: 'file', language: 'sb4' }
 
 export function activate(context: vscode.ExtensionContext) {
-  const scan = new scanSouceCode()
+  const scan = new scanSourceCode()
   let updateTimeoutId: NodeJS.Timeout | null = null
 
-  // スキャン
+  // 全体をスキャン
   scan.update()
 
   // 画面が切り替わった
@@ -45,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.languages.registerHoverProvider(
       SB4_MODE,
-      new hoverProvider(scan.getHoverContent)
+      new hoverProvider(scan.createHoverContent)
     )
   )
 
@@ -53,7 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider(
       SB4_MODE,
-      new completionItemProvider(scan.getCompletionItems)
+      new completionItemProvider(scan.createCompletionItems)
     )
   )
 }

@@ -1,15 +1,15 @@
 import * as vscode from 'vscode'
 
-type getHoverContentType = (
+type createHoverContent = (
   word: string,
   position: number
 ) => vscode.MarkdownString | null
 
 export class hoverProvider {
-  private getHoverContent: getHoverContentType
+  private createHoverContent: createHoverContent
 
-  constructor(func: getHoverContentType) {
-    this.getHoverContent = func
+  constructor(func: createHoverContent) {
+    this.createHoverContent = func
   }
 
   public provideHover(
@@ -28,8 +28,8 @@ export class hoverProvider {
       .lineAt(position.line)
       .text.slice(wordRange.start.character, wordRange.end.character)
 
-    // ホバーコンテンツを取得
-    const content = this.getHoverContent(currentWord, position.line + 1)
+    // ホバーの内容を作成
+    const content = this.createHoverContent(currentWord, position.line + 1)
     if (!content) return Promise.reject()
 
     return Promise.resolve(new vscode.Hover(content))
