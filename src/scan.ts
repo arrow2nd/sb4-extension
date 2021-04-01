@@ -59,24 +59,23 @@ export class scanSourceCode {
         return
       }
 
-      // 対応するコメント
-      const comment = this.getComment(document, line, index)
-
-      // DEF定義のデータを作成
       if (type === 'DEF') {
+        // DEF定義のデータを作成
         tmpFuncDefData = {
           name: names[0],
           start: position,
           end: 0
         }
+        // スコープを追加
+        this.declStatementData[names[0]] = []
         isDef = true
       }
 
       // 宣言文のスコープ
       const scope = isDef && type !== 'DEF' ? tmpFuncDefData.name : 'global'
-      if (!this.declStatementData[scope]) {
-        this.declStatementData[scope] = []
-      }
+
+      // 対応するコメント
+      const comment = this.getComment(document, line, index)
 
       // 宣言文のデータを追加
       for (let name of names) {
