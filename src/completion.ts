@@ -1,21 +1,19 @@
 import * as vscode from 'vscode'
 import { defaultCompletionItems } from './data/completionItems'
 
-export class sb4CompletionItemProvider {
-  private completionItems: vscode.CompletionItem[]
+export class completionItemProvider {
+  private getCompletionItems: (position: number) => vscode.CompletionItem[]
 
-  constructor() {
-    this.completionItems = []
+  constructor(func: (position: number) => vscode.CompletionItem[]) {
+    this.getCompletionItems = func
   }
 
   provideCompletionItems(
     _document: vscode.TextDocument,
     position: vscode.Position
   ) {
-    this.completionItems = defaultCompletionItems
-
-    return Promise.resolve(
-      new vscode.CompletionList(this.completionItems, false)
-    )
+    const userDefinitionItems = this.getCompletionItems(position.line)
+    const completionItems = defaultCompletionItems.concat(userDefinitionItems)
+    return Promise.resolve(new vscode.CompletionList(completionItems, false))
   }
 }
