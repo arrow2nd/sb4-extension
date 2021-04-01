@@ -90,9 +90,6 @@ export class scanSouceCode {
         })
       }
     })
-
-    console.log(this.scopeData)
-    console.log(this.declarationData)
   }
 
   /**
