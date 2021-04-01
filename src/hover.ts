@@ -21,7 +21,7 @@ export class hoverProvider {
       position,
       /[a-zA-Z0-9_#$%"]+/
     )
-    if (!wordRange) return Promise.reject()
+    if (!wordRange) return null
 
     // 単語を切り出し
     const currentWord = document
@@ -30,8 +30,8 @@ export class hoverProvider {
 
     // ホバーの内容を作成
     const content = this.createHoverContent(currentWord, position.line + 1)
-    if (!content) return Promise.reject()
+    if (!content) return null
 
-    return Promise.resolve(new vscode.Hover(content))
+    return new vscode.Hover(content)
   }
 }

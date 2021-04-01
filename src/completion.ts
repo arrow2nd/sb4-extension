@@ -19,6 +19,6 @@ export class completionItemProvider {
     // デフォルトの候補と結合
     const completionItems = defaultCompletionItems.concat(userDefinitionItems)
 
-    return Promise.resolve(new vscode.CompletionList(completionItems, false))
+    return new vscode.CompletionList(completionItems, false)
   }
 }
