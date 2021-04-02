@@ -1,12 +1,11 @@
 {
   "name": "sb4-extension",
   "displayName": "sb4-extension",
-  "description": "Extensions for SmileBasic4",
-  "publisher": "arrow2nd",
   "version": "2.0.0",
-  "license": "MIT",
-  "engines": {
-    "vscode": "^1.54.0"
+  "publisher": "arrow2nd",
+  "description": "Extensions for SmileBasic4",
+  "author": {
+    "name": "arrow2nd"
   },
   "categories": [
     "Programming Languages",
@@ -17,17 +16,12 @@
     "petitcom"
   ],
   "icon": "images/icon.png",
-  "bugs": {
-    "url": "https://github.com/arrow2nd/sb4-extension/issues",
-    "email": "arrow2nd_workspace@zohomail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/arrow2nd/sb4-extension"
-  },
   "activationEvents": [
     "onLanguage:sb4"
   ],
+  "engines": {
+    "vscode": "^1.54.0"
+  },
   "main": "./out/extension.js",
   "contributes": {
     "languages": [
@@ -63,6 +57,16 @@
       }
     }
   },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arrow2nd/sb4-extension/issues",
+    "email": "arrow2nd_workspace@zohomail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arrow2nd/sb4-extension"
+  },
+  "homepage": "https://github.com/arrow2nd/sb4-extension/blob/main/README.md",
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
