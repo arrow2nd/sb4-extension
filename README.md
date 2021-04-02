@@ -1,61 +1,62 @@
 # sb4-extension
 
-SmileBasic4（プチコン４）のちょっとした VSCode 用拡張機能です
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/arrow2nd.sb4-extension)
+![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/arrow2nd.sb4-extension)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
+![GitHub](https://img.shields.io/github/license/arrow2nd/sb4-extension)
 
-## 機能
+SmileBasic 4（プチコン４）のコードをいい感じに書くためのちょっとした拡張機能です
+
+## 主な機能
 
 ### シンタックスハイライト
 
-![syntax](https://user-images.githubusercontent.com/44780846/89967349-328f3680-dc8c-11ea-817b-2226a102f72f.png)
+![sb4-syntax-highlight](https://user-images.githubusercontent.com/44780846/113377004-11f82600-93ae-11eb-8738-05890273115d.png)
 
-### コード補完
+### 入力補完
 
-![completion](https://user-images.githubusercontent.com/44780846/89897597-3edaab80-dc1a-11ea-96d8-45ecc6f848db.gif)
+![sb4-completion](https://user-images.githubusercontent.com/44780846/113377006-1290bc80-93ae-11eb-8668-ed15509c372e.gif)
 
 ### スニペット
 
-![snippets](https://user-images.githubusercontent.com/44780846/89897643-4b5f0400-dc1a-11ea-88ee-cf85765a45fa.gif)
+![sb4-snipet](https://user-images.githubusercontent.com/44780846/113377009-13295300-93ae-11eb-9c0d-1c9585dcf8bb.gif)
 
-### コメントのホバー表示
+### 宣言のホバー表示
 
-![hover](https://user-images.githubusercontent.com/44780846/89897673-574ac600-dc1a-11ea-9c71-b6a7ddf83c17.gif)
+![sb4-hover](https://user-images.githubusercontent.com/44780846/113377007-13295300-93ae-11eb-87be-a39ba0406488.gif)
 
 ## 仕様
 
-- ホバー表示は関数・定数・変数宣言文の右、または上に記載されているコメントを表示します
-- コード補完・ホバー表示機能を利用する場合、変数は DIM/VAR で宣言されている必要があります
-- ユーザー関数の引数はコード補完・ホバー表示の対象には含まれません
-- 同じ名前で関数・変数が宣言されている場合、補完・ホバー表示が正しく機能しない場合があります
-
-## 既知の問題
+- ホバー表示には **宣言文の右、または上に記載されているコメント** が表示されます
+- 宣言文のない変数（関数の仮引数を含む）は、入力補完・ホバー表示の対象外です
+- 同じスコープ内に同名の関数と変数が宣言されている場合、入力補完・ホバー表示は正しく機能しない場合があります
 
 ## リリースノート
 
-## [1.0.3] - 2021-03-26
+## [2.0.0] - 2021-04-02
+
+### Added
+
+- スニペットを追加
 
 ### Fixed
 
-- 軽微なバグを修正
+- STEP 命令がハイライトされない
 
-## [1.0.2] - 2020-11-03
+### Changed
 
-### Fixed
+- 全体の実装を見直し
+- 使用可能な変数のみを補完候補に出すよう変更
 
-- 一部命令がハイライトされない
-- デフォルトの命令名を含む変数名を正しくハイライトできない
-- 閉じ括弧の無い文字列が複数行と解釈される
+## スクリーンショットについて
 
-### [1.0.1] - 2020-10-10
-
-#### Fixed
-
-- デフォルトの定数名を含むユーザー定数が正しくハイライトできない
-- 「\」（バックスラッシュ）を使い、複数行に渡って宣言されている定数・変数の分析ができない
-
-### [1.0.0] - 2020-08-12
-
-- リリースしました！
+| 要素     | リンク                                                                                          |
+| -------- | ----------------------------------------------------------------------------------------------- |
+| テーマ   | [One Dark Pro](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme) |
+| フォント | [SmileBasic Font](http://smilebasic.com/supplements/)                                           |
 
 ## 商標について
 
-[SmileBASIC](https://www.petc4.smilebasic.com/)は[株式会社スマイルブーム](https://smileboom.com/)の登録商標です。
+SmileBASIC および プチコン は[株式会社スマイルブーム](https://smileboom.com/)の登録商標です。
+
+> [プチコン 4 公式サイト](https://www.petc4.smilebasic.com/)
