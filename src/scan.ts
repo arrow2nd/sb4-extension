@@ -1,12 +1,12 @@
 import * as vscode from 'vscode'
 
-type funcDefData = {
+type funcDefDataType = {
   name: string
   start: number
   end: number
 }
 
-type declStatementData = {
+type declStatementDataType = {
   name: string
   comment: string
   statement: string
@@ -15,8 +15,8 @@ type declStatementData = {
 }
 
 export class scanSourceCode {
-  private funcDefData: funcDefData[]
-  private declStatementData: { [key: string]: declStatementData[] }
+  private funcDefData: funcDefDataType[]
+  private declStatementData: { [key: string]: declStatementDataType[] }
 
   constructor() {
     this.funcDefData = []
@@ -32,7 +32,7 @@ export class scanSourceCode {
 
     // 初期化
     let isDef = false
-    let tmpFuncDefData: funcDefData
+    let tmpFuncDefData: funcDefDataType
     this.funcDefData = []
     this.declStatementData = { global: [] }
 
@@ -266,7 +266,7 @@ export class scanSourceCode {
    * @param data 宣言データ
    * @returns Markdownテキスト
    */
-  private createMarkdown(data: declStatementData): vscode.MarkdownString {
+  private createMarkdown(data: declStatementDataType): vscode.MarkdownString {
     const markdown = new vscode.MarkdownString()
     markdown.appendCodeblock(data.statement)
     if (data.comment) {

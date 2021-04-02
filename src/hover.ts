@@ -1,14 +1,14 @@
 import * as vscode from 'vscode'
 
-type createHoverContent = (
+type createHoverContentType = (
   word: string,
   position: number
 ) => vscode.MarkdownString | null
 
 export class hoverProvider {
-  private createHoverContent: createHoverContent
+  private createHoverContent: createHoverContentType
 
-  constructor(func: createHoverContent) {
+  constructor(func: createHoverContentType) {
     this.createHoverContent = func
   }
 

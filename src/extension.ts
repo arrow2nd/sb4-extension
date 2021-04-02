@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
     )
   )
 
-  // コード補完
+  // 入力補完
   context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider(
       SB4_MODE,
