@@ -88,6 +88,8 @@ export class scanSourceCode {
         })
       }
     })
+
+    // console.log(this.declStatementData)
   }
 
   /**
@@ -187,7 +189,7 @@ export class scanSourceCode {
 
     // ドットで分割して括弧、スペース、代入演算子以降を削除
     const names = name
-      .replace(/ .*|[\[\(].*[\]\)]/, '')
+      .replace(/ .*|\[[^\]]*\]|\(.*\)/g, '')
       .split(',')
       .map((e) => e.replace(/\s*=.*/, ''))
 
