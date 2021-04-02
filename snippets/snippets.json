@@ -1,57 +1,97 @@
 {
   "Set the operating mode": {
     "prefix": "option",
-    "body": ["OPTION ${1|STRICT,DEFINT|}"],
+    "body": "OPTION ${1|STRICT,DEFINT|}",
     "description": "Set the operating mode"
+  },
+  "ON-GOSUB Statement": {
+    "prefix": "ongosub",
+    "body": "ON ${1:condition} GOSUB @${2:label}",
+    "description": "Branch to the label corresponding to the value of the expression"
+  },
+  "ON-BREAK-GOTO Statement": {
+    "prefix": "onbreak",
+    "body": "ON BREAK GOTO @${1:label}",
+    "description": "Jump to when the program stops"
   },
   "IF Statement": {
     "prefix": "if",
-    "body": ["IF ${1:condition} THEN $0"],
+    "body": "IF ${1:condition} THEN $0",
     "description": "IF Statement"
+  },
+  "IF-ENDIF Statement": {
+    "prefix": "ifendif",
+    "body": ["IF ${1:condition} THEN", "$0", "ENDIF"],
+    "description": "IF-ENDIF Statement"
   },
   "IF-ELSE Statement": {
     "prefix": "ifelse",
-    "body": ["IF ${1:condition} THEN", " $0", "ELSE", " ", "ENDIF"],
+    "body": ["IF ${1:condition} THEN", "$0", "ELSE", "", "ENDIF"],
     "description": "IF-ELSE Statement"
+  },
+  "IF-GOTO Statement": {
+    "prefix": "ifgoto",
+    "body": "IF ${1:condition} GOTO @${2:label}",
+    "description": "Branch to label when expression is true"
   },
   "ELSEIF Statement": {
     "prefix": "elseif",
-    "body": ["ELSEIF ${1:condition} THEN $0"],
+    "body": "ELSEIF ${1:condition} THEN $0",
     "description": "ELSEIF Statement"
   },
   "CASE Statement": {
     "prefix": "case",
-    "body": ["CASE ${1:variable}", "WHEN ${2:value}", "ENDCASE"],
-    "description": ""
+    "body": ["CASE ${1:variable}", " WHEN ${2:value}", "  $0", "ENDCASE"],
+    "description": "CASE-ENDCASE Statement"
   },
   "LOOP-ENDLOOP Loop": {
     "prefix": "loop",
-    "body": ["LOOP", " $0", "ENDLOOP"],
+    "body": ["LOOP", "$0", "ENDLOOP"],
     "description": "LOOP-ENDLOOP Loop"
   },
   "FOR-TO Loop": {
     "prefix": "for",
-    "body": ["FOR ${1:index}=${2:start} TO ${3:end}", " $0", "NEXT"],
+    "body": ["FOR ${1:I}=${2:0} TO ${3:10}", "$0", "NEXT"],
     "description": "FOR-TO Loop"
   },
+  "FOR-STEP Loop": {
+    "prefix": "forstep",
+    "body": ["FOR ${1:I}=${2:0} TO ${3:10} STEP ${4:1}", "$0", "NEXT"],
+    "description": "FOR-TO-STEP Loop"
+  },
+  "FOR-LAST Loop": {
+    "prefix": "forlast",
+    "body": ["FOR ${1:I}=${2:0} TO LAST(${3:array})", "$0", "NEXT"],
+    "description": "FOR-TO-LAST Loop"
+  },
   "WHILE-WEND Loop": {
-    "prefix": "while",
-    "body": ["WHILE ${1:formula}", " $0", "WEND"],
+    "prefix": ["while", "wend"],
+    "body": ["WHILE ${1:condition}", "$0", "WEND"],
     "description": "WHILE-WEND Loop"
   },
   "REPEAT-UNTIL Loop": {
     "prefix": ["repeat", "until"],
-    "body": ["REPEAT", " $0", "UNTIL ${1:formula}"],
+    "body": ["REPEAT", "$0", "UNTIL ${1:condition}"],
     "description": "REPEAT-UNTIL Loop"
   },
-  "DEF-END": {
+  "DEF-END Statement": {
     "prefix": "def",
     "body": ["DEF ${1:name}", " $0", "END"],
     "description": "Define the function"
   },
-  "COMMON DEF-END": {
-    "prefix": "common",
+  "COMMON-DEF-END Statement": {
+    "prefix": "commondef",
     "body": ["COMMON DEF ${1:name}", " $0", "END"],
     "description": "Common Define the function"
+  },
+  "VAR": {
+    "prefix": "var",
+    "body": "VAR(\"${1:slot}:${2:variable}\")",
+    "description": "Refer to a variable in another slot"
+  },
+  "SYSPARAM": {
+    "prefix": "sysparam",
+    "body": "SYSPARAM(\"${1|LANG,SYSBEEP,TABSTEP,KEYREPEAT,MOUSECURSOR,TVMODE,TOOL1,TOOL2,TOOL3|}\")",
+    "description": "SYSPARAM Statement"
   }
 }
