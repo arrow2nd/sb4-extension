@@ -234,7 +234,7 @@ export class scanSourceCode {
     if (!comment) {
       const commentRegExp = /^\s*'(.*)/
       const list: string[] = []
-      for (let nextPos = position - 1; nextPos > 0; nextPos--) {
+      for (let nextPos = position - 1; nextPos >= 0; nextPos--) {
         const matchArray = document.lineAt(nextPos).text.match(commentRegExp)
         if (!matchArray) break
         list.unshift(matchArray[1])
