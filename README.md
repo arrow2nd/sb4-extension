@@ -3,7 +3,7 @@
 ![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/arrow2nd.sb4-extension)
 ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/arrow2nd.sb4-extension)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
-![GitHub](https://img.shields.io/github/license/arrow2nd/sb4-extension)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 SmileBasic 4（プチコン４）のコードをいい感じに書くためのちょっとした拡張機能です
 
