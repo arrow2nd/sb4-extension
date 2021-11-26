@@ -1,11 +1,11 @@
 # sb4-extension
 
+SmileBasic 4（プチコン４）のコードをいい感じに書くための拡張機能
+
 ![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/arrow2nd.sb4-extension)
 ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/arrow2nd.sb4-extension)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
-SmileBasic 4（プチコン４）のコードをいい感じに書くためのちょっとした拡張機能です
+[![GitHub license](https://img.shields.io/github/license/arrow2nd/sb4-extension)](https://github.com/arrow2nd/sb4-extension/blob/main/LICENSE)
 
 ## 主な機能
 
@@ -33,20 +33,24 @@ SmileBasic 4（プチコン４）のコードをいい感じに書くための�
 
 ## リリースノート
 
-## [2.0.0] - 2021-04-02
+### [2.1.0] - 2021-11-26
 
-### Added
+#### Added
 
-- スニペットを追加
+- @ラベルのホバー・入力補完を実装
 
-### Fixed
+#### Fixed
 
-- STEP 命令がハイライトされない
+- ショートカットでコメントを入力しようとすると`REM|'`と入力される
+- 宣言命令と代入する値の間にスペースが入っていると認識されない
 
-### Changed
+#### Changed
 
-- 全体の実装を見直し
-- 使用可能な変数のみを補完候補に出すよう変更
+- DEF 定義のホバー時に引数まで表示するように変更
+
+#### Removed
+
+- 不要な入力補完候補を削除
 
 ## スクリーンショットについて
 
