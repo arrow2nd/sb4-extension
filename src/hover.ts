@@ -19,11 +19,11 @@ export class hoverProvider {
     // 単語の範囲を取得
     const wordRange = document.getWordRangeAtPosition(
       position,
-      /[a-zA-Z0-9_#$%"]+/
+      /[a-zA-Z0-9_@#$%"]+/
     )
     if (!wordRange) return null
 
-    // 単語を切り出し
+    // 単語を切り出す
     const currentWord = document
       .lineAt(position.line)
       .text.slice(wordRange.start.character, wordRange.end.character)
