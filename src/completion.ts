@@ -14,7 +14,7 @@ export class completionItemProvider {
     _document: vscode.TextDocument,
     position: vscode.Position
   ) {
-    // ユーザー定義の候補を取得
+    // ユーザー定義の候補
     const userDefinitionItems = this.createCompletionItems(position.line + 1)
     // デフォルトの候補と結合
     const completionItems = defaultCompletionItems.concat(userDefinitionItems)
