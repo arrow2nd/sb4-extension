@@ -20,7 +20,7 @@
     "onLanguage:sb4"
   ],
   "engines": {
-    "vscode": "^1.54.0"
+    "vscode": "^1.62.0"
   },
   "main": "./out/extension.js",
   "contributes": {
