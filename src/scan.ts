@@ -171,7 +171,7 @@ export class scanSourceCode {
     position: number
   ): [string, string[], string] | undefined {
     // 定数・変数・DEF・ラベルの宣言を抽出
-    const declStatement = line.match(/(CONST|ENUM|DIM|VAR|DEF)\s+(.+)/i)
+    const declStatement = line.match(/\b(CONST|ENUM|DIM|VAR|DEF)\b\s+(.+)/i)
     if (!declStatement) return undefined
 
     // 宣言名の末尾にバックスラッシュがある場合次の行を結合
