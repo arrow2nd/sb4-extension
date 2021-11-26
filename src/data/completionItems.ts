@@ -147,11 +147,6 @@ export const defaultCompletionItems: vscode.CompletionItem[] = [
     kind: vscode.CompletionItemKind.Function
   },
   {
-    label: '@LABEL',
-    documentation: 'GOTO,GOSUBの飛び先定義',
-    kind: vscode.CompletionItemKind.Function
-  },
-  {
     label: 'GOTO',
     documentation: '無条件ジャンプ',
     kind: vscode.CompletionItemKind.Function
