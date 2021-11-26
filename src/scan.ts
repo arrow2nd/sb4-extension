@@ -208,7 +208,7 @@ export class scanSourceCode {
     if (!declStatement) return undefined
 
     const statement = `@${declStatement[1].trim()}`
-    return ['@', [statement], statement]
+    return ['LABEL', [statement], statement]
   }
 
   /**
@@ -220,7 +220,8 @@ export class scanSourceCode {
     const typeList = new Map([
       ['DEF', vscode.CompletionItemKind.Function],
       ['ENUM', vscode.CompletionItemKind.Enum],
-      ['CONST', vscode.CompletionItemKind.Constant]
+      ['CONST', vscode.CompletionItemKind.Constant],
+      ['LABEL', vscode.CompletionItemKind.Class]
     ])
 
     return typeList.get(type) || vscode.CompletionItemKind.Variable
