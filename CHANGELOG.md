@@ -63,6 +63,14 @@
 - デフォルトの定数名を含むユーザー定数が正しくハイライトできない
 - 「\」（バックスラッシュ）を使い、複数行に渡って宣言されている定数・変数の分析ができない
 
-## [1.0.0] - 2020-08-12
+## 1.0.0 - 2020-08-12
 
 - リリースしました！
+
+[unreleased]: https://github.com/arrow2nd/sb4-extension/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/arrow2nd/sb4-extension/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/arrow2nd/sb4-extension/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/arrow2nd/sb4-extension/compare/v1.0.3...v2.0.0
+[1.0.3]: https://github.com/arrow2nd/sb4-extension/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/arrow2nd/sb4-extension/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/arrow2nd/sb4-extension/compare/v1.0.0...v1.0.1
