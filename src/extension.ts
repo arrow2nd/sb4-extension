@@ -12,8 +12,6 @@ export function activate(context: vscode.ExtensionContext) {
   // 全体をスキャン
   scan.update()
 
-  console.log('Hello!')
-
   // 画面が切り替わった
   const handleChangeActiveEditor = vscode.window.onDidChangeActiveTextEditor(
     (event) => {

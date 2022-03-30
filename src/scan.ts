@@ -1,13 +1,13 @@
 import * as vscode from 'vscode'
 
-// DEF定義情報
+/** DEF定義情報 */
 type funcDefDataType = {
   name: string
   start: number
   end: number
 }
 
-// 宣言情報
+/** 宣言情報 */
 type declStatementDataType = {
   name: string
   comment: string
@@ -34,25 +34,25 @@ export class scanSourceCode {
 
     // 初期化
     let isDef = false
-    let tmpFuncDefData: funcDefDataType
+    let tmpFuncDefData = {} as funcDefDataType
     this.funcDefData = []
     this.declStatementData = { global: [] }
 
     // 全ての行を捜索
     const lines = document.getText().split(/[\r\n]/g)
 
-    lines.forEach((line, index) => {
-      // コメント文ならスキップ
-      if (/^(REM|')/i.test(line)) return
-
+    for (let index = 0; index < lines.length; index++) {
       const position = index + 1
+      const line = lines[index]
+
+      // コメント文ならスキップ
+      if (/^(REM|')/i.test(line)) continue
 
       for (const part of line.trim().split(':')) {
         // 宣言・定義文を抽出
-        let results = this.getDeclStatement(document, part, index)
-        if (!results) {
-          results = this.getLabelStatement(part)
-        }
+        const results =
+          this.getDeclStatement(document, part, index) ||
+          this.getLabelStatement(part)
 
         if (!results) {
           // DEFの終端ならDEF定義のデータを追加
@@ -61,7 +61,7 @@ export class scanSourceCode {
             this.funcDefData.push(tmpFuncDefData)
             isDef = false
           }
-          return
+          break
         }
 
         const [type, names, statement] = results
@@ -83,17 +83,17 @@ export class scanSourceCode {
         const comment = this.getComment(document, line, index)
 
         // 宣言文のデータを追加
-        for (let name of names) {
+        for (const name of names) {
           this.declStatementData[scope].push({
-            name: name,
-            comment: comment,
-            statement: statement,
-            position: position,
+            name,
+            comment,
+            statement,
+            position,
             kind: this.convertToCompletionItemKind(type)
           })
         }
       }
-    })
+    }
   }
 
   /**
@@ -104,7 +104,7 @@ export class scanSourceCode {
   public createCompletionItems = (
     position: number
   ): vscode.CompletionItem[] => {
-    const completionItems: vscode.CompletionItem[] = []
+    const completionItems = [] as vscode.CompletionItem[]
     const scopes = ['global']
 
     // positionがDEF内なら定義名を取得
@@ -114,8 +114,8 @@ export class scanSourceCode {
     }
 
     // スコープ内の変数、関数定義を入力候補に追加
-    for (let scope of scopes) {
-      for (let data of this.declStatementData[scope]) {
+    for (const scope of scopes) {
+      for (const data of this.declStatementData[scope]) {
         completionItems.push({
           label: data.name,
           documentation: this.createMarkdown(data),
@@ -146,7 +146,7 @@ export class scanSourceCode {
     }
 
     // 検索
-    for (let scope of scopes) {
+    for (const scope of scopes) {
       const matchedData = this.declStatementData[scope].find(
         (data) => data.name === word
       )
@@ -180,13 +180,14 @@ export class scanSourceCode {
       const add = document.lineAt(position + count).text.trim()
       name = name.replace(/\\.*$/, '') + add
     }
+
     // コメントを削除
     name = name.replace(/'.*/, '')
 
     const type = declStatement[1].toUpperCase()
     const statement = [type, name].join(type === '@' ? '' : ' ')
 
-    // ドットで分割して括弧、スペース、代入演算子以降を削除
+    // カンマで分割して括弧、スペース、代入演算子以降を削除
     const names = name
       .replace(/\[[^\]]*\]|\(.*\)/g, '')
       .split(/,/)
@@ -263,13 +264,11 @@ export class scanSourceCode {
    * @returns DEF定義名
    */
   private getFuncName(position: number): string {
-    for (let data of this.funcDefData) {
-      if (data.start < position && data.end > position) {
-        return data.name
-      }
-    }
-
-    return ''
+    return (
+      this.funcDefData.find(
+        ({ start, end }) => start < position && end >= position
+      )?.name || ''
+    )
   }
 
   /**
@@ -277,12 +276,15 @@ export class scanSourceCode {
    * @param data 宣言データ
    * @returns Markdownテキスト
    */
-  private createMarkdown(data: declStatementDataType): vscode.MarkdownString {
+  private createMarkdown({
+    statement,
+    comment
+  }: declStatementDataType): vscode.MarkdownString {
     const markdown = new vscode.MarkdownString()
 
-    markdown.appendCodeblock(data.statement)
-    if (data.comment) {
-      markdown.appendText(data.comment)
+    markdown.appendCodeblock(statement)
+    if (comment) {
+      markdown.appendText(comment)
     }
 
     return markdown
