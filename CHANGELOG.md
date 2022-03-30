@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [3.0.0] - 2022-03-30
+
+### Added
+
+- VSCode for the Web に対応
+
+### Fixed
+
+- DEF 定義の末端行でローカル変数が入力補完に表示されない
+
 ## [2.1.1] - 2021-11-26
 
 ### Fixed
@@ -67,7 +77,8 @@
 
 - リリースしました！
 
-[unreleased]: https://github.com/arrow2nd/sb4-extension/compare/v2.1.1...HEAD
+[unreleased]: https://github.com/arrow2nd/sb4-extension/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/arrow2nd/sb4-extension/compare/v2.1.1...v3.0.0
 [2.1.1]: https://github.com/arrow2nd/sb4-extension/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/arrow2nd/sb4-extension/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/arrow2nd/sb4-extension/compare/v1.0.3...v2.0.0
