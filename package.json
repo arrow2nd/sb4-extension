@@ -1,9 +1,9 @@
 {
   "name": "sb4-extension",
   "displayName": "sb4-extension",
-  "version": "3.0.0",
-  "publisher": "arrow2nd",
+  "version": "3.0.1",
   "description": "Extensions for SmileBasic4",
+  "publisher": "arrow2nd",
   "author": {
     "name": "arrow2nd"
   },
@@ -67,8 +67,10 @@
     "type": "git",
     "url": "https://github.com/arrow2nd/sb4-extension"
   },
-  "homepage": "https://github.com/arrow2nd/sb4-extension/blob/main/README.md",
+  "homepage": "https://www.arrow2nd.com/works/sb4-ext",
   "scripts": {
+    "vsce:deploy": "vsce publish --yarn",
+    "vsce:package": "vsce package",
     "vscode:prepublish": "yarn run compile && yarn run compile:web",
     "compile": "tsc -p ./",
     "compile:web": "webpack",
