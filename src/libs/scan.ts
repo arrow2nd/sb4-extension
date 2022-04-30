@@ -174,9 +174,12 @@ export class scanSourceCode {
     line: string,
     position: number
   ): [string, string[], string] | undefined {
+    // コメントアウトされた行なら無視
+    if (/\s*'/.test(line)) return
+
     // 定数・変数・DEF・ラベルの宣言を抽出
     const declStatement = line.match(/\b(CONST|ENUM|DIM|VAR|DEF)\b\s+(.+)/i)
-    if (!declStatement) return undefined
+    if (!declStatement) return
 
     // 宣言名の末尾にバックスラッシュがある場合次の行を結合
     let name = declStatement[2]
