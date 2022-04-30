@@ -137,13 +137,17 @@ export class scanSourceCode {
     word: string,
     position: number
   ): vscode.MarkdownString | null => {
-    const scopes = ['global']
+    const scopes = []
 
     // positionがDEF内なら定義名を取得
     const funcName = this.getFuncName(position)
     if (funcName) {
       scopes.push(funcName)
     }
+
+    // スコープにグローバルを追加
+    // NOTE: DEF内 -> グローバルの順に検索するため、最後に追加
+    scopes.push('global')
 
     // 検索
     for (const scope of scopes) {
