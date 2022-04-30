@@ -1,5 +1,6 @@
 import * as vscode from 'vscode'
-import { defaultCompletionItems } from './data/completionItems'
+
+import { defaultCompletionItems } from '../data/completionItems'
 
 type createCompletionItemsType = (position: number) => vscode.CompletionItem[]
 

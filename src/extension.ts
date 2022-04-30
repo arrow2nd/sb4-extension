@@ -1,9 +1,10 @@
 import * as vscode from 'vscode'
-import { completionItemProvider } from './completion'
-import { hoverProvider } from './hover'
-import { scanSourceCode } from './scan'
 
-const SB4_MODE = { scheme: 'file', language: 'sb4' }
+import { completionItemProvider } from './libs/completion'
+import { hoverProvider } from './libs/hover'
+import { scanSourceCode } from './libs/scan'
+
+const SB4_MODE: vscode.DocumentSelector = { scheme: 'file', language: 'sb4' }
 
 export function activate(context: vscode.ExtensionContext) {
   const scan = new scanSourceCode()
@@ -20,7 +21,6 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }
   )
-  context.subscriptions.push(handleChangeActiveEditor)
 
   // ドキュメントが変更された
   const handleChangeTextDocument = vscode.workspace.onDidChangeTextDocument(
@@ -39,22 +39,24 @@ export function activate(context: vscode.ExtensionContext) {
       }, 500)
     }
   )
-  context.subscriptions.push(handleChangeTextDocument)
 
   // ホバー表示
-  context.subscriptions.push(
-    vscode.languages.registerHoverProvider(
-      SB4_MODE,
-      new hoverProvider(scan.createHoverContent)
-    )
+  const handleHover = vscode.languages.registerHoverProvider(
+    SB4_MODE,
+    new hoverProvider(scan.createHoverContent)
   )
 
   // 入力補完
+  const handleInputCompletion = vscode.languages.registerCompletionItemProvider(
+    SB4_MODE,
+    new completionItemProvider(scan.createCompletionItems)
+  )
+
   context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider(
-      SB4_MODE,
-      new completionItemProvider(scan.createCompletionItems)
-    )
+    handleChangeActiveEditor,
+    handleChangeTextDocument,
+    handleHover,
+    handleInputCompletion
   )
 }
 
