@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [3.0.1] - 2022-04-30
+
+### Security
+
+- 依存関係を更新
+
+### Fixed
+
+- コメントアウトされた定義文が無視されない
+- DEF 定義内にグローバル変数と同一名の変数が存在する場合、ホバー時にグローバル変数の内容が表示される
+
 ## [3.0.0] - 2022-03-30
 
 ### Added
@@ -77,7 +88,8 @@
 
 - リリースしました！
 
-[unreleased]: https://github.com/arrow2nd/sb4-extension/compare/v3.0.0...HEAD
+[unreleased]: https://github.com/arrow2nd/sb4-extension/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/arrow2nd/sb4-extension/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/arrow2nd/sb4-extension/compare/v2.1.1...v3.0.0
 [2.1.1]: https://github.com/arrow2nd/sb4-extension/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/arrow2nd/sb4-extension/compare/v2.0.0...v2.1.0

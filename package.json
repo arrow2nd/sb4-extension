@@ -1,9 +1,9 @@
 {
   "name": "sb4-extension",
   "displayName": "sb4-extension",
-  "version": "3.0.0",
-  "publisher": "arrow2nd",
+  "version": "3.0.1",
   "description": "Extensions for SmileBasic4",
+  "publisher": "arrow2nd",
   "author": {
     "name": "arrow2nd"
   },
@@ -61,15 +61,17 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/arrow2nd/sb4-extension/issues",
-    "email": "arrow2nd_workspace@zohomail.com"
+    "email": "contact@arrow2nd.com"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/arrow2nd/sb4-extension"
   },
-  "homepage": "https://github.com/arrow2nd/sb4-extension/blob/main/README.md",
+  "homepage": "https://www.arrow2nd.com/works/sb4-ext",
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
+    "vsce:deploy": "vsce publish --yarn",
+    "vsce:package": "vsce package",
+    "vscode:prepublish": "yarn run compile && yarn run compile:web",
     "compile": "tsc -p ./",
     "compile:web": "webpack",
     "watch": "tsc -watch -p ./",
@@ -88,6 +90,7 @@
     "eslint-config-prettier": "^8.3.0",
     "ts-loader": "^9.2.8",
     "typescript": "^4.5.2",
+    "vsce": "^2.7.0",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2"
   },

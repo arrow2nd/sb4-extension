@@ -4,7 +4,6 @@ SmileBasic 4（プチコン４）のコードをいい感じに書くための�
 
 ![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/arrow2nd.sb4-extension)
 ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/arrow2nd.sb4-extension)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 [![GitHub license](https://img.shields.io/github/license/arrow2nd/sb4-extension)](https://github.com/arrow2nd/sb4-extension/blob/main/LICENSE)
 
 ## 主な機能
@@ -33,15 +32,16 @@ SmileBasic 4（プチコン４）のコードをいい感じに書くための�
 
 ## リリースノート
 
-## 3.0.0 - 2022-03-30
+### 3.0.1 - 2022-04-30
 
-### Added
+#### Security
 
-- VSCode for the Web に対応
+- 依存関係を更新
 
-### Fixed
+#### Fixed
 
-- DEF 定義の末端行でローカル変数が入力補完に表示されない
+- コメントアウトされた定義文が無視されない
+- DEF 定義内にグローバル変数と同一名の変数が存在する場合、ホバー時にグローバル変数の内容が表示される
 
 ## スクリーンショットについて
 
