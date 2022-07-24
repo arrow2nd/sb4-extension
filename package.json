@@ -1,7 +1,7 @@
 {
   "name": "sb4-extension",
   "displayName": "sb4-extension",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Extensions for SmileBasic4",
   "publisher": "arrow2nd",
   "author": {
@@ -81,20 +81,21 @@
     "lint": "eslint src --ext ts"
   },
   "devDependencies": {
-    "@types/node": "^12.11.7",
-    "@types/vscode": "^1.62.0",
-    "@types/webpack-env": "^1.16.3",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "eslint": "^8.3.0",
-    "eslint-config-prettier": "^8.3.0",
-    "ts-loader": "^9.2.8",
-    "typescript": "^4.5.2",
-    "vsce": "^2.7.0",
+    "@types/node": "^12.20.55",
+    "@types/vscode": "^1.69.0",
+    "@types/webpack-env": "^1.17.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
+    "vsce": "^2.10.0",
     "webpack": "^5.73.0",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "node": "^16.13.0"
-  }
+    "node": "^16.16.0"
+  },
+  "packageManager": "yarn@3.2.2"
 }

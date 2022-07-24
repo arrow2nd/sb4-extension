@@ -1,4 +1,13 @@
 dist/
-node_modules
 .vscode-test/
 *.vsix
+node_modules/
+
+# yarn (not using Zero-Installs)
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
